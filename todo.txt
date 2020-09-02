@@ -22,9 +22,9 @@ Food
 	- different types (meat, veg, grain, dairy) [4 item for each]
 	- name
 	- energy (calc from protein, sugar, fat) kcal/100g
-	- protein
-	- carbohydrate (sugar)
-	- fat 
+	- protein 4 cal / g
+	- carbohydrate (sugar) 4 cal / g
+	- fat 9 cal / g
 		- saturated
 		- unsaturated
 	() get calories
