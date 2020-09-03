@@ -28,3 +28,28 @@ Food
 		- saturated
 		- unsaturated
 	() get calories
+
+
+
+
+
+main class
+
+taskcontroller [
+collect services, run them in order etc
+]
+inputcontroller [
+call task according to input
+like report or smth
+]
+
+-task- generatecity
+-> city object = generatecityservice
+-> generate peep service
+-> put peeps into city
+-> report service
+
+-task- validate
+validate 10 random peep
+
+run input controller
