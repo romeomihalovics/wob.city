@@ -1,6 +1,7 @@
 package wob.city.objects;
 
 import wob.city.abstractions.Person;
+import wob.city.util.Calculations;
 
 import java.util.List;
 
@@ -41,10 +42,16 @@ public class City {
 
     @Override
     public String toString() {
-        return "City{" +
-                "name='" + name + '\'' +
-                ", population=" + population +
-                ", people=" + people.toString() +
-                '}';
+        return "\n City: {" +
+                "\n name: '" + name + "'," +
+                "\n population: '" + population + "'," +
+                "\n people: {" +
+                "\n     kids: {" +
+                "\n         girls: " + Calculations.getPeopleCountByType(people, Girl.class) +
+                "\n         boys: " + Calculations.getPeopleCountByType(people, Boy.class) +
+                "\n     }" +
+                "\n     Woman: " + Calculations.getPeopleCountByType(people, Woman.class) +
+                "\n     Man: " + Calculations.getPeopleCountByType(people, Man.class) +
+                "\n }";
     }
 }

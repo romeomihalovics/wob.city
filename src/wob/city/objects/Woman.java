@@ -5,6 +5,7 @@ import wob.city.util.Calculations;
 
 public class Woman extends Person {
     public Woman(){
+        super(50,65);
         this.setFirstName(Person.names.getFemaleName());
         this.setWeight(Calculations.getRandomIntBetween(50, 65));
     }

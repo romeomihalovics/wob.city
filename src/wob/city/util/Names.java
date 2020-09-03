@@ -38,6 +38,18 @@ public class Names {
         return getRandomName(lastNames);
     }
 
+    public boolean isLastName(String string) {
+        return lastNames.contains(string);
+    }
+
+    public boolean isFemaleName(String string) {
+        return femaleNames.contains(string);
+    }
+
+    public boolean isMaleName(String string) {
+        return maleNames.contains(string);
+    }
+
     private String getRandomName(List<String> fromList) {
         return fromList.get(Calculations.getRandomIntBetween(0, fromList.size() - 1));
     }

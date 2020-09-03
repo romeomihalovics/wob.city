@@ -1,10 +1,9 @@
 package wob.city.objects;
 
-import wob.city.util.Calculations;
+import wob.city.factory.KidFactory;
 
 public class Boy extends Man {
     public Boy() {
-        this.setWeight(Calculations.getRandomIntBetween(20, 60));
-        this.setAge(Calculations.getRandomIntBetween(1, 18));
+        KidFactory.setDetails(this);
     }
 }

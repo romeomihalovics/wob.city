@@ -4,17 +4,26 @@ import wob.city.util.Calculations;
 import wob.city.util.Names;
 
 public abstract class Person {
+    public static final Names names = new Names();
+
     private String firstName;
     private String lastName;
     private Integer age;
     private Integer weight;
     private Integer height;
-    public static final Names names = new Names();
+    private final int normalMinHeight = 1;
+    private final int normalMaxHeight = 200;
+    private final int normalMinAge = 1;
+    private final int normalMaxAge = 122;
+    private int normalMinWeight;
+    private int normalMaxWeight;
 
-    public Person(){
+    public Person(int normalMinWeight, int normalMaxWeight){
         this.age = Calculations.getRandomIntBetween(18, 122);
         this.height = Calculations.getRandomIntBetween(1, 200);
         this.lastName = names.getLastName();
+        this.normalMaxWeight = normalMaxWeight;
+        this.normalMinWeight = normalMinWeight;
     }
 
     public String getFirstName() {
@@ -55,6 +64,38 @@ public abstract class Person {
 
     public void setHeight(Integer height) {
         this.height = height;
+    }
+
+    public int getNormalMinHeight() {
+        return normalMinHeight;
+    }
+
+    public int getNormalMaxHeight() {
+        return normalMaxHeight;
+    }
+
+    public int getNormalMinWeight() {
+        return normalMinWeight;
+    }
+
+    public void setNormalMinWeight(int normalMinWeight) {
+        this.normalMinWeight = normalMinWeight;
+    }
+
+    public int getNormalMaxWeight() {
+        return normalMaxWeight;
+    }
+
+    public void setNormalMaxWeight(int normalMaxWeight) {
+        this.normalMaxWeight = normalMaxWeight;
+    }
+
+    public int getNormalMinAge() {
+        return normalMinAge;
+    }
+
+    public int getNormalMaxAge() {
+        return normalMaxAge;
     }
 
     @Override

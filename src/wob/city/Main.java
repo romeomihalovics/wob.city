@@ -12,9 +12,7 @@ public class Main {
     public static final List<City> cities = new ArrayList<>();
 
     public static void main(String[] args) {
-        TaskController taskController = new TaskController();
-
-        taskController.createCity("WoB City", Calculations.getRandomIntBetween(100, 1000));
-        System.out.print(cities.get(0).toString());
+        TaskController.createCity("WoB City", Calculations.getRandomIntBetween(100, 1000));
+        TaskController.validateCitizens(cities);
     }
 }

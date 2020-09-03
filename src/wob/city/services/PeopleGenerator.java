@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PeopleGenerator {
 
-    public List<Person> generatePeople(Integer population){
+    public static List<Person> generatePeople(Integer population){
         List<Person> people = new ArrayList<>();
 
         while(people.size() < population){
@@ -22,7 +22,7 @@ public class PeopleGenerator {
         return people;
     }
 
-    private Person generatePerson() {
+    private static Person generatePerson() {
         Person person;
         switch(Calculations.getRandomIntBetween(1, 4)) {
             case 1:
