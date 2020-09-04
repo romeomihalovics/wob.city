@@ -1,4 +1,4 @@
-package wob.city;
+package wob.city.util;
 
 public class CalculationsTests {
 
