@@ -3,6 +3,8 @@ package wob.city.util;
 import wob.city.abstractions.Food;
 import wob.city.abstractions.Person;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,5 +32,13 @@ public class Calculations {
 
     public static Integer getEnergy(Food fromFood) {
         return (fromFood.getProtein() * 4) + (fromFood.getCarbohydrate() * 4) + (fromFood.getFat() * 9);
+    }
+
+    public static Double round(Double number, Integer decimalPlaces){
+        if(decimalPlaces < 0) throw new IllegalArgumentException("Decimal places must be greater than 0");
+
+        BigDecimal bigDecimal = BigDecimal.valueOf(number);
+        bigDecimal = bigDecimal.setScale(decimalPlaces, RoundingMode.HALF_UP);
+        return bigDecimal.doubleValue();
     }
 }

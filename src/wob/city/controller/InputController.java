@@ -12,14 +12,21 @@ public class InputController {
     }
 
     public void getFood(List<Food> foods, String input) {
-        Food food = CommandUtils.parseFoodName(foods, input);
-        System.out.println((food != null) ? food.toString() : "Food not found");
+        Food food = CommandUtils.parseFoodName(foods, input, false);
+        System.out.println((food != null) ? food.toString(100) : "Food not found");
+    }
+
+    public void getFoodByGramm(List<Food> foods, String input) {
+        Food food = CommandUtils.parseFoodName(foods, input, true);
+        Integer gramm = CommandUtils.parseFoodGramm(input);
+        System.out.println((food != null) ? food.toString(gramm) : "Food not found");
     }
 
     public void getHelp() {
         System.out.println("\n -- COMMANDS --" +
                 "\n  foods -- List all available food" +
                 "\n  food -n name -- Get details about a specific food" +
+                "\n  food -n name -gramm 100 -- Get details about a specific food, with a specific weight" +
                 "\n  help -- List available commands" +
                 "\n  exit -- Exit application");
     }

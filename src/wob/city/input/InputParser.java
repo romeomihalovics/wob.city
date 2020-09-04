@@ -20,6 +20,8 @@ public class InputParser {
             inputController.getHelp();
         }else if(input.matches("^foods$")){
             inputController.listFoods(foods);
+        }else if(input.matches("^food -n (.*) -gramm ([0-9]*)$")){
+            inputController.getFoodByGramm(foods, input);
         }else if(input.matches("^food -n (.*)$")){
             inputController.getFood(foods, input);
         }else if(input.matches("^exit$")){

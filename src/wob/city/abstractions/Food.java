@@ -37,14 +37,16 @@ public abstract class Food {
         return Calculations.getEnergy(this);
     }
 
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + "{" +
+    public String toString(Integer gramm) {
+        Double rate = ((double) gramm) / 100;
+        return this.getClass().getSimpleName() +
+                " (" + Calculations.round(100 * rate, 2) + "g) " +
+                "{" +
                 "name='" + name + '\'' +
-                ", protein=" + protein +
-                ", carbohydrate=" + carbohydrate +
-                ", fat=" + fat +
+                ", protein=" + Calculations.round(protein * rate, 2) +
+                ", carbohydrate=" + Calculations.round(carbohydrate * rate, 2) +
+                ", fat=" + Calculations.round(fat * rate, 2) +
                 "}" +
-                "\n " + this.getEnergy() + "kcal / 100g";
+                "\n " + Calculations.round(this.getEnergy() * rate, 2) + "kcal";
     }
 }

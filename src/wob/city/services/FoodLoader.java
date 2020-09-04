@@ -44,6 +44,6 @@ public class FoodLoader {
                 foods.add(new Dairy(data));
                 break;
         }
-        System.out.println("Loaded: " + foods.get(foods.size() - 1).toString());
+        System.out.println("Loaded: " + foods.get(foods.size() - 1).toString(100));
     }
 }
