@@ -2,8 +2,10 @@ package wob.city.objects;
 
 import wob.city.abstractions.Food;
 
+import java.util.List;
+
 public class Grain extends Food {
-    public Grain(String[] data) {
+    public Grain(List<String > data) {
         super(data);
     }
 }

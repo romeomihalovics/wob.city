@@ -1,5 +1,6 @@
 package wob.city.util;
 
+import wob.city.abstractions.Food;
 import wob.city.abstractions.Person;
 
 import java.util.Collections;
@@ -25,5 +26,9 @@ public class Calculations {
         List<Person> result = new LinkedList<>(people);
         Collections.shuffle(result);
         return result.subList(0, n);
+    }
+
+    public static Integer getEnergy(Food fromFood) {
+        return (fromFood.getProtein() * 4) + (fromFood.getCarbohydrate() * 4) + (fromFood.getFat() * 9);
     }
 }

@@ -1,25 +1,24 @@
 package wob.city.abstractions;
 
-public abstract class Food {
-    private String name;
-    private Integer energy;
-    private Integer protein;
-    private Integer carbohydrate;
-    private Integer fat;
+import wob.city.util.Calculations;
 
-    public Food(String[] data){
-        this.name = data[0];
-        this.protein = Integer.valueOf(data[1]);
-        this.carbohydrate = Integer.valueOf(data[2]);
-        this.fat = Integer.valueOf(data[3]);
+import java.util.List;
+
+public abstract class Food {
+    private final String name;
+    private final Integer protein;
+    private final Integer carbohydrate;
+    private final Integer fat;
+
+    public Food(List<String> data){
+        this.name = data.get(0);
+        this.protein = Integer.valueOf(data.get(1));
+        this.carbohydrate = Integer.valueOf(data.get(2));
+        this.fat = Integer.valueOf(data.get(3));
     }
 
     public String getName() {
         return name;
-    }
-
-    public Integer getEnergy() {
-        return energy;
     }
 
     public Integer getProtein() {
@@ -34,18 +33,18 @@ public abstract class Food {
         return fat;
     }
 
-    public void setEnergy(Integer energy) {
-        this.energy = energy;
+    public Integer getEnergy() {
+        return Calculations.getEnergy(this);
     }
 
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "{" +
                 "name='" + name + '\'' +
-                ", energy=" + energy +
                 ", protein=" + protein +
                 ", carbohydrate=" + carbohydrate +
                 ", fat=" + fat +
-                '}';
+                "}" +
+                "\n " + this.getEnergy() + "kcal / 100g";
     }
 }

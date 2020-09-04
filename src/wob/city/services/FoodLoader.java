@@ -1,6 +1,6 @@
 package wob.city.services;
 
-import wob.city.Main;
+import wob.city.abstractions.Food;
 import wob.city.objects.Dairy;
 import wob.city.objects.Grain;
 import wob.city.objects.Meat;
@@ -9,16 +9,18 @@ import wob.city.objects.Vegetable;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class FoodLoader {
-    public static void loadFoods(String fromFile) {
+    public void loadFoods(String fromFile, List<Food> foods) {
         System.out.println("\n Loading Foods");
         try (FileReader fileReader = new FileReader(fromFile); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String current;
             int i = 0;
             while ((current = bufferedReader.readLine()) != null) {
                 if(i > 0) {
-                   insertCurrent(current.split(";"));
+                   insertCurrent(Arrays.asList(current.split(";")), foods);
                 }
                 i++;
             }
@@ -27,21 +29,21 @@ public class FoodLoader {
         }
     }
 
-    public static void insertCurrent(String[] data) {
-        switch (data[4]) {
+    public void insertCurrent(List<String> data, List<Food> foods) {
+        switch (data.get(4)) {
             case "meat":
-                Main.foods.add(new Meat(data));
+                foods.add(new Meat(data));
                 break;
             case "vegetable":
-                Main.foods.add(new Vegetable(data));
+                foods.add(new Vegetable(data));
                 break;
             case "grain":
-                Main.foods.add(new Grain(data));
+                foods.add(new Grain(data));
                 break;
             default:
-                Main.foods.add(new Dairy(data));
+                foods.add(new Dairy(data));
                 break;
         }
-        System.out.println("Loaded: " + Main.foods.get(Main.foods.size() - 1).toString());
+        System.out.println("Loaded: " + foods.get(foods.size() - 1).toString());
     }
 }

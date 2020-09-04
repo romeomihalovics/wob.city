@@ -1,4 +1,4 @@
-name;protein;carbohydrate;fat;type
+name;protein (g/100g);carbohydrate (g/100g);fat (g/100g);type
 Polish Sausage;14;1;28;meat
 Grilled Chicken;30;0;3;meat
 Beef Sausage;15;0;37;meat
