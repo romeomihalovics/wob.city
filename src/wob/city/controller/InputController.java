@@ -4,11 +4,12 @@ import wob.city.abstractions.Food;
 import wob.city.util.CommandUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class InputController {
     public void listFoods(List<Food> foods) {
-        System.out.println(foods.toString());
+        System.out.println("\n" + foods.stream().map(food -> food.toString(100)).collect(Collectors.joining()).toString());
     }
 
     public void getFood(List<Food> foods, String input) {

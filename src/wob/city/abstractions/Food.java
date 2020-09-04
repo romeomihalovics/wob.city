@@ -39,7 +39,7 @@ public abstract class Food {
 
     public String toString(Integer gramm) {
         Double rate = ((double) gramm) / 100;
-        return this.getClass().getSimpleName() +
+        return "\n" + this.getClass().getSimpleName() +
                 " (" + Calculations.round(100 * rate, 2) + "g) " +
                 "{" +
                 "name='" + name + '\'' +
@@ -47,6 +47,6 @@ public abstract class Food {
                 ", carbohydrate=" + Calculations.round(carbohydrate * rate, 2) +
                 ", fat=" + Calculations.round(fat * rate, 2) +
                 "}" +
-                "\n " + Calculations.round(this.getEnergy() * rate, 2) + "kcal";
+                "\n " + Calculations.round(this.getEnergy() * rate, 2) + "kcal \n";
     }
 }
