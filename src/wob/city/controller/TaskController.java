@@ -4,6 +4,7 @@ import wob.city.Main;
 import wob.city.abstractions.Person;
 import wob.city.objects.City;
 import wob.city.services.ControlCenter;
+import wob.city.services.FoodLoader;
 import wob.city.services.PeopleGenerator;
 
 import java.util.List;
@@ -18,5 +19,9 @@ public class TaskController {
 
     public static void validateCitizens(List<City> cities){
         ControlCenter.validate(cities);
+    }
+
+    public static void loadFoods() {
+        FoodLoader.loadFoods("foods.csv");
     }
 }

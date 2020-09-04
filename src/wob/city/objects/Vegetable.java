@@ -1,4 +1,9 @@
 package wob.city.objects;
 
-public class Vegetable {
+import wob.city.abstractions.Food;
+
+public class Vegetable extends Food {
+    public Vegetable(String[] data) {
+        super(data);
+    }
 }

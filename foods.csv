@@ -1,0 +1,17 @@
+name;protein;carbohydrate;fat;type
+Polish Sausage;14;1;28;meat
+Grilled Chicken;30;0;3;meat
+Beef Sausage;15;0;37;meat
+Smoked Salmon;18;0;4;meat
+Tomato;1;5;0;vegetable
+Paprika;14;53;12;vegetable
+Carrot;0;9;0;vegetable
+Onion;1;9;0;vegetable
+Popcorn;12;77;4;grain
+Whole Wheat Bread;12;42;3;grain
+Brown Rice;7;76;3;grain
+Corn Bread;7;69;12;grain
+Parmesan Cheese;28;13;27;dairy
+Mozzarella Cheese;22;2;22;dairy
+Vanilla Pudding;1;22;3;dairy
+Butter Milk;34;49;5;dairy
