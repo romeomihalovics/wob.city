@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class InputController {
     public void listFoods(List<Food> foods) {
-        System.out.println("\n" + foods.stream().map(food -> food.toString(100)).collect(Collectors.joining()).toString());
+        System.out.println("\n" + foods.stream().map(food -> food.toString(100)).collect(Collectors.joining()));
     }
 
     public void getFood(List<Food> foods, String input) {

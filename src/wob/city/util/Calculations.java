@@ -17,7 +17,7 @@ public class Calculations {
     public static int getPeopleCountByType(List<Person> people, Class<?> type) {
         int count = 0;
         for(Person person : people) {
-            if(type.isInstance(person)) {
+            if(person.getClass().equals(type)) {
                 count++;
             }
         }
