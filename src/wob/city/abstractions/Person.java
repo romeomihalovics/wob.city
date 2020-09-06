@@ -98,15 +98,19 @@ public abstract class Person {
         return normalMaxAge;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() +
-                "{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", weight=" + weight +
-                ", height=" + height +
-                '}';
+        return "\n{" +
+                "\n  type: '" + this.getClass().getSimpleName() + "'," +
+                "\n  firstName: '" + firstName + "'," +
+                "\n  lastName: '" + lastName + "'," +
+                "\n  age: " + age + "," +
+                "\n  weight: " + weight + "," +
+                "\n  height: " + height +
+                "\n}";
     }
 }

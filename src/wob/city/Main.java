@@ -17,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
         TaskController taskController = new TaskController();
-        InputGrabber inputGrabber = new InputGrabber(foods);
+        InputGrabber inputGrabber = new InputGrabber(foods, cities);
 
         taskController.createCity("WoB City", Calculations.getRandomIntBetween(100, 1000), cities);
         taskController.validateCitizens(cities);
