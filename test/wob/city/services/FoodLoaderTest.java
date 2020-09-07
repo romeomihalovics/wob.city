@@ -7,6 +7,7 @@ import wob.city.objects.Meat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,7 @@ class FoodLoaderTest {
     void insertCurrentShouldAddToList() {
         FoodLoader foodLoader = new FoodLoader();
         List<String> expectedFoodDetail = Arrays.asList("Sausage", "14", "1", "28", "meat");
-        List<Food> foodsExpected = Arrays.asList(new Meat(expectedFoodDetail));
+        List<Food> foodsExpected = Collections.singletonList(new Meat(expectedFoodDetail));
         List<Food> foods = new ArrayList<>();
 
         foodLoader.insertCurrent(expectedFoodDetail, foods);
