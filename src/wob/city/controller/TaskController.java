@@ -20,9 +20,11 @@ public class TaskController {
         this.peopleGenerator = new PeopleGenerator();
     }
 
-    public void createCity(String name, Integer population, List<City> cities) {
+    public void createCity(String name, Integer population, List<City> cities, List<Food> foods) {
         List<Person> people = peopleGenerator.generatePeople(population);
-        City city = new City(name, people, population);
+        City city = new City(name, people, population, foods);
+        city.getPeople().forEach(person -> person.setLocation(city));
+        city.getPeople().forEach(Person::setWorkers);
         cities.add(city);
         System.out.print(city);
     }

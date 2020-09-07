@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FoodLoaderTest {
+class FoodLoaderTest {
     @Test
     @DisplayName("When food type is meat, a new meat object should be inserted to the foods list")
-    public void insertCurrentShouldAddToList() {
+    void insertCurrentShouldAddToList() {
         FoodLoader foodLoader = new FoodLoader();
         List<String> expectedFoodDetail = Arrays.asList("Sausage", "14", "1", "28", "meat");
         List<Food> foodsExpected = Arrays.asList(new Meat(expectedFoodDetail));

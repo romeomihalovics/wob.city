@@ -19,9 +19,10 @@ public class Main {
         TaskController taskController = new TaskController();
         InputGrabber inputGrabber = new InputGrabber(foods, cities);
 
-        taskController.createCity("WoB City", Calculations.getRandomIntBetween(100, 1000), cities);
-        taskController.validateCitizens(cities);
         taskController.loadFoods(foods);
+        taskController.createCity("WoB City", Calculations.getRandomIntBetween(100, 1000), cities, foods);
+        taskController.validateCitizens(cities);
+
 
         System.out.println("\n Application loaded successfully, type 'help' to see the commands available.");
 

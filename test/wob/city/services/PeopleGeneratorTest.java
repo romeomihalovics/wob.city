@@ -15,15 +15,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PeopleGeneratorTest {
+class PeopleGeneratorTest {
     @Test
     @DisplayName("Generating a list of 10 people should return a list of 10 people [could be man, woman, girl, boy]")
-    public void generatePeopleShouldReturn() {
+    void generatePeopleShouldReturn() {
         PeopleGenerator peopleGenerator = new PeopleGenerator();
         List<Person> people = peopleGenerator.generatePeople(10);
         List<Type> personTypes = Arrays.asList(Man.class, Woman.class, Girl.class, Boy.class);
 
-        assertEquals(people.size(), 10);
+        assertEquals(10, people.size());
         for(Person person : people) {
             assertTrue(personTypes.contains(person.getClass()));
         }

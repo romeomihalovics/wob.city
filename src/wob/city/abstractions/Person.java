@@ -1,7 +1,12 @@
 package wob.city.abstractions;
 
+import wob.city.objects.City;
 import wob.city.util.Calculations;
 import wob.city.util.Names;
+import wob.city.worker.DigestionWorker;
+import wob.city.worker.EatingWorker;
+
+import java.util.Timer;
 
 public abstract class Person {
     public static final Names names = new Names();
@@ -17,6 +22,12 @@ public abstract class Person {
     private final int normalMaxAge = 122;
     private int normalMinWeight;
     private int normalMaxWeight;
+    private Timer timer;
+    private DigestionWorker digestionWorker;
+    private EatingWorker eatingWorker;
+    private City location;
+    private int energy = 2500;
+    private String lastFood = null;
 
     public Person(int normalMinWeight, int normalMaxWeight){
         this.age = Calculations.getRandomIntBetween(18, 122);
@@ -102,6 +113,48 @@ public abstract class Person {
         return firstName + " " + lastName;
     }
 
+    public City getLocation() {
+        return location;
+    }
+
+    public void setLocation(City city) {
+        this.location = city;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
+
+    public String getLastFood() {
+        return lastFood;
+    }
+
+    public void setLastFood(String lastFood) {
+        this.lastFood = lastFood;
+    }
+
+    public void setWorkers() {
+        this.timer = new Timer();
+        this.digestionWorker = new DigestionWorker(this);
+        this.eatingWorker = new EatingWorker(this);
+
+        this.timer.scheduleAtFixedRate(digestionWorker, 0, (60*1000));
+        this.timer.scheduleAtFixedRate(eatingWorker, 0, (60*1000*3));
+    }
+
+    public void die() {
+        this.digestionWorker.cancel();
+        this.eatingWorker.cancel();
+        this.timer.cancel();
+        this.location.getPeople().remove(this);
+        this.location.addDied();
+        this.location.setPopulation(this.location.getPeople().size());
+    }
+
     @Override
     public String toString() {
         return "\n{" +
@@ -110,7 +163,10 @@ public abstract class Person {
                 "\n  lastName: '" + lastName + "'," +
                 "\n  age: " + age + "," +
                 "\n  weight: " + weight + "," +
-                "\n  height: " + height +
+                "\n  height: " + height + "," +
+                "\n  location: '" + location.getName() + "'" +
+                "\n  energy: " + energy + "kcal" +
+                "\n  lastFood: " + lastFood +
                 "\n}";
     }
 }

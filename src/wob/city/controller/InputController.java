@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
 
 
 public class InputController {
+    public void listCities(List<City> cities) {
+        System.out.println(cities.toString());
+    }
+
     public void listFoods(List<Food> foods) {
         System.out.println("\n" + foods.stream().map(food -> food.toString(100)).collect(Collectors.joining()));
     }
@@ -42,6 +46,7 @@ public class InputController {
 
     public void getHelp() {
         System.out.println("\n -- COMMANDS --" +
+                "\n  cities -- List cities" +
                 "\n  people -c City Name -- List all people in a city" +
                 "\n  person -c City Name -n Person Name -- Get details about a specific person in a city" +
                 "\n  foods -- List all available food" +

@@ -1,5 +1,6 @@
 package wob.city.objects;
 
+import wob.city.abstractions.Food;
 import wob.city.abstractions.Person;
 import wob.city.util.Calculations;
 
@@ -9,11 +10,14 @@ public class City {
     private String name;
     private int population;
     private List<Person> people;
+    private final List<Food> foods;
+    private int died = 0;
 
-    public City(String name, List<Person> people, int population) {
+    public City(String name, List<Person> people, int population, List<Food> foods) {
         this.name = name;
         this.people = people;
         this.population = population;
+        this.foods = foods;
     }
 
     public String getName() {
@@ -40,11 +44,24 @@ public class City {
         this.people = people;
     }
 
+    public List<Food> getFoods() {
+        return foods;
+    }
+
+    public void addDied() {
+        this.died++;
+    }
+
+    public int getDied() {
+        return died;
+    }
+
     @Override
     public String toString() {
         return "\n City: {" +
                 "\n name: '" + name + "'," +
-                "\n population: '" + population + "'," +
+                "\n population: " + population + "," +
+                "\n died: " + died + "," +
                 "\n people: {" +
                 "\n     kids: {" +
                 "\n         girls: " + Calculations.getPeopleCountByType(people, Girl.class) +

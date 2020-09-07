@@ -21,6 +21,8 @@ public class InputParser {
     public void parseInput(String input){
         if(input.matches("^help$")){
             inputController.getHelp();
+        }else if(input.matches("^cities$")){
+            inputController.listCities(cities);
         }else if(input.matches("^person -c (.*) -n (.*)$")){
             inputController.getPerson(cities, input);
         }else if(input.matches("^people -c (.*)$")){
