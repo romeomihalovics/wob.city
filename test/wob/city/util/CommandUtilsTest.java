@@ -10,6 +10,7 @@ import wob.city.objects.Meat;
 import wob.city.objects.Woman;
 
 import java.util.*;
+import java.util.regex.Matcher;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,7 +53,7 @@ class CommandUtilsTest {
     @DisplayName("Parsing city name from console input with regex should return '(City Object)' when input is 'people -c City Name' or 'person -c City Name -n Person Name', but fake name should return null")
     void parseCityNameShouldReturn() {
         List<Food> foods = new ArrayList<>();
-        List<City> cities = Arrays.asList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), 2, foods));
+        List<City> cities = Collections.singletonList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), 2, foods));
 
         assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "people -c WoB City", false));
         assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "person -c WoB City -n Person Name", true));
@@ -64,7 +65,7 @@ class CommandUtilsTest {
     @DisplayName("Parsing a specified person from a city with console input should return a '(Person Object)' if there is a match by the full name (first- + lastname), otherwise should return null")
     void getPersonShouldReturn() {
         List<Food> foods = new ArrayList<>();
-        List<City> cities = Arrays.asList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), 2, foods));
+        List<City> cities = Collections.singletonList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), 2, foods));
         Person person = cities.get(0).getPeople().get(0);
         City city = CommandUtils.parseCityName(cities, "people -c WoB City", false);
 
@@ -76,7 +77,8 @@ class CommandUtilsTest {
     @Test
     @DisplayName("Get regex match should return the matcher object on successful matching or null on failed matching")
     void getRegexMatchShouldReturn() {
-        assertEquals("parameter", CommandUtils.getRegexMatch("test -n parameter", "^test -n (.*)$").group(1));
+        Matcher matcher = CommandUtils.getRegexMatch("test -n parameter", "^test -n (.*)$");
+        assertEquals("parameter", (matcher != null) ? matcher.group(1) : null);
         assertNull(CommandUtils.getRegexMatch("not matching", "^test -n (.*)$"));
     }
 }

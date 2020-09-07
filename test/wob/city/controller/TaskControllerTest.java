@@ -8,6 +8,7 @@ import wob.city.objects.Meat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +19,7 @@ class TaskControllerTest {
     void createCityShouldAddToList() {
         TaskController taskController = new TaskController();
         List<City> cities = new ArrayList<>();
-        List<Food> foods = Arrays.asList(new Meat(Arrays.asList("Sausage", "14", "1", "28", "meat")));
+        List<Food> foods = Collections.singletonList(new Meat(Arrays.asList("Sausage", "14", "1", "28", "meat")));
 
         taskController.createCity("Wob City", 10, cities, foods);
 
