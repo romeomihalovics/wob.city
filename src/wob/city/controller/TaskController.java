@@ -7,6 +7,7 @@ import wob.city.services.ControlCenter;
 import wob.city.services.FoodLoader;
 import wob.city.services.PeopleGenerator;
 
+import java.util.Collections;
 import java.util.List;
 
 public class TaskController {
@@ -21,7 +22,7 @@ public class TaskController {
     }
 
     public void createCity(String name, Integer population, List<City> cities, List<Food> foods) {
-        List<Person> people = peopleGenerator.generatePeople(population);
+        List<Person> people = Collections.synchronizedList(peopleGenerator.generatePeople(population));
         City city = new City(name, people, population, foods);
         city.getPeople().forEach(person -> person.setLocation(city));
         city.getPeople().forEach(Person::setWorkers);
