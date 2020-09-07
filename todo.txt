@@ -1,55 +1,8 @@
-City
-	- name
-	- people list
-	- population
-	() People generator on start -> 
-	   report (city name, population, count of kids, woman, man) -> 
-	   control center validate 10 random peep
-
 People
-	- first name (randomly from list [different list for kids, genders])
-	- last name  -''-
-	- age random
-	- gender random
-	- weight random (kids 20-60, woman 50-65, man 65-120)
-	- height random (1-200)
-	- tostring
-
-Control Center
-	- Validate person by the requirements above 
-
-Food
-	- different types (meat, veg, grain, dairy) [4 item for each]
-	- name
-	- energy (calc from protein, sugar, fat) kcal/100g
-	- protein 4 cal / g
-	- carbohydrate (sugar) 4 cal / g
-	- fat 9 cal / g
-		- saturated
-		- unsaturated
-	() get calories
-
-
-
-
-
-main class
-
-taskcontroller [
-collect services, run them in order etc
-]
-inputcontroller [
-call task according to input
-like report or smth
-]
-
--task- generatecity
--> city object = generatecityservice
--> generate peep service
--> put peeps into city
--> report service
-
--task- validate
-validate 10 random peep
-
-run input controller
+	energy level [calories] 
+		max: 2500
+		every min: -350
+		(if it reaches 0 person should die, and get removed from population)
+	every 3 min
+		eat random food
+			random amount [between 0-max calorie count to reach max level]
