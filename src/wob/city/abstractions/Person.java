@@ -3,6 +3,7 @@ package wob.city.abstractions;
 import wob.city.objects.City;
 import wob.city.util.Calculations;
 import wob.city.util.Names;
+import wob.city.worker.AgingWorker;
 import wob.city.worker.DigestionWorker;
 import wob.city.worker.EatingWorker;
 
@@ -25,6 +26,7 @@ public abstract class Person {
     private Timer timer;
     private DigestionWorker digestionWorker;
     private EatingWorker eatingWorker;
+    private AgingWorker agingWorker;
     private City location;
     private int energy = 2500;
     private String lastFood = null;
@@ -141,18 +143,53 @@ public abstract class Person {
         this.timer = new Timer();
         this.digestionWorker = new DigestionWorker(this);
         this.eatingWorker = new EatingWorker(this);
+        this.agingWorker = new AgingWorker(this);
 
-        this.timer.scheduleAtFixedRate(digestionWorker, 0, (60*1000));
-        this.timer.scheduleAtFixedRate(eatingWorker, 0, (60*1000*3));
+        this.timer.scheduleAtFixedRate(digestionWorker, (60*1000), (60*1000));
+        this.timer.scheduleAtFixedRate(eatingWorker, (60*1000*3), (60*1000*3));
+        this.timer.scheduleAtFixedRate(agingWorker, (60*1000*5), (60*1000*5));
+
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
+
+    public void setDigestionWorker(DigestionWorker digestionWorker) {
+        this.digestionWorker = digestionWorker;
+    }
+
+    public void setEatingWorker(EatingWorker eatingWorker) {
+        this.eatingWorker = eatingWorker;
+    }
+
+    public void setAgingWorker(AgingWorker agingWorker) {
+        this.agingWorker = agingWorker;
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public DigestionWorker getDigestionWorker() {
+        return digestionWorker;
+    }
+
+    public EatingWorker getEatingWorker() {
+        return eatingWorker;
+    }
+
+    public AgingWorker getAgingWorker() {
+        return agingWorker;
     }
 
     public void die() {
         this.digestionWorker.cancel();
         this.eatingWorker.cancel();
+        this.agingWorker.cancel();
         this.timer.cancel();
         this.location.getPeople().remove(this);
-        this.location.addDied();
-        this.location.setPopulation(this.location.getPeople().size());
+        this.location.addDied(this);
     }
 
     @Override

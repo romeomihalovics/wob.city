@@ -1,6 +1,6 @@
 People
 	new Born every 2 min to city
-	aging
+	aging done
 		every 5 min
 		kids when reach 18 should be no longer kids (new class in gender with details, remove kid subclass)
 		after 18 yo 10% chance of dying every year
@@ -9,7 +9,7 @@ People
 Log file 
 	should contain every automatic worker or service
 
-NewsPaper (Report to ftp)
+NewsPaper (Report to ftp to own folder, timestamped filess)
 	Every 10 min
 
 		Death Report

@@ -3,20 +3,24 @@ package wob.city.objects;
 import wob.city.abstractions.Food;
 import wob.city.abstractions.Person;
 import wob.city.util.Calculations;
+import wob.city.worker.NewBornWorker;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
 
 public class City {
     private String name;
-    private int population;
     private List<Person> people;
     private final List<Food> foods;
-    private int died = 0;
+    private List<Person> died = Collections.synchronizedList(new ArrayList<>());
+    private Timer timer;
+    private NewBornWorker newBornWorker;
 
-    public City(String name, List<Person> people, int population, List<Food> foods) {
+    public City(String name, List<Person> people, List<Food> foods) {
         this.name = name;
         this.people = people;
-        this.population = population;
         this.foods = foods;
     }
 
@@ -26,14 +30,6 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getPopulation() {
-        return population;
-    }
-
-    public void setPopulation(int population) {
-        this.population = population;
     }
 
     public List<Person> getPeople() {
@@ -48,20 +44,27 @@ public class City {
         return foods;
     }
 
-    public void addDied() {
-        this.died++;
+    public void addDied(Person person) {
+        this.died.add(person);
     }
 
-    public int getDied() {
+    public List<Person> getDied() {
         return died;
     }
 
+    public void setWorkers() {
+        this.timer = new Timer();
+        this.newBornWorker = new NewBornWorker(this);
+
+        this.timer.scheduleAtFixedRate(newBornWorker, (60*1000), (60*1000));
+    }
+
     @Override
-    public String toString() {
+    public synchronized String toString() {
         return "\n City: {" +
                 "\n name: '" + name + "'," +
-                "\n population: " + population + "," +
-                "\n died: " + died + "," +
+                "\n population: " + people.size() + "," +
+                "\n died: " + died.size() + "," +
                 "\n people: {" +
                 "\n     kids: {" +
                 "\n         girls: " + Calculations.getPeopleCountByType(people, Girl.class) +

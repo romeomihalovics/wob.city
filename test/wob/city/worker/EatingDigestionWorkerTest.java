@@ -13,10 +13,10 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class WorkerTest {
+class EatingDigestionWorkerTest {
     @Test
     @DisplayName("Digestion worker should decrease the person's energy level [by default 2500] by 350 calories and if it reaches 0 it should be removed from city population whilst eating worker should increase a person energy levels to max 2500 cal or stay the same [in case it decides to eat nothing]")
-    void digestionWorkerShouldDecreaseEnergy() {
+    void digestionWorkerShouldDecreaseEatingWorkerShouldIncreaseEnergy() {
         Person person = new Woman();
         List<Person> people = new ArrayList<>();
         people.add(person);
@@ -24,7 +24,7 @@ class WorkerTest {
 
         List<Food> foods = Collections.singletonList(new Meat(Arrays.asList("Sausage", "14", "1", "28")));
 
-        City city = new City("Test City", syncedPeople, 1, foods);
+        City city = new City("Test City", syncedPeople, foods);
         city.getPeople().forEach(p -> p.setLocation(city));
 
 

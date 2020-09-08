@@ -25,7 +25,6 @@ class TaskControllerTest {
 
         assertEquals(1, cities.size());
         assertEquals("Wob City", cities.get(0).getName());
-        assertEquals(10, cities.get(0).getPopulation());
         assertEquals(10, cities.get(0).getPeople().size());
     }
 }

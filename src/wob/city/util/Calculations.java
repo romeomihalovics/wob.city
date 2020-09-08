@@ -16,7 +16,7 @@ public class Calculations {
 
     public static int getPeopleCountByType(List<Person> people, Class<?> type) {
         int count = 0;
-        for(Person person : people) {
+        for(Person person : Collections.synchronizedList(people)) {
             if(person.getClass().equals(type)) {
                 count++;
             }

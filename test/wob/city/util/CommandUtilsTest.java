@@ -53,7 +53,7 @@ class CommandUtilsTest {
     @DisplayName("Parsing city name from console input with regex should return '(City Object)' when input is 'people -c City Name' or 'person -c City Name -n Person Name', but fake name should return null")
     void parseCityNameShouldReturn() {
         List<Food> foods = new ArrayList<>();
-        List<City> cities = Collections.singletonList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), 2, foods));
+        List<City> cities = Collections.singletonList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), foods));
 
         assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "people -c WoB City", false));
         assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "person -c WoB City -n Person Name", true));
@@ -65,7 +65,7 @@ class CommandUtilsTest {
     @DisplayName("Parsing a specified person from a city with console input should return a '(Person Object)' if there is a match by the full name (first- + lastname), otherwise should return null")
     void getPersonShouldReturn() {
         List<Food> foods = new ArrayList<>();
-        List<City> cities = Collections.singletonList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), 2, foods));
+        List<City> cities = Collections.singletonList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), foods));
         Person person = cities.get(0).getPeople().get(0);
         City city = CommandUtils.parseCityName(cities, "people -c WoB City", false);
 

@@ -40,4 +40,14 @@ public class PeopleGenerator {
         }
         return person;
     }
+
+    public Person generateNewBorn() {
+        Person person;
+        if (Calculations.getRandomIntBetween(1, 2) == 1) {
+            person = new Girl(true);
+        } else {
+            person = new Boy(true);
+        }
+        return person;
+    }
 }
