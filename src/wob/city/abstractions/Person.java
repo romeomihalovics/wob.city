@@ -170,22 +170,6 @@ public abstract class Person {
 
     }
 
-    public void setTimer(Timer timer) {
-        this.timer = timer;
-    }
-
-    public void setDigestionWorker(DigestionWorker digestionWorker) {
-        this.digestionWorker = digestionWorker;
-    }
-
-    public void setEatingWorker(EatingWorker eatingWorker) {
-        this.eatingWorker = eatingWorker;
-    }
-
-    public void setAgingWorker(AgingWorker agingWorker) {
-        this.agingWorker = agingWorker;
-    }
-
     public Timer getTimer() {
         return timer;
     }
