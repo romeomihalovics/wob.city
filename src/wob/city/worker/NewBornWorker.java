@@ -22,6 +22,7 @@ public class NewBornWorker extends TimerTask {
         person.setLocation(city);
         person.setWorkers();
         city.getPeople().add(person);
+        city.getNewBornNews().addData(person);
 
         ActivityLogger.getLogger().log("\nPerson: " + person.getFullName() +
                 " just born into city: " + city.getName());

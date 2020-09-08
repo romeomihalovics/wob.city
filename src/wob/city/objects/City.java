@@ -14,14 +14,21 @@ public class City {
     private String name;
     private List<Person> people;
     private final List<Food> foods;
-    private List<Person> died = Collections.synchronizedList(new ArrayList<>());
+    private final List<Person> died = Collections.synchronizedList(new ArrayList<>());
     private Timer timer;
     private NewBornWorker newBornWorker;
+    private final ConsumptionNews consumptionNews;
+    private final DeathNews deathNews;
+    private final NewBornNews newBornNews;
+
 
     public City(String name, List<Person> people, List<Food> foods) {
         this.name = name;
         this.people = people;
         this.foods = foods;
+        this.consumptionNews = new ConsumptionNews();
+        this.deathNews = new DeathNews();
+        this.newBornNews = new NewBornNews();
     }
 
     public String getName() {
@@ -57,6 +64,18 @@ public class City {
         this.newBornWorker = new NewBornWorker(this);
 
         this.timer.scheduleAtFixedRate(newBornWorker, (60*1000), (60*1000));
+    }
+
+    public ConsumptionNews getConsumptionNews() {
+        return consumptionNews;
+    }
+
+    public DeathNews getDeathNews() {
+        return deathNews;
+    }
+
+    public NewBornNews getNewBornNews() {
+        return newBornNews;
     }
 
     @Override
