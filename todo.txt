@@ -6,3 +6,41 @@ NewsPaper (Report to ftp to own folder, timestamped filess)
 		Food Consumption Report
 
 		each report should not contain records from the last report
+
+
+		report abstract object
+			private timer
+			private reportworker
+			constructor -> 
+				timer new timer
+				reportworker new reportworker(thisobj)
+			abstract data object
+			abstract path string
+			abstract addData void
+			abstract flushData void
+			toString override in each subclass
+
+		deathReport object
+			data object being List<Person>
+			path string being DeathReports
+			addData void being add person to data object
+			flushData void being removeall from data object
+			tostring being data object to json
+
+		newBornReport object
+			data object being List<Person>
+			path string being NewBornReports
+			addData void being add person to data object
+			flushData void being removeall from data object
+			tostring being data object to json
+
+		foodConsuption object
+			data object being HashMap<key:foodtype, val:consumed amount in kg>
+			path string being ConsumptionReports
+			addData void being increasing the foodtype consumption amount
+			flushData void being setting every amount to 0
+			tostring being data object to json
+
+	reportworker
+		upload report [tostring to json] to folder [path string] on ftp server
+		call flushdata
