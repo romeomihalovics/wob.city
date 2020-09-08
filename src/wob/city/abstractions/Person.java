@@ -39,6 +39,23 @@ public abstract class Person {
         this.normalMinWeight = normalMinWeight;
     }
 
+    public Person(Person newAdult) {
+        this.normalMaxWeight = newAdult.getNormalMaxWeight();
+        this.normalMinWeight = newAdult.getNormalMinWeight();
+        this.firstName = newAdult.getFirstName();
+        this.lastName = newAdult.getLastName();
+        this.weight = newAdult.getWeight();
+        this.height = newAdult.getHeight();
+        this.location = newAdult.getLocation();
+        this.age = newAdult.getAge();
+        this.energy = newAdult.getEnergy();
+        this.lastFood = newAdult.getLastFood();
+        this.timer = newAdult.getTimer();
+        this.digestionWorker = newAdult.getDigestionWorker();
+        this.eatingWorker = newAdult.getEatingWorker();
+        this.agingWorker = newAdult.getAgingWorker();
+    }
+
     public String getFirstName() {
         return firstName;
     }
