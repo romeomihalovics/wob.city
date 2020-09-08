@@ -2,6 +2,7 @@ package wob.city.worker;
 
 import wob.city.abstractions.Food;
 import wob.city.abstractions.Person;
+import wob.city.dto.ConsumptionDTO;
 import wob.city.logger.ActivityLogger;
 import wob.city.util.Calculations;
 
@@ -23,6 +24,10 @@ public class EatingWorker extends TimerTask {
 
         person.setLastFood(food.getName() + " " + Calculations.round(((double) amount/food.getEnergy())*100, 2) + "g -> " + amount + "kcal");
         person.setEnergy(person.getEnergy() + amount);
+
+        ConsumptionDTO consumptionDTO = new ConsumptionDTO(food.getClass().getSimpleName().toLowerCase(),
+                Calculations.round(((double) amount/food.getEnergy())*100, 2));
+        person.getLocation().getConsumptionNews().addData(consumptionDTO);
 
         ActivityLogger.getLogger().log("\nPerson: " + person.getFullName() + " ate " +
                 Calculations.round(((double) amount/food.getEnergy())*100, 2) +

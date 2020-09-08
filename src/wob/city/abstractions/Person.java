@@ -194,6 +194,7 @@ public abstract class Person {
         this.timer.cancel();
         this.location.getPeople().remove(this);
         this.location.addDied(this);
+        this.location.getDeathNews().addData(this);
 
         ActivityLogger.getLogger().log("\nPerson: " + this.getFullName() +
                 " died at age " + this.getAge());
@@ -209,8 +210,8 @@ public abstract class Person {
                 "\n  weight: " + weight + "," +
                 "\n  height: " + height + "," +
                 "\n  location: '" + location.getName() + "'" +
-                "\n  energy: " + energy + "kcal" +
-                "\n  lastFood: " + lastFood +
+                "\n  energy: '" + energy + "kcal'" +
+                "\n  lastFood: '" + lastFood + "'" +
                 "\n}";
     }
 }
