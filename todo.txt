@@ -1,11 +1,3 @@
-People
-	new Born every 2 min to city
-	aging done
-		every 5 min
-		kids when reach 18 should be no longer kids (new class in gender with details, remove kid subclass)
-		after 18 yo 10% chance of dying every year
-		after 60 yo 25% chance of dying every year
-
 Log file 
 	should contain every automatic worker or service
 
