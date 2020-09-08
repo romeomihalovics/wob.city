@@ -1,8 +1,19 @@
 People
-	energy level [calories] 
-		max: 2500
-		every min: -350
-		(if it reaches 0 person should die, and get removed from population)
-	every 3 min
-		eat random food
-			random amount [between 0-max calorie count to reach max level]
+	new Born every 2 min to city
+	aging
+		every 5 min
+		kids when reach 18 should be no longer kids (new class in gender with details, remove kid subclass)
+		after 18 yo 10% chance of dying every year
+		after 60 yo 25% chance of dying every year
+
+Log file 
+	should contain every automatic worker or service
+
+NewsPaper (Report to ftp)
+	Every 10 min
+
+		Death Report
+		New Born Report
+		Food Consumption Report
+
+		each report should not contain records from the last report

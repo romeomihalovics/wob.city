@@ -1,7 +1,6 @@
 package wob.city;
 
 import wob.city.abstractions.Food;
-import wob.city.controller.InputController;
 import wob.city.controller.TaskController;
 import wob.city.input.InputGrabber;
 import wob.city.objects.City;

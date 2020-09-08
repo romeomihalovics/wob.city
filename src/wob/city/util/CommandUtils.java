@@ -28,7 +28,7 @@ public class CommandUtils {
     }
 
     public static Integer parseFoodGramm(String input) {
-        Integer result = 0;
+        int result = 0;
         Matcher matcher = getRegexMatch(input, "^food -n (.*) -gramm ([0-9]*)$");
         if (matcher != null){
             result = Integer.parseInt(matcher.group(2));
