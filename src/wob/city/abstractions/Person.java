@@ -31,12 +31,31 @@ public abstract class Person {
     private int energy = 2500;
     private String lastFood = null;
 
-    public Person(int normalMinWeight, int normalMaxWeight){
+    public Person(int normalMinWeight, int normalMaxWeight, String firstName, int weight){
         this.age = Calculations.getRandomIntBetween(18, 122);
         this.height = Calculations.getRandomIntBetween(1, 200);
         this.lastName = names.getLastName();
+        this.firstName = firstName;
+        this.weight = weight;
         this.normalMaxWeight = normalMaxWeight;
         this.normalMinWeight = normalMinWeight;
+    }
+
+    public Person(Person newAdult) {
+        this.normalMaxWeight = newAdult.getNormalMaxWeight();
+        this.normalMinWeight = newAdult.getNormalMinWeight();
+        this.firstName = newAdult.getFirstName();
+        this.lastName = newAdult.getLastName();
+        this.weight = newAdult.getWeight();
+        this.height = newAdult.getHeight();
+        this.location = newAdult.getLocation();
+        this.age = newAdult.getAge();
+        this.energy = newAdult.getEnergy();
+        this.lastFood = newAdult.getLastFood();
+        this.timer = newAdult.getTimer();
+        this.digestionWorker = newAdult.getDigestionWorker();
+        this.eatingWorker = newAdult.getEatingWorker();
+        this.agingWorker = newAdult.getAgingWorker();
     }
 
     public String getFirstName() {
