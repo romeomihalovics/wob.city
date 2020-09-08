@@ -1,6 +1,7 @@
 package wob.city.services;
 
 import wob.city.abstractions.Person;
+import wob.city.logger.ConsoleLogger;
 import wob.city.objects.*;
 import wob.city.util.Calculations;
 
@@ -9,13 +10,13 @@ import java.util.List;
 public class ControlCenter {
     public void validate(List<City> cities) {
         for(City city : cities) {
-            System.out.println("\n Validating random 10 people from city: " + city.getName());
+            ConsoleLogger.getLogger().log("\n Validating random 10 people from city: " + city.getName());
             List<Person> randomTenPeople = Calculations.getRandomNPeople(city.getPeople(), 10);
 
             for (int i = randomTenPeople.size() - 1; i >= 0; i--) {
                 Person person = city.getPeople().get(i);
 
-                System.out.println("\n Validating person (" + person.getClass().getSimpleName() + "): " +
+                ConsoleLogger.getLogger().log("\n Validating person (" + person.getClass().getSimpleName() + "): " +
                         person.getFirstName() + " " +
                         person.getLastName());
 
@@ -29,27 +30,27 @@ public class ControlCenter {
     }
 
     public void validateFirstName(Person person) {
-        System.out.println("Has valid first name: " +
+        ConsoleLogger.getLogger().log("Has valid first name: " +
                 (person instanceof Woman ? Person.names.isFemaleName(person.getFirstName()) : Person.names.isMaleName(person.getFirstName())));
     }
 
     public void validateLastName(Person person) {
-        System.out.println("Has valid last name: " +
+        ConsoleLogger.getLogger().log("Has valid last name: " +
                 Person.names.isLastName(person.getLastName()));
     }
 
     public void validateAge(Person person) {
-        System.out.println("Has valid age: " +
+        ConsoleLogger.getLogger().log("Has valid age: " +
                 (person.getAge() >= person.getNormalMinAge() && person.getAge() <= person.getNormalMaxAge()));
     }
 
     public void validateHeight(Person person) {
-        System.out.println("Has valid height: " +
+        ConsoleLogger.getLogger().log("Has valid height: " +
                 (person.getHeight() >= person.getNormalMinHeight() && person.getHeight() <= person.getNormalMaxHeight()));
     }
 
     public void validateWeight(Person person) {
-        System.out.println("Has valid weight: " +
+        ConsoleLogger.getLogger().log("Has valid weight: " +
                 (person.getWeight() >= person.getNormalMinWeight() && person.getWeight() <= person.getNormalMaxWeight()));
     }
 

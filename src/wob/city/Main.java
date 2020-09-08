@@ -3,6 +3,7 @@ package wob.city;
 import wob.city.abstractions.Food;
 import wob.city.controller.TaskController;
 import wob.city.input.InputGrabber;
+import wob.city.logger.ConsoleLogger;
 import wob.city.objects.City;
 import wob.city.util.Calculations;
 
@@ -23,7 +24,7 @@ public class Main {
         taskController.validateCitizens(cities);
 
 
-        System.out.println("\n Application loaded successfully, type 'help' to see the commands available.");
+        ConsoleLogger.getLogger().log("\n Application loaded successfully, type 'help' to see the commands available.");
 
         inputGrabber.start();
     }

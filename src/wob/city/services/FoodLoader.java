@@ -1,6 +1,7 @@
 package wob.city.services;
 
 import wob.city.abstractions.Food;
+import wob.city.logger.ConsoleLogger;
 import wob.city.objects.Dairy;
 import wob.city.objects.Grain;
 import wob.city.objects.Meat;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class FoodLoader {
     public void loadFoods(String fromFile, List<Food> foods) {
-        System.out.println("\n Loading Foods");
+        ConsoleLogger.getLogger().log("\n Loading Foods");
         try (FileReader fileReader = new FileReader(fromFile); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String current;
             int i = 0;
@@ -44,6 +45,6 @@ public class FoodLoader {
                 foods.add(new Dairy(data));
                 break;
         }
-        System.out.println("Loaded: " + foods.get(foods.size() - 1).toString(100));
+        ConsoleLogger.getLogger().log("Loaded: " + foods.get(foods.size() - 1).toString(100));
     }
 }

@@ -1,6 +1,3 @@
-Log file 
-	should contain every automatic worker or service
-
 NewsPaper (Report to ftp to own folder, timestamped filess)
 	Every 10 min
 

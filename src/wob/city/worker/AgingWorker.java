@@ -1,6 +1,7 @@
 package wob.city.worker;
 
 import wob.city.abstractions.Person;
+import wob.city.logger.ActivityLogger;
 import wob.city.objects.Boy;
 import wob.city.objects.Girl;
 import wob.city.objects.Man;
@@ -19,6 +20,10 @@ public class AgingWorker extends TimerTask {
     @Override
     public void run() {
         person.setAge(person.getAge() + 1);
+
+        ActivityLogger.getLogger().log("\nPerson: " + person.getFullName() +
+                " became " + person.getAge() + " years old");
+
         if(person.getAge() >= 18 && (person instanceof Girl || person instanceof Boy)) {
             Person newAdult;
             if(person instanceof Girl) {

@@ -1,5 +1,6 @@
 package wob.city.abstractions;
 
+import wob.city.logger.ActivityLogger;
 import wob.city.objects.City;
 import wob.city.util.Calculations;
 import wob.city.util.Names;
@@ -193,6 +194,9 @@ public abstract class Person {
         this.timer.cancel();
         this.location.getPeople().remove(this);
         this.location.addDied(this);
+
+        ActivityLogger.getLogger().log("\nPerson: " + this.getFullName() +
+                " died at age " + this.getAge());
     }
 
     @Override

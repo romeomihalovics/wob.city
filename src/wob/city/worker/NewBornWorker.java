@@ -1,6 +1,7 @@
 package wob.city.worker;
 
 import wob.city.abstractions.Person;
+import wob.city.logger.ActivityLogger;
 import wob.city.objects.City;
 import wob.city.services.PeopleGenerator;
 
@@ -21,5 +22,8 @@ public class NewBornWorker extends TimerTask {
         person.setLocation(city);
         person.setWorkers();
         city.getPeople().add(person);
+
+        ActivityLogger.getLogger().log("\nPerson: " + person.getFullName() +
+                " just born into city: " + city.getName());
     }
 }

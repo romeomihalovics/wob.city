@@ -2,6 +2,7 @@ package wob.city.controller;
 
 import wob.city.abstractions.Food;
 import wob.city.abstractions.Person;
+import wob.city.logger.ConsoleLogger;
 import wob.city.objects.City;
 import wob.city.services.ControlCenter;
 import wob.city.services.FoodLoader;
@@ -28,7 +29,7 @@ public class TaskController {
         city.getPeople().forEach(Person::setWorkers);
         city.setWorkers();
         cities.add(city);
-        System.out.print(city);
+        ConsoleLogger.getLogger().log(city.toString());
     }
 
     public void validateCitizens(List<City> cities){
