@@ -2,6 +2,7 @@ package wob.city.objects;
 
 import wob.city.abstractions.NewsPaper;
 import wob.city.dto.ConsumptionDTO;
+import wob.city.util.Calculations;
 
 import java.util.HashMap;
 
@@ -36,10 +37,10 @@ public class ConsumptionNews extends NewsPaper {
     @SuppressWarnings("unchecked")
     public String toString() {
         return "{" +
-               "\n  meat: " + ((HashMap<String, Double>) this.getData()).get("meat") + "," +
-               "\n  dairy:" + ((HashMap<String, Double>) this.getData()).get("dairy") + "," +
-               "\n  vegetable: " + ((HashMap<String, Double>) this.getData()).get("vegetable") + "," +
-               "\n  grain: " + ((HashMap<String, Double>) this.getData()).get("grain") +
+               "\n  \"meat\": \"" + Calculations.round(((HashMap<String, Double>) this.getData()).get("meat") / 1000, 2) + "kg\"," +
+               "\n  \"dairy\": \"" + Calculations.round(((HashMap<String, Double>) this.getData()).get("dairy") / 1000, 2)  + "kg\"," +
+               "\n  \"vegetable\": \"" + Calculations.round(((HashMap<String, Double>) this.getData()).get("vegetable") / 1000, 2) + "kg\"," +
+               "\n  \"grain\": \"" + Calculations.round(((HashMap<String, Double>) this.getData()).get("grain") / 1000, 2) + "kg\"" +
                "\n}";
     }
 }

@@ -63,7 +63,7 @@ public class City {
         this.timer = new Timer();
         this.newBornWorker = new NewBornWorker(this);
 
-        this.timer.scheduleAtFixedRate(newBornWorker, (60*1000), (60*1000));
+        this.timer.scheduleAtFixedRate(newBornWorker, (60*1000*2), (60*1000*2));
     }
 
     public ConsumptionNews getConsumptionNews() {

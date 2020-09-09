@@ -203,15 +203,15 @@ public abstract class Person {
     @Override
     public String toString() {
         return "\n{" +
-                "\n  type: '" + this.getClass().getSimpleName() + "'," +
-                "\n  firstName: '" + firstName + "'," +
-                "\n  lastName: '" + lastName + "'," +
-                "\n  age: " + age + "," +
-                "\n  weight: " + weight + "," +
-                "\n  height: " + height + "," +
-                "\n  location: '" + location.getName() + "'" +
-                "\n  energy: '" + energy + "kcal'" +
-                "\n  lastFood: '" + lastFood + "'" +
+                "\n  \"type\": \"" + this.getClass().getSimpleName() + "\"," +
+                "\n  \"firstName\": '" + firstName + "\"," +
+                "\n  \"lastName\": '" + lastName + "\"," +
+                "\n  \"age\": " + age + "," +
+                "\n  \"weight\": " + weight + "," +
+                "\n  \"height: " + height + "," +
+                "\n  \"location\": \"" + location.getName() + "\"" +
+                "\n  \"energy\": \"" + energy + "kcal\"" +
+                "\n  \"lastFood\": \"" + lastFood + "\"" +
                 "\n}";
     }
 }
