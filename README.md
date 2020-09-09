@@ -12,6 +12,8 @@ People age every 5 minutes, kids become adults if they're over or 18 yo. 18 year
 
 Every 2 minutes, a new born kid is added to each city.
 
+Each city has 3 news papers, Death News, New Born News, Consumption News. Every 10 minutes the news are published to an ftp server with the latest data.
+
 In the city, you will find foods. Foods are segregated to 4 categories, meat, dairy, grain, vegetables. Every food has details about itself, which are [by default smth/100g], protein, carbohydrate, fat. You can calculate the calories in a specific food with these details [by default /100g, but you could set it to what ever amount you like], or list all of them.
 
 ... more stuff to come soon
