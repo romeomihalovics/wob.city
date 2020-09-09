@@ -1,7 +1,7 @@
 package wob.city.util;
 
-import wob.city.abstractions.Food;
-import wob.city.abstractions.Person;
+import wob.city.food.abstraction.Food;
+import wob.city.person.abstraction.Person;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -14,10 +14,10 @@ public class Calculations {
         return (int) ((Math.random() * ((max - min) + 1)) + min);
     }
 
-    public static int getPeopleCountByType(List<Person> people, Class<?> type) {
+    public static int getPeopleCountByType(List<Person> people, String type) {
         int count = 0;
         for(Person person : Collections.synchronizedList(people)) {
-            if(person.getClass().equals(type)) {
+            if(person.getType().equals(type)) {
                 count++;
             }
         }
@@ -30,8 +30,16 @@ public class Calculations {
         return result.subList(0, n);
     }
 
+    public static Food getRandomFood(List<Food> foods) {
+        return foods.get(Calculations.getRandomIntBetween(0, foods.size() - 1));
+    }
+
     public static Integer getEnergy(Food fromFood) {
         return (fromFood.getProtein() * 4) + (fromFood.getCarbohydrate() * 4) + (fromFood.getFat() * 9);
+    }
+
+    public static Double getEnergyByAmount(int amount, int energy) {
+        return Calculations.round(((double) amount / energy) * 100, 2);
     }
 
     public static Double round(Double number, Integer decimalPlaces){

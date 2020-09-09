@@ -2,13 +2,9 @@ package wob.city.services;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wob.city.abstractions.Person;
-import wob.city.objects.Boy;
-import wob.city.objects.Girl;
-import wob.city.objects.Man;
-import wob.city.objects.Woman;
+import wob.city.controller.services.PeopleGenerator;
+import wob.city.person.abstraction.Person;
 
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,11 +17,11 @@ class PeopleGeneratorTest {
     void generatePeopleShouldReturn() {
         PeopleGenerator peopleGenerator = new PeopleGenerator();
         List<Person> people = peopleGenerator.generatePeople(10);
-        List<Type> personTypes = Arrays.asList(Man.class, Woman.class, Girl.class, Boy.class);
+        List<String> personTypes = Arrays.asList("Man", "Woman", "Girl", "Boy");
 
         assertEquals(10, people.size());
         for(Person person : people) {
-            assertTrue(personTypes.contains(person.getClass()));
+            assertTrue(personTypes.contains(person.getType()));
         }
     }
 }

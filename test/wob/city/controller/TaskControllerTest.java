@@ -2,9 +2,9 @@ package wob.city.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wob.city.abstractions.Food;
-import wob.city.objects.City;
-import wob.city.objects.Meat;
+import wob.city.food.abstraction.Food;
+import wob.city.city.City;
+import wob.city.food.object.Meat;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -2,12 +2,12 @@ package wob.city.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wob.city.abstractions.Food;
-import wob.city.abstractions.Person;
-import wob.city.objects.City;
-import wob.city.objects.Girl;
-import wob.city.objects.Meat;
-import wob.city.objects.Woman;
+import wob.city.food.abstraction.Food;
+import wob.city.person.abstraction.Person;
+import wob.city.city.City;
+import wob.city.person.object.Girl;
+import wob.city.food.object.Meat;
+import wob.city.person.object.Woman;
 
 import java.util.*;
 import java.util.regex.Matcher;

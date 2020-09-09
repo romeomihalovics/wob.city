@@ -1,9 +1,0 @@
-Package cleanup
-
-person, newspaper, food
-	private attr -> protected where inheritance of these might be necessary
-	[person] type abstract method returns obj type [man, woman, girl, boy]
-
-person workers into person abstract methods
-
-create a data obj for newspaper data attr with abstract methods and 2 subclasses [one for list, one for hashmap]

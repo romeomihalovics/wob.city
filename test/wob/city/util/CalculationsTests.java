@@ -2,9 +2,13 @@ package wob.city.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wob.city.abstractions.Food;
-import wob.city.abstractions.Person;
-import wob.city.objects.*;
+import wob.city.food.abstraction.Food;
+import wob.city.food.object.Meat;
+import wob.city.person.abstraction.Person;
+import wob.city.person.object.Boy;
+import wob.city.person.object.Girl;
+import wob.city.person.object.Man;
+import wob.city.person.object.Woman;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,10 +32,10 @@ class CalculationsTests {
     void getPeopleCountByTypeShouldReturn() {
         List<Person> people = Arrays.asList(new Boy(), new Boy(), new Girl(), new Man(), new Woman(), new Woman());
 
-        assertEquals(2, Calculations.getPeopleCountByType(people, Boy.class));
-        assertEquals(1, Calculations.getPeopleCountByType(people, Girl.class));
-        assertEquals(1, Calculations.getPeopleCountByType(people, Man.class));
-        assertEquals(2, Calculations.getPeopleCountByType(people, Woman.class));
+        assertEquals(2, Calculations.getPeopleCountByType(people, "Boy"));
+        assertEquals(1, Calculations.getPeopleCountByType(people, "Girl"));
+        assertEquals(1, Calculations.getPeopleCountByType(people, "Man"));
+        assertEquals(2, Calculations.getPeopleCountByType(people, "Woman"));
     }
 
     @Test

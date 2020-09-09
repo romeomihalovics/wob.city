@@ -1,8 +1,8 @@
 package wob.city.util;
 
-import wob.city.abstractions.Food;
-import wob.city.abstractions.Person;
-import wob.city.objects.City;
+import wob.city.food.abstraction.Food;
+import wob.city.person.abstraction.Person;
+import wob.city.city.City;
 
 import java.util.List;
 import java.util.regex.Matcher;

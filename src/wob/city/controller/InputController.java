@@ -1,9 +1,9 @@
 package wob.city.controller;
 
-import wob.city.abstractions.Food;
-import wob.city.abstractions.Person;
-import wob.city.logger.ConsoleLogger;
-import wob.city.objects.City;
+import wob.city.food.abstraction.Food;
+import wob.city.person.abstraction.Person;
+import wob.city.console.logger.ConsoleLogger;
+import wob.city.city.City;
 import wob.city.util.CommandUtils;
 
 import java.util.List;
