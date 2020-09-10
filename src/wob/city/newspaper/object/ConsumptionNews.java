@@ -13,7 +13,7 @@ public class ConsumptionNews extends NewsPaper {
 
     @SuppressWarnings("unchecked")
     public ConsumptionNews(){
-        super("ConsumptionNews", new HashMap<String, Double>());
+        super("ConsumptionNews", new HashMap<String, Double>(), true);
         this.consumptionData = (HashMap<String, Double>) this.getData();
         flushData();
 

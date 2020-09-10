@@ -9,14 +9,18 @@ import java.util.Timer;
 public abstract class NewsPaper {
     protected final String folder;
     protected final Object data;
+    protected final ReportWorker reportWorker;
 
-    public NewsPaper(String folder, Object data) {
+    public NewsPaper(String folder, Object data, boolean scheduled) {
         this.folder = folder;
         this.data = data;
-        Timer timer = new Timer();
-        ReportWorker reportWorker = new ReportWorker(this);
 
-        timer.scheduleAtFixedRate(reportWorker, (60*1000*5), (60*1000*5));
+        this.reportWorker = new ReportWorker(this);
+
+        if(scheduled){
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(reportWorker, (60*1000*10), (60*1000*10));
+        }
     }
 
     public Object getData() {
@@ -25,6 +29,10 @@ public abstract class NewsPaper {
 
     public String getFolder() {
         return folder;
+    }
+
+    public void manualPublish() {
+        reportWorker.run();
     }
 
     public abstract void addData(Object data);

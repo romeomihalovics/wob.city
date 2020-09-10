@@ -10,7 +10,7 @@ public class NewBornNews extends NewsPaper {
     private final List<Person> newBornData;
 
     public NewBornNews(){
-        super("NewBornNews", new ArrayList<Person>());
+        super("NewBornNews", new ArrayList<Person>(), true);
         this.newBornData = (List<Person>) this.getData();
     }
 

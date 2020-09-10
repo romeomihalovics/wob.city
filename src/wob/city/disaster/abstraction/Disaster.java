@@ -20,12 +20,14 @@ public abstract class Disaster {
     protected String cause;
     protected City location;
     protected List<Person> died = new ArrayList<>();
+    protected Date date;
 
     public Disaster(String id, String name, Integer killingRate, String cause) {
         this.id = id;
         this.name = name;
         this.killingRate = killingRate;
         this.cause = cause;
+        this.date = new Date();
     }
 
     public void setLocation(City city) {
@@ -88,4 +90,16 @@ public abstract class Disaster {
     public abstract void firstWave();
     public abstract void secondWave();
     public abstract void thirdWave();
+
+    @Override
+    public String toString() {
+        return "\n{" +
+                "\n  \"date\": \"" + date.toString() + "\"," +
+                "\n  \"id\": \"" + id + "\"," +
+                "\n  \"name\": \"" + name + "\"," +
+                "\n  \"killingRate\": \"" + killingRate + "%\"," +
+                "\n  \"cause\": \"" + cause + "\"," +
+                "\n  \"died\":" + died.toString() +
+                "\n}";
+    }
 }

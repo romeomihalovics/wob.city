@@ -11,7 +11,7 @@ public class DeathNews extends NewsPaper {
 
     @SuppressWarnings("unchecked")
     public DeathNews() {
-        super("DeathNews", new ArrayList<Person>());
+        super("DeathNews", new ArrayList<Person>(), true);
         this.deathData = (List<Person>) this.getData();
     }
 

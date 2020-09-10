@@ -6,6 +6,7 @@ import wob.city.disaster.abstraction.Disaster;
 import wob.city.food.abstraction.Food;
 import wob.city.newspaper.object.ConsumptionNews;
 import wob.city.newspaper.object.DeathNews;
+import wob.city.newspaper.object.DisasterNews;
 import wob.city.newspaper.object.NewBornNews;
 import wob.city.person.abstraction.Person;
 import wob.city.util.Calculations;
@@ -27,6 +28,7 @@ public class City {
     private final DeathNews deathNews;
     private final NewBornNews newBornNews;
     private Disaster disaster = null;
+    private final DisasterNews disasterNews;
 
     public City(String name, List<Person> people, List<Food> foods) {
         this.name = name;
@@ -35,6 +37,7 @@ public class City {
         this.consumptionNews = new ConsumptionNews();
         this.deathNews = new DeathNews();
         this.newBornNews = new NewBornNews();
+        this.disasterNews = new DisasterNews();
     }
 
     public String getName() {
@@ -100,12 +103,15 @@ public class City {
 
     public void finishDisaster() {
         ConsoleLogger.getLogger().log("The disaster ("+disaster.getName()+") is ended in city '"+this.getName()+"' with "+this.disaster.getDied().size()+" deaths");
+        this.disasterNews.addData(disaster);
+        this.disasterNews.manualPublish();
         this.disaster.cancel();
         this.disaster = null;
     }
 
     public void continueDisaster(Disaster disaster) {
         if(disaster instanceof Consequence && this.disaster != null) {
+            this.disasterNews.addData(this.disaster);
             this.disaster.cancel();
             ConsoleLogger.getLogger().log("A natural disaster ("+this.disaster.getName()+" with "+this.disaster.getDied().size()+" deaths) is being followed up with another disaster '"+disaster.getName()+"' in city '"+this.getName()+"'");
             this.disaster = disaster;
