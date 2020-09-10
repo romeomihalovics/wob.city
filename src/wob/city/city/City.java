@@ -1,5 +1,8 @@
 package wob.city.city;
 
+import wob.city.console.logger.ConsoleLogger;
+import wob.city.disaster.abstraction.Consequence;
+import wob.city.disaster.abstraction.Disaster;
 import wob.city.food.abstraction.Food;
 import wob.city.newspaper.object.ConsumptionNews;
 import wob.city.newspaper.object.DeathNews;
@@ -23,7 +26,7 @@ public class City {
     private final ConsumptionNews consumptionNews;
     private final DeathNews deathNews;
     private final NewBornNews newBornNews;
-
+    private Disaster disaster = null;
 
     public City(String name, List<Person> people, List<Food> foods) {
         this.name = name;
@@ -79,6 +82,31 @@ public class City {
 
     public NewBornNews getNewBornNews() {
         return newBornNews;
+    }
+
+    public Disaster getDisaster() {
+        return disaster;
+    }
+
+    public void startDisaster(Disaster disaster) {
+        if(this.disaster == null && !(disaster instanceof Consequence)) {
+            this.disaster = disaster;
+            ConsoleLogger.getLogger().log("A natural disaster '"+disaster.getName()+"' caused by '"+disaster.getCause()+"' started happening in city '"+this.getName()+"'");
+        }else{
+            ConsoleLogger.getLogger().log("A disaster is already happening in city '"+this.getName()+"'");
+        }
+    }
+
+    public void finishDisaster() {
+        ConsoleLogger.getLogger().log("The disaster ("+disaster.getName()+") is ended in city '"+this.getName()+"'");
+        this.disaster = null;
+    }
+
+    public void continueDisaster(Disaster disaster) {
+        if(disaster instanceof Consequence && this.disaster != null) {
+            ConsoleLogger.getLogger().log("A natural disaster ("+this.disaster.getName()+") is being followed up with another disaster '"+disaster.getName()+"' in city '"+this.getName()+"'");
+            this.disaster = disaster;
+        }
     }
 
     @Override

@@ -55,10 +55,10 @@ class CommandUtilsTest {
         List<Food> foods = new ArrayList<>();
         List<City> cities = Collections.singletonList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), foods));
 
-        assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "people -c WoB City", false));
-        assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "person -c WoB City -n Person Name", true));
-        assertNull(CommandUtils.parseCityName(cities, "people -c Fake Name", false));
-        assertNull(CommandUtils.parseCityName(cities, "person -c Fake Name -n Person Name", true));
+        assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "people -c WoB City", "people", false));
+        assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "person -c WoB City -n Person Name", "person", true));
+        assertNull(CommandUtils.parseCityName(cities, "people -c Fake Name", "people", false));
+        assertNull(CommandUtils.parseCityName(cities, "person -c Fake Name -n Person Name", "person",true));
     }
 
     @Test
@@ -67,7 +67,7 @@ class CommandUtilsTest {
         List<Food> foods = new ArrayList<>();
         List<City> cities = Collections.singletonList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), foods));
         Person person = cities.get(0).getPeople().get(0);
-        City city = CommandUtils.parseCityName(cities, "people -c WoB City", false);
+        City city = CommandUtils.parseCityName(cities, "people -c WoB City", "people",false);
 
         assertNotNull(city);
 
