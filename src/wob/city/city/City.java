@@ -91,6 +91,7 @@ public class City {
     public void startDisaster(Disaster disaster) {
         if(this.disaster == null && !(disaster instanceof Consequence)) {
             this.disaster = disaster;
+            this.disaster.start();
             ConsoleLogger.getLogger().log("A natural disaster '"+disaster.getName()+"' caused by '"+disaster.getCause()+"' started happening in city '"+this.getName()+"'");
         }else{
             ConsoleLogger.getLogger().log("A disaster is already happening in city '"+this.getName()+"'");
@@ -98,14 +99,18 @@ public class City {
     }
 
     public void finishDisaster() {
-        ConsoleLogger.getLogger().log("The disaster ("+disaster.getName()+") is ended in city '"+this.getName()+"'");
+        ConsoleLogger.getLogger().log("The disaster ("+disaster.getName()+") is ended in city '"+this.getName()+"' with "+this.disaster.getDied().size()+" deaths");
+        this.disaster.cancel();
         this.disaster = null;
     }
 
     public void continueDisaster(Disaster disaster) {
         if(disaster instanceof Consequence && this.disaster != null) {
-            ConsoleLogger.getLogger().log("A natural disaster ("+this.disaster.getName()+") is being followed up with another disaster '"+disaster.getName()+"' in city '"+this.getName()+"'");
+            this.disaster.cancel();
+            ConsoleLogger.getLogger().log("A natural disaster ("+this.disaster.getName()+" with "+this.disaster.getDied().size()+" deaths) is being followed up with another disaster '"+disaster.getName()+"' in city '"+this.getName()+"'");
             this.disaster = disaster;
+            this.disaster.setLocation(this);
+            this.disaster.start();
         }
     }
 

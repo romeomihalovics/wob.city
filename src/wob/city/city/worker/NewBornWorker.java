@@ -5,6 +5,8 @@ import wob.city.console.logger.ActivityLogger;
 import wob.city.city.City;
 import wob.city.controller.services.PeopleGenerator;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.TimerTask;
 
 public class NewBornWorker extends TimerTask {
@@ -21,7 +23,12 @@ public class NewBornWorker extends TimerTask {
         Person person = peopleGenerator.generateNewBorn();
         person.setLocation(city);
         person.setWorkers();
-        city.getPeople().add(person);
+
+        List<Person> people = Collections.synchronizedList(city.getPeople());
+        synchronized (people) {
+            people.add(person);
+        }
+
         city.getNewBornNews().addData(person);
 
         ActivityLogger.getLogger().log("\nPerson: " + person.getFullName() +

@@ -10,6 +10,8 @@ import wob.city.person.worker.AgingWorker;
 import wob.city.person.worker.DigestionWorker;
 import wob.city.person.worker.EatingWorker;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Timer;
 
 public abstract class Person {
@@ -210,7 +212,12 @@ public abstract class Person {
         this.eatingWorker.cancel();
         this.agingWorker.cancel();
         this.timer.cancel();
-        this.location.getPeople().remove(this);
+
+        List<Person> people = Collections.synchronizedList(this.location.getPeople());
+        synchronized (people) {
+            people.remove(this);
+        }
+
         this.location.addDied(this);
         this.location.getDeathNews().addData(this);
 

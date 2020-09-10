@@ -3,6 +3,9 @@ package wob.city.person.object;
 import wob.city.person.abstraction.Person;
 import wob.city.util.Calculations;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Boy extends Man {
     public Boy() {
         super(20, 60, Calculations.getRandomIntBetween(20, 60), Calculations.getRandomIntBetween(1, 18));
@@ -23,8 +26,12 @@ public class Boy extends Man {
         if (this.getAge() >= 18) {
             Person newAdult = new Man(this);
 
-            this.getLocation().getPeople().remove(this);
-            this.getLocation().getPeople().add(newAdult);
+            List<Person> people = Collections.synchronizedList(this.getLocation().getPeople());
+
+            synchronized (people) {
+                people.remove(this);
+                people.add(newAdult);
+            }
 
             if (Calculations.getRandomIntBetween(0, 100) <= 10) {
                 newAdult.die();
