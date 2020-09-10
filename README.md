@@ -16,4 +16,6 @@ Each city has 3 news papers, Death News, New Born News, Consumption News. Every 
 
 In the city, you will find foods. Foods are segregated to 4 categories, meat, dairy, grain, vegetables. Every food has details about itself, which are [by default smth/100g], protein, carbohydrate, fat. You can calculate the calories in a specific food with these details [by default /100g, but you could set it to what ever amount you like], or list all of them.
 
+You can start natural disasters like volcanic eruptions, tornado, flooding in the cities, and some of them will kill more people, some of them will even have a continuation, like an aftershock for an earthquake that will kill even more people.
+
 ... more stuff to come soon
