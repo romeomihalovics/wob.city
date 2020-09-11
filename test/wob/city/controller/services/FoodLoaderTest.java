@@ -1,4 +1,4 @@
-package wob.city.services;
+package wob.city.controller.services;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
