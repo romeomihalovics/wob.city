@@ -1,4 +1,4 @@
-package wob.city.worker;
+package wob.city.person.worker;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

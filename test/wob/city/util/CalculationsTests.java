@@ -56,6 +56,15 @@ class CalculationsTests {
     }
 
     @Test
+    @DisplayName("Calculate how much energy is available in x gramm food")
+    void getEnergyByAmountShouldReturn() {
+        int energyInAHundredGrammFood = 234;
+        int desiredAmount = 512;
+
+        assertEquals(1198.08, Calculations.getEnergyByAmount(desiredAmount, energyInAHundredGrammFood));
+    }
+
+    @Test
     @DisplayName("Rounding double '12.005' to 2 decimal places should return '12.01'")
     void roundShouldReturn() {
         assertEquals(12.01, Calculations.round(12.005, 2));

@@ -16,9 +16,13 @@ public class Calculations {
 
     public static int getPeopleCountByType(List<Person> people, String type) {
         int count = 0;
-        for(Person person : Collections.synchronizedList(people)) {
-            if(person.getType().equals(type)) {
-                count++;
+        List<Person> syncPeople = Collections.synchronizedList(people);
+
+        synchronized (syncPeople){
+            for(Person person : syncPeople) {
+                if(person.getType().equals(type)) {
+                    count++;
+                }
             }
         }
         return count;
@@ -39,7 +43,7 @@ public class Calculations {
     }
 
     public static Double getEnergyByAmount(int amount, int energy) {
-        return Calculations.round(((double) amount / energy) * 100, 2);
+        return Calculations.round(((double) amount / 100) * energy, 2);
     }
 
     public static Double round(Double number, Integer decimalPlaces){

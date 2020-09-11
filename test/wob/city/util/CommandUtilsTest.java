@@ -2,6 +2,8 @@ package wob.city.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import wob.city.disaster.abstraction.Disaster;
+import wob.city.disaster.object.Volcano;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
 import wob.city.city.City;
@@ -57,8 +59,16 @@ class CommandUtilsTest {
 
         assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "people -c WoB City", "people", false));
         assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "person -c WoB City -n Person Name", "person", true));
+        assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "disaster -c WoB City -n volcano", "disaster", true));
+
         assertNull(CommandUtils.parseCityName(cities, "people -c Fake Name", "people", false));
         assertNull(CommandUtils.parseCityName(cities, "person -c Fake Name -n Person Name", "person",true));
+        assertNull(CommandUtils.parseCityName(cities, "disaster -c Fake Name -n volcano", "disaster", true));
+
+        assertNull(CommandUtils.parseCityName(cities, "disaster -c WoB City -n volcano", "fakecommand", true));
+        assertNull(CommandUtils.parseCityName(cities, "person -c WoB City -n Person Name", "fakecommand", true));
+        assertNull(CommandUtils.parseCityName(cities, "people -c WoB City", "fakecommand", false));
+
     }
 
     @Test
@@ -72,6 +82,16 @@ class CommandUtilsTest {
         assertNotNull(city);
 
         assertEquals(person, CommandUtils.getPerson(city, "person -c WoB City -n " + person.getFullName()));
+    }
+
+    @Test
+    @DisplayName("Generating a disaster from console should return a valid disaster object")
+    void getDisasterShouldReturn() {
+        Disaster volcanic = CommandUtils.getDisaster("disaster -c WoB City -n volcano");
+        assertTrue(volcanic instanceof Volcano);
+        assertEquals("God", volcanic.getCause());
+        assertEquals("Volcanic Eruption", volcanic.getName());
+        assertEquals("volcano", volcanic.getId());
     }
 
     @Test
