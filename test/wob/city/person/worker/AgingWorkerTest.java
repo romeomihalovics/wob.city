@@ -8,7 +8,6 @@ import wob.city.city.City;
 import wob.city.person.object.Girl;
 import wob.city.food.object.Meat;
 import wob.city.person.object.Woman;
-import wob.city.person.worker.AgingWorker;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -37,8 +37,8 @@ public class ReportWorker extends TimerTask {
     private void uploadReport(File tempReport) {
         FTPClient ftpClient = new FTPClient();
         try {
-            ftpClient.connect(FtpConfig.ftpURL);
-            ftpClient.login(FtpConfig.ftpUser, FtpConfig.ftpPassword);
+            ftpClient.connect(FtpConfig.URL);
+            ftpClient.login(FtpConfig.USER, FtpConfig.PASSWORD);
             ftpClient.enterLocalPassiveMode();
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 

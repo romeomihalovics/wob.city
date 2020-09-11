@@ -9,6 +9,7 @@ import java.util.List;
 public class NewBornNews extends NewsPaper {
     private final List<Person> newBornData;
 
+    @SuppressWarnings("unchecked")
     public NewBornNews(){
         super("NewBornNews", new ArrayList<Person>(), true);
         this.newBornData = (List<Person>) this.getData();

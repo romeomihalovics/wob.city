@@ -4,6 +4,7 @@ import wob.city.newspaper.dto.ConsumptionDTO;
 import wob.city.food.abstraction.Food;
 import wob.city.console.logger.ActivityLogger;
 import wob.city.city.City;
+import wob.city.person.object.Man;
 import wob.city.util.Calculations;
 import wob.city.util.Names;
 import wob.city.person.worker.AgingWorker;
@@ -99,7 +100,7 @@ public abstract class Person {
 
     public void addAge() {
         this.age++;
-        ActivityLogger.getLogger().log("\nPerson: " + this.getFullName() +
+        ActivityLogger.getLogger().log("\n"+this.getType()+": " + this.getFullName() +
                 " became " + this.age + " years old");
     }
 
@@ -221,7 +222,7 @@ public abstract class Person {
         this.location.addDied(this);
         this.location.getDeathNews().addData(this);
 
-        ActivityLogger.getLogger().log("\nPerson: " + this.getFullName() +
+        ActivityLogger.getLogger().log("\n"+this.getType()+": " + this.getFullName() +
                 " died at age " + this.getAge());
     }
 
@@ -247,8 +248,9 @@ public abstract class Person {
     public void doDigestion() {
         this.setEnergy(this.getEnergy() - 350);
 
-        ActivityLogger.getLogger().log("\nPerson: " + this.getFullName() +
-                " burned 350kcal, his/her energy levels changed from " +
+        ActivityLogger.getLogger().log("\n"+this.getType()+": " + this.getFullName() +
+                " burned 350kcal, " + (this instanceof Man ? "his" : "her") +
+                " energy levels changed from " +
                 (this.getEnergy() + 350) + "kcal to " + this.getEnergy() + "kcal");
 
         if(this.getEnergy() <= 0) {
@@ -270,10 +272,11 @@ public abstract class Person {
                 Calculations.getEnergyByAmount(amount, food.getEnergy()));
         this.getLocation().getConsumptionNews().addData(consumptionDTO);
 
-        ActivityLogger.getLogger().log("\nPerson: " + this.getFullName() + " ate " +
+        ActivityLogger.getLogger().log("\n"+this.getType()+": " + this.getFullName() + " ate " +
                 Calculations.getEnergyByAmount(amount, food.getEnergy()) +
                 "g (" + amount + "kcal) of " + food.getName() +
-                " and his/her energy levels changed from " +
+                " and " + (this instanceof Man ? "his" : "her") +
+                " energy levels changed from " +
                 (this.getEnergy() - amount) + "kcal to " + this.getEnergy() + "kcal");
     }
 }

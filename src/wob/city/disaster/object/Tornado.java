@@ -10,7 +10,7 @@ public class Tornado extends Disaster {
 
     @Override
     public void firstWave() {
-        ConsoleLogger.getLogger().log("First Wave of Tornado -> A supercell started to form at the edge of the city");
+        ConsoleLogger.getLogger().log("First Wave of Tornado -> A super cell started to form at the edge of the city");
     }
 
     @Override

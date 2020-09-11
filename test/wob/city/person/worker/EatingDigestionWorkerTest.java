@@ -7,8 +7,6 @@ import wob.city.person.abstraction.Person;
 import wob.city.city.City;
 import wob.city.food.object.Meat;
 import wob.city.person.object.Woman;
-import wob.city.person.worker.DigestionWorker;
-import wob.city.person.worker.EatingWorker;
 
 import java.util.*;
 

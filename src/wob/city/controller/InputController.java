@@ -67,7 +67,7 @@ public class InputController {
                 "\n  Flood -- disaster -c City Name -n flood" +
                 "\n  Submarine volcanic eruption -- disaster -c City Name -n svolcano" +
                 "\n  Earthquake -- disaster -c City Name -n earthquake" +
-                "\n  Submarine earthquake -- disaster -c City Name -n sarthquake");
+                "\n  Submarine earthquake -- disaster -c City Name -n searthquake");
     }
 
     public void startDisaster(List<City> cities, String input) {

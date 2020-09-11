@@ -2,7 +2,6 @@ package wob.city.city.worker;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wob.city.city.worker.NewBornWorker;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
 import wob.city.person.object.Boy;

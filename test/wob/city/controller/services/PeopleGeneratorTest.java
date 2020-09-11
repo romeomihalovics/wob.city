@@ -2,7 +2,6 @@ package wob.city.controller.services;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wob.city.controller.services.PeopleGenerator;
 import wob.city.person.abstraction.Person;
 
 import java.util.Arrays;

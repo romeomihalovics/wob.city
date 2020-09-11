@@ -1,8 +1,8 @@
 package wob.city.newspaper.dto;
 
 public class ConsumptionDTO {
-    private double amount;
-    private String type;
+    private final double amount;
+    private final String type;
 
     public ConsumptionDTO(String type, double amount) {
         this.type = type;

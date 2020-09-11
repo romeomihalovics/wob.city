@@ -2,8 +2,6 @@ package wob.city.newspaper.abstraction;
 
 import wob.city.newspaper.worker.ReportWorker;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Timer;
 
 public abstract class NewsPaper {

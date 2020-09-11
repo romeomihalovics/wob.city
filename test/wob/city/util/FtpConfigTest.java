@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.net.SocketException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,8 +15,8 @@ class FtpConfigTest {
     void ftpClientShouldConnect() {
         FTPClient ftpClient = new FTPClient();
         try {
-            ftpClient.connect(FtpConfig.ftpURL);
-            ftpClient.login(FtpConfig.ftpUser, FtpConfig.ftpPassword);
+            ftpClient.connect(FtpConfig.URL);
+            ftpClient.login(FtpConfig.USER, FtpConfig.PASSWORD);
             ftpClient.enterLocalPassiveMode();
             assertTrue(ftpClient.isConnected());
             assertEquals(230, ftpClient.getReplyCode());

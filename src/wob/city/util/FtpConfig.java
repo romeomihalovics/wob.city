@@ -1,7 +1,7 @@
 package wob.city.util;
 
 public class FtpConfig {
-    public static String ftpURL = "ftp.atw.hu";
-    public static String ftpUser = "xdtesztlol";
-    public static String ftpPassword = "4310gSa";
+    public static final String URL = "ftp.atw.hu";
+    public static final String USER = "xdtesztlol";
+    public static final String PASSWORD = "4310gSa";
 }
