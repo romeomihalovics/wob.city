@@ -77,6 +77,7 @@ public abstract class Person {
         this.eatingWorker = newAdult.getEatingWorker();
         this.agingWorker = newAdult.getAgingWorker();
         this.family = newAdult.getFamily();
+        this.statInFamily = newAdult.getStatInFamily();
     }
 
     public String getFirstName() {

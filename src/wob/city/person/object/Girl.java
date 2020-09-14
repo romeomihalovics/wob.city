@@ -25,7 +25,8 @@ public class Girl extends Woman {
         this.addAge();
         if(this.getAge() >= 18) {
             Person newAdult = new Woman(this);
-
+            family.getPeople().remove(this);
+            family.getPeople().add(newAdult);
             List<Person> people = Collections.synchronizedList(this.getLocation().getPeople());
 
             synchronized (people) {
