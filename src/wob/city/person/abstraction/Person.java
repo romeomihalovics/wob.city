@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Timer;
 
 public abstract class Person {
-    public static final Names names = new Names();
+    public static final Names NAMES = new Names();
+    public static final int ABSOLUTE_MAX_AGE = 122;
 
     protected String firstName;
     protected String lastName;
@@ -40,7 +41,7 @@ public abstract class Person {
     public Person(int normalMinWeight, int normalMaxWeight, String firstName, int weight){
         this.age = Calculations.getRandomIntBetween(18, 122);
         this.height = Calculations.getRandomIntBetween(1, 200);
-        this.lastName = names.getLastName();
+        this.lastName = NAMES.getLastName();
         this.firstName = firstName;
         this.weight = weight;
         this.normalMaxWeight = normalMaxWeight;
@@ -50,7 +51,7 @@ public abstract class Person {
     public Person(int normalMinWeight, int normalMaxWeight, int weight, int age, String firstName) {
         this.age = age;
         this.height = Calculations.getRandomIntBetween(1, 200);
-        this.lastName = names.getLastName();
+        this.lastName = NAMES.getLastName();
         this.firstName = firstName;
         this.weight = weight;
         this.normalMaxWeight = normalMaxWeight;

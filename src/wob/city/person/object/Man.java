@@ -5,11 +5,11 @@ import wob.city.util.Calculations;
 
 public class Man extends Person {
     public Man(){
-        super(65, 120, names.getMaleName(), Calculations.getRandomIntBetween(65, 120));
+        super(65, 120, NAMES.getMaleName(), Calculations.getRandomIntBetween(65, 120));
     }
 
     public Man(int normalMinWeight, int normalMaxWeight, int weight, int age) {
-        super(normalMinWeight, normalMaxWeight, weight, age, names.getMaleName());
+        super(normalMinWeight, normalMaxWeight, weight, age, NAMES.getMaleName());
     }
 
     public Man(Boy newAdult){
@@ -24,7 +24,7 @@ public class Man extends Person {
     @Override
     public void doAging() {
         this.addAge();
-        if(this.getAge() >= 60 && Calculations.getRandomIntBetween(0, 100) <= 25) {
+        if((this.getAge() >= 60 && Calculations.getRandomIntBetween(0, 100) <= 25) || this.getAge() >= Person.ABSOLUTE_MAX_AGE) {
             this.die();
         }
     }

@@ -32,12 +32,12 @@ public class ControlCenter {
 
     public void validateFirstName(Person person) {
         ConsoleLogger.getLogger().log("Has valid first name: " +
-                (person instanceof Woman ? Person.names.isFemaleName(person.getFirstName()) : Person.names.isMaleName(person.getFirstName())));
+                (person instanceof Woman ? Person.NAMES.isFemaleName(person.getFirstName()) : Person.NAMES.isMaleName(person.getFirstName())));
     }
 
     public void validateLastName(Person person) {
         ConsoleLogger.getLogger().log("Has valid last name: " +
-                Person.names.isLastName(person.getLastName()));
+                Person.NAMES.isLastName(person.getLastName()));
     }
 
     public void validateAge(Person person) {

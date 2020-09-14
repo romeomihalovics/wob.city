@@ -1,6 +1,6 @@
 People
 	Family reference
-	max age	
+	max age	done
 
 Cities
 	Families [reference list that groups people] fill on people generating
