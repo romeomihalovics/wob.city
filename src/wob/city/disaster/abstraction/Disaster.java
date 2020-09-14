@@ -4,6 +4,7 @@ import wob.city.city.City;
 import wob.city.disaster.worker.FirstWave;
 import wob.city.disaster.worker.SecondWave;
 import wob.city.disaster.worker.ThirdWave;
+import wob.city.housing.abstraction.Housing;
 import wob.city.person.abstraction.Person;
 import wob.city.util.Calculations;
 
@@ -19,7 +20,9 @@ public abstract class Disaster {
     protected Integer killingRate;
     protected String cause;
     protected City location;
-    protected List<Person> died = new ArrayList<>();
+    protected List<Housing> destroyed = new ArrayList<>();
+    protected int diedFamilies = 0;
+    protected int diedPeople = 0;
     protected Date date;
 
     public Disaster(String id, String name, Integer killingRate, String cause) {
@@ -71,20 +74,31 @@ public abstract class Disaster {
 
     public void killPeople() {
         List<Person> people = Collections.synchronizedList(this.getLocation().getPeople());
+        List<Housing> housings = Collections.synchronizedList(this.getLocation().getHouses());
         List<Person> toKill = new ArrayList<>();
-        synchronized (people) {
-            for (Person person : people) {
-                if (Calculations.getRandomIntBetween(0, 100) <= this.killingRate) {
-                    toKill.add(person);
-                    this.died.add(person);
+        synchronized (housings) {
+            for(Housing housing : housings) {
+                if(Calculations.getRandomIntBetween(0, 100) <= this.killingRate) {
+                    housing.getFamilies().forEach(family -> {
+                        toKill.addAll(family.getPeople());
+                        this.destroyed.add(housing);
+                        this.diedPeople += family.getPeople().size();
+                    });
+                    this.diedFamilies += housing.getFamilies().size();
                 }
             }
+        }
+        synchronized (people) {
             toKill.forEach(Person::die);
         }
     }
 
-    public List<Person> getDied() {
-        return died;
+    public List<Housing> getDestroyed() {
+        return destroyed;
+    }
+
+    public int getDiedPeople() {
+        return  diedPeople;
     }
 
     public abstract void firstWave();
@@ -99,7 +113,9 @@ public abstract class Disaster {
                 "\n  \"name\": \"" + name + "\"," +
                 "\n  \"killingRate\": \"" + killingRate + "%\"," +
                 "\n  \"cause\": \"" + cause + "\"," +
-                "\n  \"died\":" + died.toString() +
+                "\n  \"destroyedBuildings\":" + destroyed.size() + "," +
+                "\n \"diedFamilies\": " + diedFamilies + "," +
+                "\n \"diedPeople\": " + diedPeople + "" +
                 "\n}";
     }
 }

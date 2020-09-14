@@ -123,7 +123,7 @@ public class City {
     }
 
     public void finishDisaster() {
-        ConsoleLogger.getLogger().log("The disaster ("+disaster.getName()+") is ended in city '"+this.getName()+"' with "+this.disaster.getDied().size()+" deaths");
+        ConsoleLogger.getLogger().log("The disaster ("+disaster.getName()+") is ended in city '"+this.getName()+"' with "+this.disaster.getDiedPeople()+" deaths");
         this.disasterNews.addData(disaster);
         this.disasterNews.manualPublish();
         this.disaster.cancel();
@@ -134,7 +134,7 @@ public class City {
         if(disaster instanceof Consequence && this.disaster != null) {
             this.disasterNews.addData(this.disaster);
             this.disaster.cancel();
-            ConsoleLogger.getLogger().log("A natural disaster ("+this.disaster.getName()+" with "+this.disaster.getDied().size()+" deaths) is being followed up with another disaster '"+disaster.getName()+"' in city '"+this.getName()+"'");
+            ConsoleLogger.getLogger().log("A natural disaster ("+this.disaster.getName()+" with "+this.disaster.getDiedPeople()+" deaths) is being followed up with another disaster '"+disaster.getName()+"' in city '"+this.getName()+"'");
             this.disaster = disaster;
             this.disaster.setLocation(this);
             this.disaster.start();
