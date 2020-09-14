@@ -2,10 +2,10 @@ package wob.city.housing.object;
 
 import wob.city.housing.abstraction.Housing;
 
-public class FamilyHouse extends Housing {
+public class PanelBlock extends Housing {
 
     @Override
     public int maxFamilies() {
-        return 1;
+        return 20;
     }
 }

@@ -3,7 +3,9 @@ package wob.city.city;
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.disaster.abstraction.Consequence;
 import wob.city.disaster.abstraction.Disaster;
+import wob.city.family.Family;
 import wob.city.food.abstraction.Food;
+import wob.city.housing.abstraction.Housing;
 import wob.city.newspaper.object.ConsumptionNews;
 import wob.city.newspaper.object.DeathNews;
 import wob.city.newspaper.object.DisasterNews;
@@ -12,13 +14,12 @@ import wob.city.person.abstraction.Person;
 import wob.city.util.Calculations;
 import wob.city.city.worker.NewBornWorker;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Timer;
+import java.util.*;
 
 public class City {
     private String name;
+    private final List<Family> families;
+    private final List<Housing> houses;
     private List<Person> people;
     private final List<Food> foods;
     private final List<Person> died = Collections.synchronizedList(new ArrayList<>());
@@ -32,6 +33,8 @@ public class City {
 
     public City(String name, List<Person> people, List<Food> foods) {
         this.name = name;
+        this.families = new ArrayList<>();
+        this.houses = new ArrayList<>();
         this.people = people;
         this.foods = foods;
         this.consumptionNews = new ConsumptionNews();
@@ -46,6 +49,22 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Family> getFamilies() {
+        return families;
+    }
+
+    public void addFamily(Family family) {
+        this.families.add(family);
+    }
+
+    public List<Housing> getHouses() {
+        return houses;
+    }
+
+    public void addHousing(Housing housing) {
+        this.houses.add(housing);
     }
 
     public List<Person> getPeople() {
@@ -118,6 +137,10 @@ public class City {
             this.disaster.setLocation(this);
             this.disaster.start();
         }
+    }
+
+    public void createFamilies() {
+
     }
 
     @Override

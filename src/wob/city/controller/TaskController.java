@@ -24,11 +24,16 @@ public class TaskController {
 
     public void createCity(String name, Integer population, List<City> cities, List<Food> foods) {
         List<Person> people = Collections.synchronizedList(peopleGenerator.generatePeople(population));
+
         City city = new City(name, people, foods);
+
         city.getPeople().forEach(person -> person.setLocation(city));
         city.getPeople().forEach(Person::setWorkers);
+        city.createFamilies();
+
         city.setWorkers();
         cities.add(city);
+
         ConsoleLogger.getLogger().log(city.toString());
     }
 

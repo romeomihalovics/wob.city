@@ -1,6 +1,3 @@
-People
-	Family reference
-	max age	done
 
 Cities
 	Families [reference list that groups people] fill on people generating
@@ -23,18 +20,3 @@ mysql connection
 on people generating, if the person is adult, check if it could be put into a family [randomly decide on each available place], if not, generate a new one, if the person is a kid, it must be added to a family with at least one adult in it otherwise it wont be stored at all
 
 housing should be generated if there is not enough in the city
-
-Housing
-	fields: 
-		family list
-	abs
-		max family
-		get families
-		add family
-
-	FamilyHouse
-	 max family -> 1
-	Brick Apartment House
-	 max family -> 15
-	Panel Family House 
-	 max family -> 20

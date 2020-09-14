@@ -1,5 +1,6 @@
 package wob.city.person.abstraction;
 
+import wob.city.family.Family;
 import wob.city.newspaper.dto.ConsumptionDTO;
 import wob.city.food.abstraction.Food;
 import wob.city.console.logger.ActivityLogger;
@@ -37,6 +38,7 @@ public abstract class Person {
     protected City location;
     protected int energy = 2500;
     protected String lastFood = null;
+    protected Family family = null;
 
     public Person(int normalMinWeight, int normalMaxWeight, String firstName, int weight){
         this.age = Calculations.getRandomIntBetween(18, 122);
@@ -179,6 +181,14 @@ public abstract class Person {
 
     public void setLastFood(String lastFood) {
         this.lastFood = lastFood;
+    }
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
     }
 
     public void setWorkers() {
