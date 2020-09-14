@@ -1,5 +1,6 @@
 package wob.city.city.worker;
 
+import wob.city.family.Family;
 import wob.city.person.abstraction.Person;
 import wob.city.console.logger.ActivityLogger;
 import wob.city.city.City;
@@ -20,18 +21,22 @@ public class NewBornWorker extends TimerTask {
 
     @Override
     public void run() {
-        Person person = peopleGenerator.generateNewBorn();
-        person.setLocation(city);
-        person.setWorkers();
+        Family family;
+        if((family = this.city.getFertileFamily()) != null) {
+            Person person = peopleGenerator.generateNewBorn();
+            person.setLocation(city);
+            person.setWorkers();
+            family.tryToAdd(person);
 
-        List<Person> people = Collections.synchronizedList(city.getPeople());
-        synchronized (people) {
-            people.add(person);
+            List<Person> people = Collections.synchronizedList(city.getPeople());
+            synchronized (people) {
+                people.add(person);
+            }
+
+            city.getNewBornNews().addData(person);
+
+            ActivityLogger.getLogger().log("\nPerson: " + person.getFullName() +
+                    " just born into city: " + city.getName());
         }
-
-        city.getNewBornNews().addData(person);
-
-        ActivityLogger.getLogger().log("\nPerson: " + person.getFullName() +
-                " just born into city: " + city.getName());
     }
 }

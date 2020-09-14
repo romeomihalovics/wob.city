@@ -1,13 +1,8 @@
 
 Cities
-	Families [reference list that groups people] fill on people generating
-		max 2 non sibling adults [man, woman]
-		max 3 child
+	Families
 		housing  
 			[reference to city -> housing list.. if there is not enough apartment create a new housing with a random type [house, apartment house [panel or brick with 15 or 20 apartments]]]
-		new born into family if there is a man and a woman between the age of 20-40 and they're not siblings
-		people reference
-		death list in order of death
 
 disasters
 	destroy houses, kill people in it, report how many house was destroyed, how many family died, with how many people
@@ -15,8 +10,5 @@ disasters
 mysql connection
 
 
-
-
-on people generating, if the person is adult, check if it could be put into a family [randomly decide on each available place], if not, generate a new one, if the person is a kid, it must be added to a family with at least one adult in it otherwise it wont be stored at all
-
-housing should be generated if there is not enough in the city
+family find housing
+	no empty place -> gen new one

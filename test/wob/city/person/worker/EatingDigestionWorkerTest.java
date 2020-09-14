@@ -2,6 +2,7 @@ package wob.city.person.worker;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import wob.city.family.Family;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
 import wob.city.city.City;
@@ -27,6 +28,8 @@ class EatingDigestionWorkerTest {
         City city = new City("Test City", syncedPeople, foods);
         city.getPeople().forEach(p -> p.setLocation(city));
 
+        Family family = new Family(city, person);
+        person.setFamily(family);
 
         DigestionWorker digestionWorker = new DigestionWorker(person);
         digestionWorker.run();

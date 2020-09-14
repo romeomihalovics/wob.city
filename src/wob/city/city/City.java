@@ -20,7 +20,7 @@ public class City {
     private String name;
     private final List<Family> families;
     private final List<Housing> houses;
-    private List<Person> people;
+    private final List<Person> people;
     private final List<Food> foods;
     private final List<Person> died = Collections.synchronizedList(new ArrayList<>());
     private Timer timer;
@@ -71,15 +71,14 @@ public class City {
         return people;
     }
 
-    public void setPeople(List<Person> people) {
-        this.people = people;
-    }
-
     public List<Food> getFoods() {
         return foods;
     }
 
     public void addDied(Person person) {
+        synchronized (people) {
+            people.remove(person);
+        }
         this.died.add(person);
     }
 
@@ -140,22 +139,79 @@ public class City {
     }
 
     public void createFamilies() {
+        List<Person> orphans = new ArrayList<>();
+        people.forEach(person -> {
+            List<Family> shuffledFamilies = new LinkedList<>(families);
+            Collections.shuffle(shuffledFamilies);
+            shuffledFamilies.forEach(family -> family.tryToAdd(person));
+            if(person.getFamily() == null && person.getAge() >= 18) {
+                Family family = new Family(this, person);
+                family.findHousing();
+                families.add(family);
+                person.setFamily(family);
+                person.setStatInFamily("Parent");
+            }else if(person.getFamily() == null && person.getAge() < 18){
+                orphans.add(person);
+            }
+        });
 
+        tryToFindFamily(orphans);
+    }
+
+    private void tryToFindFamily(List<Person> orphans) {
+        List<Person> leftToDie = new ArrayList<>();
+        orphans.forEach(person -> {
+            List<Family> shuffledFamilies = new LinkedList<>(families);
+            Collections.shuffle(shuffledFamilies);
+            shuffledFamilies.forEach(family -> family.tryToAdd(person));
+            if(person.getFamily() == null) {
+                leftToDie.add(person);
+            }
+        });
+        removeOrphans(leftToDie);
+    }
+
+    private void removeOrphans(List<Person> orphans) {
+        synchronized (people) {
+            people.removeAll(orphans);
+        }
+    }
+
+    public Family getFertileFamily(){
+        List<Family> family = new ArrayList<>();
+        List<Family> shuffledFamilies = new LinkedList<>(families);
+        Collections.shuffle(shuffledFamilies);
+        for (Family f : shuffledFamilies) {
+            List<Person> parents = new ArrayList<>();
+            f.getPeople().forEach(person -> {
+                if ((person.getType().equals("Man") || person.getType().equals("Woman")) &&
+                        person.getStatInFamily().equals("Parent") && person.getAge() >= 20 && person.getAge() <= 40) {
+                    parents.add(person);
+                }
+            });
+            if (parents.size() == 2) {
+                family.add(f);
+                break;
+            }
+        }
+        return (family.size() > 0) ? family.get(0) : null;
     }
 
     @Override
     public synchronized String toString() {
         return "\n City: {" +
-                "\n name: '" + name + "'," +
-                "\n population: " + people.size() + "," +
-                "\n died: " + died.size() + "," +
-                "\n people: {" +
+                "\n  name: '" + name + "'," +
+                "\n  population: " + people.size() + "," +
+                "\n  died: " + died.size() + "," +
+                "\n  people: {" +
                 "\n     kids: {" +
                 "\n         girls: " + Calculations.getPeopleCountByType(people, "Girl") +
                 "\n         boys: " + Calculations.getPeopleCountByType(people, "Boy") +
                 "\n     }" +
                 "\n     Woman: " + Calculations.getPeopleCountByType(people, "Woman") +
                 "\n     Man: " + Calculations.getPeopleCountByType(people, "Man") +
+                "\n  }, " +
+                "\n  families: " + families.size() +
                 "\n }";
     }
 }

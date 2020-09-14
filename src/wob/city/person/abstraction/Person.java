@@ -39,6 +39,7 @@ public abstract class Person {
     protected int energy = 2500;
     protected String lastFood = null;
     protected Family family = null;
+    protected String statInFamily = null;
 
     public Person(int normalMinWeight, int normalMaxWeight, String firstName, int weight){
         this.age = Calculations.getRandomIntBetween(18, 122);
@@ -75,6 +76,7 @@ public abstract class Person {
         this.digestionWorker = newAdult.getDigestionWorker();
         this.eatingWorker = newAdult.getEatingWorker();
         this.agingWorker = newAdult.getAgingWorker();
+        this.family = newAdult.getFamily();
     }
 
     public String getFirstName() {
@@ -191,6 +193,14 @@ public abstract class Person {
         this.family = family;
     }
 
+    public String getStatInFamily() {
+        return statInFamily;
+    }
+
+    public void setStatInFamily(String statInFamily) {
+        this.statInFamily = statInFamily;
+    }
+
     public void setWorkers() {
         this.timer = new Timer();
         this.digestionWorker = new DigestionWorker(this);
@@ -225,17 +235,15 @@ public abstract class Person {
         this.agingWorker.cancel();
         this.timer.cancel();
 
-        List<Person> people = Collections.synchronizedList(this.location.getPeople());
-        synchronized (people) {
-            people.remove(this);
-        }
-
+        this.family.addDied(this);
         this.location.addDied(this);
         this.location.getDeathNews().addData(this);
 
         ActivityLogger.getLogger().log("\n"+this.getType()+": " + this.getFullName() +
                 " died at age " + this.getAge());
     }
+
+
 
     @Override
     public String toString() {
