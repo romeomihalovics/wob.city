@@ -13,7 +13,7 @@ public class Family {
     private final List<Person> people;
     private final List<Person> deaths;
     private final String familyName;
-    private Housing house;
+    private Housing house = null;
 
     public Family(City location, Person founder) {
         this.people = new ArrayList<>();
@@ -43,7 +43,16 @@ public class Family {
     }
 
     public void findHousing(){
-
+        for(Housing house : location.getHouses()){
+            if(house.getFamilies().size() < house.maxFamilies()) {
+                house.addFamily(this);
+                setHouse(house);
+                break;
+            }
+        }
+        if(house == null) {
+            setHouse(location.buildHouse());
+        }
     }
 
     public void addDied(Person person) {
@@ -57,5 +66,9 @@ public class Family {
 
     public List<Person> getPeople() {
         return people;
+    }
+
+    private void setHouse(Housing housing) {
+        this.house = housing;
     }
 }

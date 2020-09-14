@@ -6,6 +6,9 @@ import wob.city.disaster.abstraction.Disaster;
 import wob.city.family.Family;
 import wob.city.food.abstraction.Food;
 import wob.city.housing.abstraction.Housing;
+import wob.city.housing.object.BrickBlock;
+import wob.city.housing.object.FamilyHouse;
+import wob.city.housing.object.PanelBlock;
 import wob.city.newspaper.object.ConsumptionNews;
 import wob.city.newspaper.object.DeathNews;
 import wob.city.newspaper.object.DisasterNews;
@@ -195,6 +198,23 @@ public class City {
             }
         }
         return (family.size() > 0) ? family.get(0) : null;
+    }
+
+    public Housing buildHouse() {
+        Housing housing = null;
+        switch (Calculations.getRandomIntBetween(1,3)) {
+            case 1:
+                housing = new BrickBlock();
+                break;
+            case 2:
+                housing = new PanelBlock();
+                break;
+            default:
+                housing = new FamilyHouse();
+                break;
+        }
+        addHousing(housing);
+        return housing;
     }
 
     @Override

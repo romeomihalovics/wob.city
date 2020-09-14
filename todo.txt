@@ -1,9 +1,3 @@
-
-Cities
-	Families
-		housing  
-			[reference to city -> housing list.. if there is not enough apartment create a new housing with a random type [house, apartment house [panel or brick with 15 or 20 apartments]]]
-
 disasters
 	destroy houses, kill people in it, report how many house was destroyed, how many family died, with how many people
 
