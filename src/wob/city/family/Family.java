@@ -23,16 +23,16 @@ public class Family {
         this.people.add(founder);
     }
 
-    public void tryToAdd(Person person) {
+    public void tryToAdd(Person person, boolean mustAdd) {
         if(person.getFamily() == null){
             if(person.getType().equals("Man") || person.getType().equals("Woman")) {
-                if(Calculations.getPeopleCountByType(people, person.getType()) == 0 && Calculations.getRandomIntBetween(0,100) <= 50) {
+                if(Calculations.getPeopleCountByType(people, person.getType()) == 0 && (Calculations.getRandomIntBetween(0,100) <= 50 || mustAdd)) {
                     people.add(person);
                     person.setFamily(this);
                     person.setStatInFamily("Parent");
                 }
             }else {
-                if ((Calculations.getPeopleCountByType(people, "Boy") + Calculations.getPeopleCountByType(people, "Girl")) < 3 && Calculations.getRandomIntBetween(0, 100) <= 20) {
+                if ((Calculations.getPeopleCountByType(people, "Boy") + Calculations.getPeopleCountByType(people, "Girl")) < 3 && (Calculations.getRandomIntBetween(0, 100) <= 20 || mustAdd)) {
                     people.add(person);
                     person.setFamily(this);
                     person.setLastName(familyName);

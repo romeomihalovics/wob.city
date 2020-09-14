@@ -1,8 +1,1 @@
-disasters
-	destroy houses, kill people in it, report how many house was destroyed, how many family died, with how many people
-
 mysql connection
-
-
-family find housing
-	no empty place -> gen new one

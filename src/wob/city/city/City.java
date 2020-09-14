@@ -146,7 +146,7 @@ public class City {
         people.forEach(person -> {
             List<Family> shuffledFamilies = new LinkedList<>(families);
             Collections.shuffle(shuffledFamilies);
-            shuffledFamilies.forEach(family -> family.tryToAdd(person));
+            shuffledFamilies.forEach(family -> family.tryToAdd(person, false));
             if(person.getFamily() == null && person.getAge() >= 18) {
                 Family family = new Family(this, person);
                 family.findHousing();
@@ -166,7 +166,7 @@ public class City {
         orphans.forEach(person -> {
             List<Family> shuffledFamilies = new LinkedList<>(families);
             Collections.shuffle(shuffledFamilies);
-            shuffledFamilies.forEach(family -> family.tryToAdd(person));
+            shuffledFamilies.forEach(family -> family.tryToAdd(person, false));
             if(person.getFamily() == null) {
                 leftToDie.add(person);
             }
