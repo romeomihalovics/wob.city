@@ -146,7 +146,7 @@ public class City {
         people.forEach(person -> {
             List<Family> shuffledFamilies = new LinkedList<>(families);
             Collections.shuffle(shuffledFamilies);
-            shuffledFamilies.forEach(family -> family.tryToAdd(person));
+            shuffledFamilies.forEach(family -> family.tryToAdd(person, false));
             if(person.getFamily() == null && person.getAge() >= 18) {
                 Family family = new Family(this, person);
                 family.findHousing();
@@ -166,7 +166,7 @@ public class City {
         orphans.forEach(person -> {
             List<Family> shuffledFamilies = new LinkedList<>(families);
             Collections.shuffle(shuffledFamilies);
-            shuffledFamilies.forEach(family -> family.tryToAdd(person));
+            shuffledFamilies.forEach(family -> family.tryToAdd(person, false));
             if(person.getFamily() == null) {
                 leftToDie.add(person);
             }
@@ -176,6 +176,12 @@ public class City {
 
     private void removeOrphans(List<Person> orphans) {
         synchronized (people) {
+            orphans.forEach(orphan -> {
+                orphan.getAgingWorker().cancel();
+                orphan.getDigestionWorker().cancel();
+                orphan.getEatingWorker().cancel();
+                orphan.getTimer().cancel();
+            });
             people.removeAll(orphans);
         }
     }
@@ -186,13 +192,16 @@ public class City {
         Collections.shuffle(shuffledFamilies);
         for (Family f : shuffledFamilies) {
             List<Person> parents = new ArrayList<>();
+            List<Person> children = new ArrayList<>();
             f.getPeople().forEach(person -> {
                 if ((person.getType().equals("Man") || person.getType().equals("Woman")) &&
                         person.getStatInFamily().equals("Parent") && person.getAge() >= 20 && person.getAge() <= 40) {
                     parents.add(person);
+                }else if(person.getType().equals("Boy") || person.getType().equals("Girl")){
+                    children.add(person);
                 }
             });
-            if (parents.size() == 2) {
+            if (parents.size() == 2 && children.size() < 3) {
                 family.add(f);
                 break;
             }

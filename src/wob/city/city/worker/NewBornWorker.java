@@ -26,7 +26,7 @@ public class NewBornWorker extends TimerTask {
             Person person = peopleGenerator.generateNewBorn();
             person.setLocation(city);
             person.setWorkers();
-            family.tryToAdd(person);
+            family.tryToAdd(person, true);
 
             List<Person> people = Collections.synchronizedList(city.getPeople());
             synchronized (people) {
