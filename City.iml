@@ -25,5 +25,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="commons-net:commons-net:3.3" level="project" />
+    <orderEntry type="library" name="com.zaxxer:HikariCP:3.4.5" level="project" />
   </component>
 </module>
