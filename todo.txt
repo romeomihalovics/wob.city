@@ -1,4 +1,4 @@
-mysql connection
+db structure
 
 log to db
 disasters, persons to db, report to db, news from db to ftp
