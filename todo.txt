@@ -1,4 +1,23 @@
-mysql connection
+db structure
+
+personHistory
+	id (ai nn pk)
+	city text
+	fullname text
+	happening text
+	date date
+
+disasterHistory
+	id (ai nn pk)
+	city text
+	type text
+	destroyedBuildings num
+	diedFamilies num
+	diedPeople num
+	date date
+
+
+
 
 log to db
 disasters, persons to db, report to db, news from db to ftp
