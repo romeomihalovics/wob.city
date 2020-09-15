@@ -1,17 +1,18 @@
 package wob.city.database.dto;
 
-import java.sql.Date;
 
-public class PersonHistory {
+import java.util.Date;
+
+public class PersonHistoryDto {
     private Integer id;
     private String cityName;
     private String fullName;
     private String event;
     private Date date;
 
-    public PersonHistory(){}
+    public PersonHistoryDto(){}
 
-    public PersonHistory(Integer id, String cityName, String fullName, String event, Date date) {
+    public PersonHistoryDto(Integer id, String cityName, String fullName, String event, Date date) {
         this.id = id;
         this.cityName = cityName;
         this.fullName = fullName;

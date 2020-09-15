@@ -1,8 +1,8 @@
 package wob.city.database.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
-public class DisasterHistory {
+public class DisasterHistoryDto {
     private Integer id;
     private String cityName;
     private String type;
@@ -12,9 +12,9 @@ public class DisasterHistory {
     private Integer diedPeople;
     private Date date;
 
-    public DisasterHistory(){}
+    public DisasterHistoryDto(){}
 
-    public DisasterHistory(Integer id, String cityName, String type, String event, Integer destroyedBuildings, Integer diedFamilies, Integer diedPeople, Date date) {
+    public DisasterHistoryDto(Integer id, String cityName, String type, String event, Integer destroyedBuildings, Integer diedFamilies, Integer diedPeople, Date date) {
         this.id = id;
         this.cityName = cityName;
         this.type = type;
