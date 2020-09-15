@@ -28,9 +28,9 @@ public class Calculations {
         return count;
     }
 
+    @SuppressWarnings("unchecked")
     public static List<Person> getRandomNPeople(List<Person> people, int n) {
-        List<Person> result = new LinkedList<>(people);
-        Collections.shuffle(result);
+        List<Person> result = (List<Person>) shuffleList(people);
         return result.subList(0, n);
     }
 
@@ -52,5 +52,11 @@ public class Calculations {
         BigDecimal bigDecimal = BigDecimal.valueOf(number);
         bigDecimal = bigDecimal.setScale(decimalPlaces, RoundingMode.HALF_UP);
         return bigDecimal.doubleValue();
+    }
+
+    public static List<?> shuffleList(List<?> list) {
+        List<?> shuffled = new LinkedList<>(list);
+        Collections.shuffle(shuffled);
+        return shuffled;
     }
 }

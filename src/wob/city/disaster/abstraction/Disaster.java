@@ -115,7 +115,7 @@ public abstract class Disaster {
                 "\n  \"cause\": \"" + cause + "\"," +
                 "\n  \"destroyedBuildings\":" + destroyed.size() + "," +
                 "\n \"diedFamilies\": " + diedFamilies + "," +
-                "\n \"diedPeople\": " + diedPeople + "" +
+                "\n \"diedPeople\": " + diedPeople +
                 "\n}";
     }
 }

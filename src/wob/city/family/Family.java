@@ -43,10 +43,10 @@ public class Family {
     }
 
     public void findHousing(){
-        for(Housing house : location.getHouses()){
-            if(house.getFamilies().size() < house.maxFamilies()) {
-                house.addFamily(this);
-                setHouse(house);
+        for(Housing housing : location.getHouses()){
+            if(housing.getFamilies().size() < housing.maxFamilies()) {
+                housing.addFamily(this);
+                setHouse(housing);
                 break;
             }
         }

@@ -161,11 +161,11 @@ public class City {
         tryToFindFamily(orphans);
     }
 
+    @SuppressWarnings("unchecked")
     private void tryToFindFamily(List<Person> orphans) {
         List<Person> leftToDie = new ArrayList<>();
         orphans.forEach(person -> {
-            List<Family> shuffledFamilies = new LinkedList<>(families);
-            Collections.shuffle(shuffledFamilies);
+            List<Family> shuffledFamilies = (List<Family>) Calculations.shuffleList(families);
             shuffledFamilies.forEach(family -> family.tryToAdd(person, false));
             if(person.getFamily() == null) {
                 leftToDie.add(person);
@@ -186,10 +186,10 @@ public class City {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public Family getFertileFamily(){
         List<Family> family = new ArrayList<>();
-        List<Family> shuffledFamilies = new LinkedList<>(families);
-        Collections.shuffle(shuffledFamilies);
+        List<Family> shuffledFamilies = (List<Family>) Calculations.shuffleList(families);
         for (Family f : shuffledFamilies) {
             List<Person> parents = new ArrayList<>();
             List<Person> children = new ArrayList<>();
@@ -206,11 +206,11 @@ public class City {
                 break;
             }
         }
-        return (family.size() > 0) ? family.get(0) : null;
+        return (!family.isEmpty()) ? family.get(0) : null;
     }
 
     public Housing buildHouse() {
-        Housing housing = null;
+        Housing housing;
         switch (Calculations.getRandomIntBetween(1,3)) {
             case 1:
                 housing = new BrickBlock();
