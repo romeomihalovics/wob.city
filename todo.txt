@@ -1,3 +1,10 @@
 
-log to db
-disasters, persons to db, report to db, news from db to ftp
+
+upload personhistory
+fetch personhistory 
+
+upload disasterhistory
+fetch disasterhistory
+
+upload report to db
+fetch report from db
