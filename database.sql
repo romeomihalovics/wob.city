@@ -30,6 +30,7 @@ CREATE TABLE `disaster_history` (
   `died_families` int NOT NULL,
   `died_people` int NOT NULL,
   `date` datetime NOT NULL,
+  `event` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_disaster_history_city` (`city`(100)),
   KEY `idx_disaster_history_type` (`type`(100))
@@ -82,4 +83,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-15 13:14:01
+-- Dump completed on 2020-09-15 14:01:20

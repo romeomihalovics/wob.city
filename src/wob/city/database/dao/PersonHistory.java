@@ -1,4 +1,4 @@
 package wob.city.database.dao;
 
-public class PersonDao {
+public class PersonHistory {
 }
