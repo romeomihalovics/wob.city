@@ -1,10 +1,8 @@
+test dtogenerators, db upload & fetch
 
+person event logs into db logs as well
 
-upload personhistory
-fetch personhistory 
-
-upload disasterhistory
-fetch disasterhistory
+disaster event logs into db logs as well
 
 upload report to db
 fetch report from db
