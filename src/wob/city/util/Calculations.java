@@ -80,6 +80,8 @@ public class Calculations {
                 case "grain":
                     grain += row.getAmount();
                     break;
+                default:
+                    break;
             }
         }
 
