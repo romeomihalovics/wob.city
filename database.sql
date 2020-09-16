@@ -24,27 +24,15 @@ DROP TABLE IF EXISTS `consumption_news`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `consumption_news` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `location` text NOT NULL,
-  `meat` text NOT NULL,
-  `dairy` text NOT NULL,
-  `vegetable` text NOT NULL,
-  `grain` text NOT NULL,
-  `date` datetime NOT NULL,
-  `reported` tinyint NOT NULL DEFAULT '0',
+  `city` text NOT NULL,
+  `type` text NOT NULL,
+  `amount` double NOT NULL,
+  `reported` tinyint DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `idx_consumption_news_location` (`location`(100)),
+  KEY `idx_consumption_news_location` (`city`(100)),
   KEY `idx_consumption_news_reported` (`reported`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `consumption_news`
---
-
-LOCK TABLES `consumption_news` WRITE;
-/*!40000 ALTER TABLE `consumption_news` DISABLE KEYS */;
-/*!40000 ALTER TABLE `consumption_news` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `death_news`
@@ -60,24 +48,15 @@ CREATE TABLE `death_news` (
   `age` int NOT NULL,
   `weight` int NOT NULL,
   `height` int NOT NULL,
-  `location` text NOT NULL,
+  `city` text NOT NULL,
   `energy` text NOT NULL,
-  `lastfood` text NOT NULL,
+  `lastfood` text,
   `reported` tinyint DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_death_news_reported` (`reported`),
-  KEY `idx_death_news_location` (`location`(100))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `idx_death_news_location` (`city`(100))
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `death_news`
---
-
-LOCK TABLES `death_news` WRITE;
-/*!40000 ALTER TABLE `death_news` DISABLE KEYS */;
-/*!40000 ALTER TABLE `death_news` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `disaster_history`
@@ -104,15 +83,6 @@ CREATE TABLE `disaster_history` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `disaster_history`
---
-
-LOCK TABLES `disaster_history` WRITE;
-/*!40000 ALTER TABLE `disaster_history` DISABLE KEYS */;
-/*!40000 ALTER TABLE `disaster_history` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `new_born_news`
 --
 
@@ -126,24 +96,15 @@ CREATE TABLE `new_born_news` (
   `age` int NOT NULL,
   `weight` int NOT NULL,
   `height` int NOT NULL,
-  `location` text NOT NULL,
+  `city` text NOT NULL,
   `energy` text NOT NULL,
-  `lastfood` text NOT NULL,
+  `lastfood` text,
   `reported` tinyint DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_new_born_news_reported` (`reported`),
-  KEY `idx_new_born_news_location` (`location`(100))
+  KEY `idx_new_born_news_location` (`city`(100))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `new_born_news`
---
-
-LOCK TABLES `new_born_news` WRITE;
-/*!40000 ALTER TABLE `new_born_news` DISABLE KEYS */;
-/*!40000 ALTER TABLE `new_born_news` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `person_history`
@@ -161,17 +122,8 @@ CREATE TABLE `person_history` (
   PRIMARY KEY (`id`),
   KEY `idx_person_history_fullname` (`fullname`(100)),
   KEY `idx_person_history_city` (`city`(100))
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `person_history`
---
-
-LOCK TABLES `person_history` WRITE;
-/*!40000 ALTER TABLE `person_history` DISABLE KEYS */;
-/*!40000 ALTER TABLE `person_history` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -182,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-16  9:02:25
+-- Dump completed on 2020-09-16 11:43:36

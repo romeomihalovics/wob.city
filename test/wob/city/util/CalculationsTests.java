@@ -61,7 +61,7 @@ class CalculationsTests {
         int energyInAHundredGrammFood = 234;
         int desiredAmount = 512;
 
-        assertEquals(1198.08, Calculations.getEnergyByAmount(desiredAmount, energyInAHundredGrammFood));
+        assertEquals(1198.08, Calculations.getAmountByEnergy(desiredAmount, energyInAHundredGrammFood));
     }
 
     @Test

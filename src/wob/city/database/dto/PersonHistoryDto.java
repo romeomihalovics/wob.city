@@ -10,16 +10,6 @@ public class PersonHistoryDto {
     private String event;
     private Date date;
 
-    public PersonHistoryDto(){}
-
-    public PersonHistoryDto(Integer id, String cityName, String fullName, String event, Date date) {
-        this.id = id;
-        this.cityName = cityName;
-        this.fullName = fullName;
-        this.event = event;
-        this.date = date;
-    }
-
     public Integer getId() {
         return id;
     }

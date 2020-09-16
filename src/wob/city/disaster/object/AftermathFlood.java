@@ -3,6 +3,7 @@ package wob.city.disaster.object;
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.disaster.abstraction.Consequence;
 import wob.city.disaster.abstraction.Disaster;
+import wob.city.util.DtoGenerator;
 
 public class AftermathFlood extends Disaster implements Consequence {
 
@@ -12,18 +13,24 @@ public class AftermathFlood extends Disaster implements Consequence {
 
     @Override
     public void firstWave() {
-        ConsoleLogger.getLogger().log("First Wave of Aftermath Flood -> Enormous waves starts to form because of the " + cause);
+        String event = "First Wave of Aftermath Flood -> Enormous waves starts to form because of the " + cause;
+        ConsoleLogger.getLogger().log(event);
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
     }
 
     @Override
     public void secondWave() {
-        ConsoleLogger.getLogger().log("Second Wave of Aftermath Flood -> The waves reached the city and flood it");
+        String event = "Second Wave of Aftermath Flood -> The waves reached the city and flood it";
+        ConsoleLogger.getLogger().log(event);
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
     }
 
     @Override
     public void thirdWave() {
-        ConsoleLogger.getLogger().log("Third Wave of Aftermath Flood -> People started to die");
+        String event = "Third Wave of Aftermath Flood -> People started to die";
+        ConsoleLogger.getLogger().log(event);
         this.killPeople();
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
         this.getLocation().finishDisaster();
     }
 }

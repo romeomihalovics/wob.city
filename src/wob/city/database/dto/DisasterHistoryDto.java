@@ -12,19 +12,6 @@ public class DisasterHistoryDto {
     private Integer diedPeople;
     private Date date;
 
-    public DisasterHistoryDto(){}
-
-    public DisasterHistoryDto(Integer id, String cityName, String type, String event, Integer destroyedBuildings, Integer diedFamilies, Integer diedPeople, Date date) {
-        this.id = id;
-        this.cityName = cityName;
-        this.type = type;
-        this.event = event;
-        this.destroyedBuildings = destroyedBuildings;
-        this.diedFamilies = diedFamilies;
-        this.diedPeople = diedPeople;
-        this.date = date;
-    }
-
     public Integer getId() {
         return id;
     }

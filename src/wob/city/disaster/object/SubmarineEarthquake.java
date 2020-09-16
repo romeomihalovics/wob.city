@@ -2,6 +2,7 @@ package wob.city.disaster.object;
 
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.disaster.abstraction.Disaster;
+import wob.city.util.DtoGenerator;
 
 public class SubmarineEarthquake extends Disaster {
     public SubmarineEarthquake(String cause) {
@@ -10,12 +11,16 @@ public class SubmarineEarthquake extends Disaster {
 
     @Override
     public void firstWave() {
-        ConsoleLogger.getLogger().log("First Wave of Submarine Earthquake -> Plate tectonic activity starts to begin under the sea the earth starts to shake");
+        String event = "First Wave of Submarine Earthquake -> Plate tectonic activity starts to begin under the sea the earth starts to shake";
+        ConsoleLogger.getLogger().log(event);
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
     }
 
     @Override
     public void secondWave() {
-        ConsoleLogger.getLogger().log("Second Wave of Submarine Earthquake -> The plates move 3 meter apart");
+        String event = "Second Wave of Submarine Earthquake -> The plates move 3 meter apart";
+        ConsoleLogger.getLogger().log(event);
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
     }
 
     @Override

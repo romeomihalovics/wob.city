@@ -42,7 +42,7 @@ public class Calculations {
         return (fromFood.getProtein() * 4) + (fromFood.getCarbohydrate() * 4) + (fromFood.getFat() * 9);
     }
 
-    public static Double getEnergyByAmount(int amount, int energy) {
+    public static Double getAmountByEnergy(int amount, int energy) {
         return Calculations.round(((double) amount / 100) * energy, 2);
     }
 

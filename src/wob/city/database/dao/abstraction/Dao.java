@@ -20,6 +20,10 @@ public interface Dao {
                         preparedStatement.setString(i, (String) param.getValue());
                     }else if(param.getType().equals("Integer")){
                         preparedStatement.setInt(i, (Integer) param.getValue());
+                    }else if(param.getType().equals("Boolean")){
+                        preparedStatement.setBoolean(i, (Boolean) param.getValue());
+                    }else if(param.getType().equals("Double")){
+                        preparedStatement.setDouble(i, (Double) param.getValue());
                     }
                     i++;
                 }

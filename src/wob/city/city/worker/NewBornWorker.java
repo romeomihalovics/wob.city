@@ -1,10 +1,13 @@
 package wob.city.city.worker;
 
+import wob.city.database.dao.NewsPaperDao;
+import wob.city.database.dao.PersonHistoryDao;
 import wob.city.family.Family;
 import wob.city.person.abstraction.Person;
 import wob.city.console.logger.ActivityLogger;
 import wob.city.city.City;
 import wob.city.controller.services.PeopleGenerator;
+import wob.city.util.DtoGenerator;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +16,8 @@ import java.util.TimerTask;
 public class NewBornWorker extends TimerTask {
     private final City city;
     private final PeopleGenerator peopleGenerator;
+    private final NewsPaperDao newsPaperDao = new NewsPaperDao();
+    private final PersonHistoryDao personHistoryDao = new PersonHistoryDao();
 
     public NewBornWorker(City city) {
         this.city = city;
@@ -35,8 +40,11 @@ public class NewBornWorker extends TimerTask {
 
             city.getNewBornNews().addData(person);
 
-            ActivityLogger.getLogger().log("\nPerson: " + person.getFullName() +
-                    " just born into city: " + city.getName());
+            String event = "\nPerson: " + person.getFullName() +
+                    " just born into city: " + city.getName();
+            ActivityLogger.getLogger().log(event);
+            personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, person));
+            newsPaperDao.uploadPersonNews("new_born", DtoGenerator.setupPersonNewsDto(person));
         }
     }
 }

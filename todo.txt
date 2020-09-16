@@ -1,8 +1,13 @@
 test dtogenerators, db upload & fetch
 
-person event logs into db logs as well
+person event logs into db logs as well ok
 
-disaster event logs into db logs as well
+disaster event logs into db logs as well ok
 
-upload reports to db
-fetch reports from db
+death news into db ok
+
+newborn news into db ok
+
+consumption news into db
+
+fetch reports from db -> upload to ftp & set fetched to reported true

@@ -16,6 +16,16 @@ public class DisasterHistoryDao implements Dao {
         return DtoGenerator.generateDisasterHistoryDto(runQuery(query, params));
     }
 
+    public List<DisasterHistoryDto> fetchDisasterHistory(String city, Boolean reported) {
+        String query = "SELECT * FROM `disaster_history` WHERE `city` = ? AND `reported` = ? ORDER BY `date`";
+
+        List<ParameterDto> params = new ArrayList<>();
+        params.add(new ParameterDto("String", city));
+        params.add(new ParameterDto("Boolean", reported));
+
+        return DtoGenerator.generateDisasterHistoryDto(runQuery(query, params));
+    }
+
     public List<DisasterHistoryDto> fetchDisasterHistory(String city, String type) {
         String query = "SELECT * FROM `disaster_history` WHERE `city` = ? AND `type` = ? ORDER BY `date`";
 

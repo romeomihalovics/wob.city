@@ -1,6 +1,8 @@
 package wob.city.city;
 
 import wob.city.console.logger.ConsoleLogger;
+import wob.city.database.dao.DisasterHistoryDao;
+import wob.city.database.dto.DisasterHistoryDto;
 import wob.city.disaster.abstraction.Consequence;
 import wob.city.disaster.abstraction.Disaster;
 import wob.city.family.Family;
@@ -16,6 +18,7 @@ import wob.city.newspaper.object.NewBornNews;
 import wob.city.person.abstraction.Person;
 import wob.city.util.Calculations;
 import wob.city.city.worker.NewBornWorker;
+import wob.city.util.DtoGenerator;
 
 import java.util.*;
 
@@ -33,6 +36,7 @@ public class City {
     private final NewBornNews newBornNews;
     private Disaster disaster = null;
     private final DisasterNews disasterNews;
+    private final DisasterHistoryDao disasterHistoryDao = new DisasterHistoryDao();
 
     public City(String name, List<Person> people, List<Food> foods) {
         this.name = name;
@@ -116,14 +120,20 @@ public class City {
         if(this.disaster == null && !(disaster instanceof Consequence)) {
             this.disaster = disaster;
             this.disaster.start();
-            ConsoleLogger.getLogger().log("A natural disaster '"+disaster.getName()+"' caused by '"+disaster.getCause()+"' started happening in city '"+this.getName()+"'");
+
+            String event = "A natural disaster '"+disaster.getName()+"' caused by '"+disaster.getCause()+"' started happening in city '"+this.getName()+"'";
+            ConsoleLogger.getLogger().log(event);
+
+            disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this));
         }else{
             ConsoleLogger.getLogger().log("A disaster is already happening in city '"+this.getName()+"'");
         }
     }
 
     public void finishDisaster() {
-        ConsoleLogger.getLogger().log("The disaster ("+disaster.getName()+") is ended in city '"+this.getName()+"' with "+this.disaster.getDiedPeople()+" deaths");
+        String event = "The disaster ("+disaster.getName()+") is ended in city '"+this.getName()+"' with "+this.disaster.getDiedPeople()+" deaths";
+        ConsoleLogger.getLogger().log(event);
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this));
         this.disasterNews.addData(disaster);
         this.disasterNews.manualPublish();
         this.disaster.cancel();
@@ -134,7 +144,11 @@ public class City {
         if(disaster instanceof Consequence && this.disaster != null) {
             this.disasterNews.addData(this.disaster);
             this.disaster.cancel();
-            ConsoleLogger.getLogger().log("A natural disaster ("+this.disaster.getName()+" with "+this.disaster.getDiedPeople()+" deaths) is being followed up with another disaster '"+disaster.getName()+"' in city '"+this.getName()+"'");
+            String event = "A natural disaster ("+this.disaster.getName()+" with "+this.disaster.getDiedPeople()+" deaths) is being followed up with another disaster '"+disaster.getName()+"' in city '"+this.getName()+"'";
+            ConsoleLogger.getLogger().log(event);
+
+            disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this));
+
             this.disaster = disaster;
             this.disaster.setLocation(this);
             this.disaster.start();

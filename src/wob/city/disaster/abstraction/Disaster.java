@@ -1,6 +1,7 @@
 package wob.city.disaster.abstraction;
 
 import wob.city.city.City;
+import wob.city.database.dao.DisasterHistoryDao;
 import wob.city.disaster.worker.FirstWave;
 import wob.city.disaster.worker.SecondWave;
 import wob.city.disaster.worker.ThirdWave;
@@ -24,6 +25,7 @@ public abstract class Disaster {
     protected int diedFamilies = 0;
     protected int diedPeople = 0;
     protected Date date;
+    protected DisasterHistoryDao disasterHistoryDao = new DisasterHistoryDao();
 
     public Disaster(String id, String name, Integer killingRate, String cause) {
         this.id = id;
@@ -99,6 +101,10 @@ public abstract class Disaster {
 
     public int getDiedPeople() {
         return  diedPeople;
+    }
+
+    public int getDiedFamilies() {
+        return diedFamilies;
     }
 
     public abstract void firstWave();

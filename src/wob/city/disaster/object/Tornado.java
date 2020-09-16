@@ -2,6 +2,7 @@ package wob.city.disaster.object;
 
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.disaster.abstraction.Disaster;
+import wob.city.util.DtoGenerator;
 
 public class Tornado extends Disaster {
     public Tornado(String cause) {
@@ -10,18 +11,24 @@ public class Tornado extends Disaster {
 
     @Override
     public void firstWave() {
-        ConsoleLogger.getLogger().log("First Wave of Tornado -> A super cell started to form at the edge of the city");
+        String event = "First Wave of Tornado -> A super cell started to form at the edge of the city";
+        ConsoleLogger.getLogger().log(event);
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
     }
 
     @Override
     public void secondWave() {
-        ConsoleLogger.getLogger().log("Second Wave of Tornado -> It started to destroy objects in the city");
+        String event = "Second Wave of Tornado -> It started to destroy objects in the city";
+        ConsoleLogger.getLogger().log(event);
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
     }
 
     @Override
     public void thirdWave() {
-        ConsoleLogger.getLogger().log("Third Wave of Tornado -> People started to die");
+        String event = "Third Wave of Tornado -> People started to die";
+        ConsoleLogger.getLogger().log(event);
         this.killPeople();
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
         this.getLocation().finishDisaster();
     }
 }
