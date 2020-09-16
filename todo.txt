@@ -4,5 +4,5 @@ person event logs into db logs as well
 
 disaster event logs into db logs as well
 
-upload report to db
-fetch report from db
+upload reports to db
+fetch reports from db
