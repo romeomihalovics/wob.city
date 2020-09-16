@@ -79,7 +79,7 @@ public class DisasterHistoryDto {
     @Override
     public String toString() {
         return "\n{" +
-                "\n \"id\": " + id +
+                "\n \"id\": " + id + "," +
                 "\n \"cityName\": \"" + cityName + "\"," +
                 "\n \"type\": \"" + type + "\"," +
                 "\n \"event\": \"" + event + "\"," +
