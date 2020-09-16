@@ -40,6 +40,14 @@ public class NewsPaperDao implements Dao {
         runQuery(query, params);
     }
 
+    public void setConsumptionNewsToReported(String city) {
+        String query = "UPDATE `consumption_news` SET `reported` = 1 WHERE `city` = ?";
+
+        List<ParameterDto> params = Collections.singletonList(new ParameterDto("String", city));
+
+        runQuery(query, params);
+    }
+
     public List<PersonNewsDto> fetchPersonNews(String type, String city) {
         String query = (type.equals("death") ? "SELECT * FROM `death_news` WHERE `city` = ?" : "SELECT * FROM `new_born_news` WHERE `city` = ?");
 
@@ -70,6 +78,14 @@ public class NewsPaperDao implements Dao {
         params.add(new ParameterDto("String", deathNews.getCity()));
         params.add(new ParameterDto("String", deathNews.getEnergy()));
         params.add(new ParameterDto("String", deathNews.getLastFood()));
+
+        runQuery(query, params);
+    }
+
+    public void setPersonNewsToReported(String type, String city) {
+        String query = (type.equals("death") ? "UPDATE `death_news` SET `reported` = 1 WHERE `city` = ?" : "UPDATE `new_born_news` SET `reported` = 1 WHERE `city` = ?");
+
+        List<ParameterDto> params = Collections.singletonList(new ParameterDto("String", city));
 
         runQuery(query, params);
     }

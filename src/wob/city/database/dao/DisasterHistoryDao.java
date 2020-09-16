@@ -49,4 +49,12 @@ public class DisasterHistoryDao implements Dao {
 
         runQuery(query, params);
     }
+
+    public void setDisasterHistoryToReported(String city) {
+        String query = "UPDATE `disaster_history` SET `reported` = 1 WHERE `city` = ?";
+
+        List<ParameterDto> params = Collections.singletonList(new ParameterDto("String", city));
+
+        runQuery(query, params);
+    }
 }
