@@ -1,28 +1,24 @@
 package wob.city.newspaper.abstraction;
 
+import wob.city.city.City;
 import wob.city.newspaper.worker.ReportWorker;
 
 import java.util.Timer;
 
 public abstract class NewsPaper {
     protected final String folder;
-    protected final Object data;
     protected final ReportWorker reportWorker;
+    protected final City location;
 
-    public NewsPaper(String folder, Object data, boolean scheduled) {
+    public NewsPaper(City city, String folder, boolean scheduled) {
         this.folder = folder;
-        this.data = data;
-
+        this.location = city;
         this.reportWorker = new ReportWorker(this);
 
         if(scheduled){
             Timer timer = new Timer();
             timer.scheduleAtFixedRate(reportWorker, (60*1000*10), (60*1000*10));
         }
-    }
-
-    public Object getData() {
-        return data;
     }
 
     public String getFolder() {
@@ -33,8 +29,9 @@ public abstract class NewsPaper {
         reportWorker.run();
     }
 
-    public abstract void addData(Object data);
+    public abstract void fetchData();
     public abstract void flushData();
+    public abstract void setToReported();
     @Override
     public abstract String toString();
 }

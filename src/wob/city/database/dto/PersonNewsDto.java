@@ -91,4 +91,19 @@ public class PersonNewsDto {
     public void setReported(Boolean reported) {
         this.reported = reported;
     }
+
+    @Override
+    public String toString() {
+        return "\n{" +
+                "\n \"id\": " + id + "," +
+                "\n \"type\": \"" + type + "\"," +
+                "\n \"fullname\": \"" + fullname + "\"," +
+                "\n \"age\": " + age + "," +
+                "\n \"weight\": " + weight + "," +
+                "\n \"height\": " + height + "," +
+                "\n \"city\": \"" + city + "\"," +
+                "\n \"energy\": \"" + energy + "\"," +
+                "\n \"lastFood\": \"" + lastFood + "\"," +
+                "\n}";
+    }
 }

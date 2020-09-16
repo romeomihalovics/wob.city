@@ -18,7 +18,11 @@ public class ReportWorker extends TimerTask {
     @Override
     public void run() {
         try {
-            generateReport();
+            try {
+                newsPaper.fetchData();
+            } finally {
+                generateReport();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,6 +50,7 @@ public class ReportWorker extends TimerTask {
                 ftpClient.makeDirectory(newsPaper.getFolder());
                 ftpClient.changeWorkingDirectory(newsPaper.getFolder());
                 ftpClient.storeFile(tempReport.getName(), inputStream);
+                newsPaper.setToReported();
             }finally {
                 newsPaper.flushData();
             }

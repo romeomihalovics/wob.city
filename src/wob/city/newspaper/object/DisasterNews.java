@@ -1,29 +1,39 @@
 package wob.city.newspaper.object;
 
-import wob.city.disaster.abstraction.Disaster;
+import wob.city.city.City;
+import wob.city.database.dao.DisasterHistoryDao;
+import wob.city.database.dto.DisasterHistoryDto;
 import wob.city.newspaper.abstraction.NewsPaper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DisasterNews extends NewsPaper {
-    private final List<Disaster> disasterData;
+    private List<DisasterHistoryDto> disasterData;
+    private final DisasterHistoryDao disasterHistoryDao = new DisasterHistoryDao();
 
-    @SuppressWarnings("unchecked")
-    public DisasterNews() {
-        super("DisasterNews", new ArrayList<Disaster>(), false);
-        this.disasterData = (List<Disaster>) this.getData();
+    public DisasterNews(City city) {
+        super(city, "DisasterNews", false);
+        this.disasterData = new ArrayList<>();
     }
 
     @Override
-    public void addData(Object data) {
-        disasterData.add((Disaster) data);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
     public void flushData() {
-        disasterData.removeAll((List<Disaster>) this.getData());
+        disasterData.removeAll(getData());
+    }
+
+    @Override
+    public void fetchData() {
+        disasterData = disasterHistoryDao.fetchDisasterHistory(this.location.getName(), false);
+    }
+
+    @Override
+    public void setToReported() {
+        disasterHistoryDao.setDisasterHistoryToReported(this.location.getName());
+    }
+
+    private List<DisasterHistoryDto> getData() {
+        return disasterData;
     }
 
     @Override

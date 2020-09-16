@@ -1,5 +1,6 @@
 package wob.city.util;
 
+import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
 
@@ -58,5 +59,35 @@ public class Calculations {
         List<?> shuffled = new LinkedList<>(list);
         Collections.shuffle(shuffled);
         return shuffled;
+    }
+
+    public static String sumConsumptionToString(List<ConsumptionNewsDto> fetchResult) {
+        Double meat = 0.0;
+        Double dairy = 0.0;
+        Double vegetable = 0.0;
+        Double grain = 0.0;
+        for (ConsumptionNewsDto row : fetchResult) {
+            switch (row.getType().toLowerCase()) {
+                case "meat":
+                    meat += row.getAmount();
+                    break;
+                case "dairy":
+                    dairy += row.getAmount();
+                    break;
+                case "vegetable":
+                    vegetable += row.getAmount();
+                    break;
+                case "grain":
+                    grain += row.getAmount();
+                    break;
+            }
+        }
+
+        return "{" +
+                "\n  \"meat\": \"" + round(meat / 1000, 2) + "kg\"," +
+                "\n  \"dairy\": \"" + round(dairy / 1000, 2)  + "kg\"," +
+                "\n  \"vegetable\": \"" + round(vegetable / 1000, 2) + "kg\"," +
+                "\n  \"grain\": \"" + round(grain / 1000, 2) + "kg\"" +
+                "\n}";
     }
 }

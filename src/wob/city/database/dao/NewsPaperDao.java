@@ -2,8 +2,8 @@ package wob.city.database.dao;
 
 import wob.city.database.dao.abstraction.Dao;
 import wob.city.database.dto.ConsumptionNewsDto;
-import wob.city.database.dto.PersonNewsDto;
 import wob.city.database.dto.ParameterDto;
+import wob.city.database.dto.PersonNewsDto;
 import wob.city.util.DtoGenerator;
 
 import java.util.ArrayList;

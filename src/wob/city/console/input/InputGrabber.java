@@ -1,7 +1,7 @@
 package wob.city.console.input;
 
-import wob.city.food.abstraction.Food;
 import wob.city.city.City;
+import wob.city.food.abstraction.Food;
 
 import java.util.List;
 import java.util.Scanner;

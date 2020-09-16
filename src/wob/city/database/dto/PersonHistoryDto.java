@@ -49,4 +49,15 @@ public class PersonHistoryDto {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "\n{" +
+                "\n \"id\": " + id + "," +
+                "\n \"cityName\": \"" + cityName + "\"," +
+                "\n \"fullName\": \"" + fullName + "\"," +
+                "\n \"event\": \"" + event + "\"," +
+                "\n \"date\": \"" + date +
+                "\n}";
+    }
 }

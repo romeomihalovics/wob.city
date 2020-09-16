@@ -75,4 +75,18 @@ public class DisasterHistoryDto {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "\n{" +
+                "\n \"id\": " + id +
+                "\n \"cityName\": \"" + cityName + "\"," +
+                "\n \"type\": \"" + type + "\"," +
+                "\n \"event\": \"" + event + "\"," +
+                "\n \"destroyedBuildings\": " + destroyedBuildings + "," +
+                "\n \"diedFamilies\": " + diedFamilies + "," +
+                "\n \"diedPeople\": " + diedPeople + "," +
+                "\n \"date\": \"" + date + "\"," +
+                "\n}";
+    }
 }

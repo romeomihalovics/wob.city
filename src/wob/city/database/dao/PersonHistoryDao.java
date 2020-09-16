@@ -5,14 +5,12 @@ import wob.city.database.dto.ParameterDto;
 import wob.city.database.dto.PersonHistoryDto;
 import wob.city.util.DtoGenerator;
 
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PersonHistoryDao implements Dao {
     public List<PersonHistoryDto> fetchPersonHistory(String city) {
-        String query = "SELECT * FROM `person_history` WHERE `city` = ? ORDER BY `date`";
+        String query = "SELECT * FROM `person_history` WHERE `city` = ?";
 
         List<ParameterDto> params = new ArrayList<>();
         params.add(new ParameterDto("String", city));
@@ -21,7 +19,7 @@ public class PersonHistoryDao implements Dao {
     }
 
     public List<PersonHistoryDto> fetchPersonHistory(String city, String fullName) {
-        String query = "SELECT * FROM `person_history` WHERE `city` = ? AND `fullname` = ? ORDER BY `date`";
+        String query = "SELECT * FROM `person_history` WHERE `city` = ? AND `fullname` = ?";
 
         List<ParameterDto> params = new ArrayList<>();
         params.add(new ParameterDto("String", city));

@@ -1,11 +1,1 @@
 test dtogenerators, db upload & fetch
-
-
-fetch reports from db -> upload to ftp & set fetched to reported true
-
-newspaper 
-	remove add method etc..
-	create fetch method, return list of fetched dto-s
-
-
-	dto create tostring method

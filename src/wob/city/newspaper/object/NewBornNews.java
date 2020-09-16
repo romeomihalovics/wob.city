@@ -1,29 +1,39 @@
 package wob.city.newspaper.object;
 
+import wob.city.city.City;
+import wob.city.database.dao.NewsPaperDao;
+import wob.city.database.dto.PersonNewsDto;
 import wob.city.newspaper.abstraction.NewsPaper;
-import wob.city.person.abstraction.Person;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewBornNews extends NewsPaper {
-    private final List<Person> newBornData;
+    private List<PersonNewsDto> newBornData;
+    private final NewsPaperDao newsPaperDao = new NewsPaperDao();
 
-    @SuppressWarnings("unchecked")
-    public NewBornNews(){
-        super("NewBornNews", new ArrayList<Person>(), true);
-        this.newBornData = (List<Person>) this.getData();
+    public NewBornNews(City city){
+        super(city, "NewBornNews", true);
+        this.newBornData = new ArrayList<>();
     }
 
     @Override
-    public void addData(Object data) {
-        newBornData.add((Person) data);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
     public void flushData() {
-        newBornData.removeAll((List<Person>) this.getData());
+        newBornData.removeAll(getData());
+    }
+
+    @Override
+    public void fetchData() {
+        newBornData = newsPaperDao.fetchPersonNews("new_born", this.location.getName(), false);
+    }
+
+    @Override
+    public void setToReported() {
+        newsPaperDao.setPersonNewsToReported("new_born", this.location.getName());
+    }
+
+    private List<PersonNewsDto> getData() {
+        return newBornData;
     }
 
     @Override

@@ -2,9 +2,9 @@ package wob.city.util;
 
 import wob.city.city.City;
 import wob.city.database.dto.ConsumptionNewsDto;
-import wob.city.database.dto.PersonNewsDto;
 import wob.city.database.dto.DisasterHistoryDto;
 import wob.city.database.dto.PersonHistoryDto;
+import wob.city.database.dto.PersonNewsDto;
 import wob.city.person.abstraction.Person;
 
 import java.util.ArrayList;
@@ -19,11 +19,13 @@ public class DtoGenerator {
             DisasterHistoryDto tempDto = new DisasterHistoryDto();
             tempDto.setId((Integer) row.get(0));
             tempDto.setCityName((String) row.get(1));
-            tempDto.setDestroyedBuildings((Integer) row.get(2));
-            tempDto.setDiedFamilies((Integer) row.get(3));
-            tempDto.setDiedPeople((Integer) row.get(4));
-            tempDto.setDate((Date) row.get(5));
-            tempDto.setEvent((String) row.get(6));
+            tempDto.setType((String) row.get(2));
+            tempDto.setDestroyedBuildings((Integer) row.get(3));
+            tempDto.setDiedFamilies((Integer) row.get(4));
+            tempDto.setDiedPeople((Integer) row.get(5));
+            tempDto.setDate((Date) row.get(6));
+            tempDto.setEvent((String) row.get(7));
+            disasterHistory.add(tempDto);
         }
 
         return disasterHistory;
@@ -54,7 +56,7 @@ public class DtoGenerator {
             tempDto.setCity((String) row.get(1));
             tempDto.setType((String) row.get(2));
             tempDto.setAmount((Double) row.get(3));
-            tempDto.setReported((Boolean) row.get(4));
+            tempDto.setReported(((Integer) row.get(4) != 0));
             consumptionNews.add(tempDto);
         }
 
@@ -75,7 +77,7 @@ public class DtoGenerator {
             tempDto.setCity((String) row.get(6));
             tempDto.setEnergy((String) row.get(7));
             tempDto.setLastFood((String) row.get(8));
-            tempDto.setReported((Boolean) row.get(9));
+            tempDto.setReported(((Integer) row.get(9) != 0));
             deathNews.add(tempDto);
         }
 

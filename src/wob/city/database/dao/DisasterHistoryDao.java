@@ -5,11 +5,13 @@ import wob.city.database.dto.DisasterHistoryDto;
 import wob.city.database.dto.ParameterDto;
 import wob.city.util.DtoGenerator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class DisasterHistoryDao implements Dao {
     public List<DisasterHistoryDto> fetchDisasterHistory(String city) {
-        String query = "SELECT * FROM `disaster_history` WHERE `city` = ? ORDER BY `date`";
+        String query = "SELECT * FROM `disaster_history` WHERE `city` = ?";
 
         List<ParameterDto> params = Collections.singletonList(new ParameterDto("String", city));
 
@@ -17,7 +19,7 @@ public class DisasterHistoryDao implements Dao {
     }
 
     public List<DisasterHistoryDto> fetchDisasterHistory(String city, Boolean reported) {
-        String query = "SELECT * FROM `disaster_history` WHERE `city` = ? AND `reported` = ? ORDER BY `date`";
+        String query = "SELECT * FROM `disaster_history` WHERE `city` = ? AND `reported` = ?";
 
         List<ParameterDto> params = new ArrayList<>();
         params.add(new ParameterDto("String", city));
@@ -27,7 +29,7 @@ public class DisasterHistoryDao implements Dao {
     }
 
     public List<DisasterHistoryDto> fetchDisasterHistory(String city, String type) {
-        String query = "SELECT * FROM `disaster_history` WHERE `city` = ? AND `type` = ? ORDER BY `date`";
+        String query = "SELECT * FROM `disaster_history` WHERE `city` = ? AND `type` = ?";
 
         List<ParameterDto> params = new ArrayList<>();
         params.add(new ParameterDto("String", city));

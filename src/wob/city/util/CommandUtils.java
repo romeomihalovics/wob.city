@@ -1,10 +1,10 @@
 package wob.city.util;
 
+import wob.city.city.City;
 import wob.city.disaster.abstraction.Disaster;
 import wob.city.disaster.object.*;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
-import wob.city.city.City;
 
 import java.util.List;
 import java.util.regex.Matcher;

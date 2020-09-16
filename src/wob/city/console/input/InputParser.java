@@ -1,8 +1,8 @@
 package wob.city.console.input;
 
-import wob.city.food.abstraction.Food;
-import wob.city.controller.InputController;
 import wob.city.city.City;
+import wob.city.controller.InputController;
+import wob.city.food.abstraction.Food;
 
 import java.util.List;
 

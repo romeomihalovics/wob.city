@@ -1,51 +1,44 @@
 package wob.city.newspaper.object;
 
+import wob.city.city.City;
+import wob.city.database.dao.NewsPaperDao;
+import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.newspaper.abstraction.NewsPaper;
-import wob.city.newspaper.dto.ConsumptionDTO;
 import wob.city.util.Calculations;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConsumptionNews extends NewsPaper {
-    private final HashMap<String, Double> consumptionData;
+    private List<ConsumptionNewsDto> consumptionData;
+    private final NewsPaperDao newsPaperDao = new NewsPaperDao();
 
-    @SuppressWarnings("unchecked")
-    public ConsumptionNews(){
-        super("ConsumptionNews", new HashMap<String, Double>(), true);
-        this.consumptionData = (HashMap<String, Double>) this.getData();
-        flushData();
-
-    }
-
-    @Override
-    public void addData(Object data) {
-        List<String> acceptedTypes = Arrays.asList("Meat", "Grain", "Vegetable", "Dairy");
-        ConsumptionDTO consumptionDTO = (ConsumptionDTO) data;
-
-        if(acceptedTypes.contains(consumptionDTO.getType())) {
-            consumptionData.put(consumptionDTO.getType(), consumptionData.get(consumptionDTO.getType()) + consumptionDTO.getAmount() );
-        } else {
-            throw new IllegalArgumentException();
-        }
+    public ConsumptionNews(City city){
+        super(city,"ConsumptionNews", true);
+        this.consumptionData = new ArrayList<>();
     }
 
     @Override
     public void flushData() {
-        consumptionData.put("Meat", 0.0);
-        consumptionData.put("Dairy", 0.0);
-        consumptionData.put("Vegetable", 0.0);
-        consumptionData.put("Grain", 0.0);
+        consumptionData.removeAll(getData());
+    }
+
+    @Override
+    public void fetchData() {
+        consumptionData = newsPaperDao.fetchConsumptionNews(this.location.getName(), false);
+    }
+
+    @Override
+    public void setToReported() {
+        newsPaperDao.setConsumptionNewsToReported(this.location.getName());
+    }
+
+    private List<ConsumptionNewsDto> getData() {
+        return consumptionData;
     }
 
     @Override
     public String toString() {
-        return "{" +
-               "\n  \"meat\": \"" + Calculations.round(consumptionData.get("Meat") / 1000, 2) + "kg\"," +
-               "\n  \"dairy\": \"" + Calculations.round(consumptionData.get("Dairy") / 1000, 2)  + "kg\"," +
-               "\n  \"vegetable\": \"" + Calculations.round(consumptionData.get("Vegetable") / 1000, 2) + "kg\"," +
-               "\n  \"grain\": \"" + Calculations.round(consumptionData.get("Grain") / 1000, 2) + "kg\"" +
-               "\n}";
+        return Calculations.sumConsumptionToString(consumptionData);
     }
 }

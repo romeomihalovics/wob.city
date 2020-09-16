@@ -1,12 +1,12 @@
 package wob.city.controller;
 
-import wob.city.food.abstraction.Food;
-import wob.city.person.abstraction.Person;
-import wob.city.console.logger.ConsoleLogger;
 import wob.city.city.City;
+import wob.city.console.logger.ConsoleLogger;
 import wob.city.controller.services.ControlCenter;
 import wob.city.controller.services.FoodLoader;
 import wob.city.controller.services.PeopleGenerator;
+import wob.city.food.abstraction.Food;
+import wob.city.person.abstraction.Person;
 
 import java.util.Collections;
 import java.util.List;

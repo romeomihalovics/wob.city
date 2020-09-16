@@ -1,7 +1,7 @@
 package wob.city.controller.services;
 
-import wob.city.food.abstraction.Food;
 import wob.city.console.logger.ConsoleLogger;
+import wob.city.food.abstraction.Food;
 import wob.city.food.object.Dairy;
 import wob.city.food.object.Grain;
 import wob.city.food.object.Meat;

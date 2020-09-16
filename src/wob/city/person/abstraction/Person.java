@@ -1,20 +1,19 @@
 package wob.city.person.abstraction;
 
+import wob.city.city.City;
+import wob.city.console.logger.ActivityLogger;
 import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dao.PersonHistoryDao;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.family.Family;
-import wob.city.newspaper.dto.ConsumptionDTO;
 import wob.city.food.abstraction.Food;
-import wob.city.console.logger.ActivityLogger;
-import wob.city.city.City;
 import wob.city.person.object.Man;
-import wob.city.util.Calculations;
-import wob.city.util.DtoGenerator;
-import wob.city.util.Names;
 import wob.city.person.worker.AgingWorker;
 import wob.city.person.worker.DigestionWorker;
 import wob.city.person.worker.EatingWorker;
+import wob.city.util.Calculations;
+import wob.city.util.DtoGenerator;
+import wob.city.util.Names;
 
 import java.util.Timer;
 
@@ -244,7 +243,6 @@ public abstract class Person {
 
         this.family.addDied(this);
         this.location.addDied(this);
-        this.location.getDeathNews().addData(this);
 
         String event = "\n"+this.getType()+": " + this.getFullName() +
                 " died at age " + this.getAge();
@@ -296,10 +294,6 @@ public abstract class Person {
                 "g -> " + amount + "kcal");
 
         this.setEnergy(this.getEnergy() + amount);
-
-        ConsumptionDTO consumptionDTO = new ConsumptionDTO(food.getType(),
-                Calculations.getAmountByEnergy(amount, food.getEnergy()));
-        this.getLocation().getConsumptionNews().addData(consumptionDTO);
 
         String event = "\n"+this.getType()+": " + this.getFullName() + " ate " +
                 Calculations.getAmountByEnergy(amount, food.getEnergy()) +

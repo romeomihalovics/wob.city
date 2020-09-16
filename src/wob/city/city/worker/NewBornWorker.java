@@ -1,12 +1,12 @@
 package wob.city.city.worker;
 
+import wob.city.city.City;
+import wob.city.console.logger.ActivityLogger;
+import wob.city.controller.services.PeopleGenerator;
 import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dao.PersonHistoryDao;
 import wob.city.family.Family;
 import wob.city.person.abstraction.Person;
-import wob.city.console.logger.ActivityLogger;
-import wob.city.city.City;
-import wob.city.controller.services.PeopleGenerator;
 import wob.city.util.DtoGenerator;
 
 import java.util.Collections;
@@ -37,8 +37,6 @@ public class NewBornWorker extends TimerTask {
             synchronized (people) {
                 people.add(person);
             }
-
-            city.getNewBornNews().addData(person);
 
             String event = "\nPerson: " + person.getFullName() +
                     " just born into city: " + city.getName();

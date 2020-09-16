@@ -1,8 +1,8 @@
 package wob.city.controller.services;
 
 import wob.city.city.City;
-import wob.city.person.abstraction.Person;
 import wob.city.console.logger.ConsoleLogger;
+import wob.city.person.abstraction.Person;
 import wob.city.person.object.Woman;
 import wob.city.util.Calculations;
 

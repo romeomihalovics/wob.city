@@ -1,8 +1,8 @@
 package wob.city.city;
 
+import wob.city.city.worker.NewBornWorker;
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.database.dao.DisasterHistoryDao;
-import wob.city.database.dto.DisasterHistoryDto;
 import wob.city.disaster.abstraction.Consequence;
 import wob.city.disaster.abstraction.Disaster;
 import wob.city.family.Family;
@@ -17,7 +17,6 @@ import wob.city.newspaper.object.DisasterNews;
 import wob.city.newspaper.object.NewBornNews;
 import wob.city.person.abstraction.Person;
 import wob.city.util.Calculations;
-import wob.city.city.worker.NewBornWorker;
 import wob.city.util.DtoGenerator;
 
 import java.util.*;
@@ -44,10 +43,10 @@ public class City {
         this.houses = new ArrayList<>();
         this.people = people;
         this.foods = foods;
-        this.consumptionNews = new ConsumptionNews();
-        this.deathNews = new DeathNews();
-        this.newBornNews = new NewBornNews();
-        this.disasterNews = new DisasterNews();
+        this.consumptionNews = new ConsumptionNews(this);
+        this.deathNews = new DeathNews(this);
+        this.newBornNews = new NewBornNews(this);
+        this.disasterNews = new DisasterNews(this);
     }
 
     public String getName() {
@@ -100,18 +99,6 @@ public class City {
         this.timer.scheduleAtFixedRate(newBornWorker, (60*1000*2), (60*1000*2));
     }
 
-    public ConsumptionNews getConsumptionNews() {
-        return consumptionNews;
-    }
-
-    public DeathNews getDeathNews() {
-        return deathNews;
-    }
-
-    public NewBornNews getNewBornNews() {
-        return newBornNews;
-    }
-
     public Disaster getDisaster() {
         return disaster;
     }
@@ -134,7 +121,6 @@ public class City {
         String event = "The disaster ("+disaster.getName()+") is ended in city '"+this.getName()+"' with "+this.disaster.getDiedPeople()+" deaths";
         ConsoleLogger.getLogger().log(event);
         disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this));
-        this.disasterNews.addData(disaster);
         this.disasterNews.manualPublish();
         this.disaster.cancel();
         this.disaster = null;
@@ -142,7 +128,6 @@ public class City {
 
     public void continueDisaster(Disaster disaster) {
         if(disaster instanceof Consequence && this.disaster != null) {
-            this.disasterNews.addData(this.disaster);
             this.disaster.cancel();
             String event = "A natural disaster ("+this.disaster.getName()+" with "+this.disaster.getDiedPeople()+" deaths) is being followed up with another disaster '"+disaster.getName()+"' in city '"+this.getName()+"'";
             ConsoleLogger.getLogger().log(event);

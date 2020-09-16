@@ -1,10 +1,10 @@
 package wob.city;
 
-import wob.city.food.abstraction.Food;
-import wob.city.controller.TaskController;
+import wob.city.city.City;
 import wob.city.console.input.InputGrabber;
 import wob.city.console.logger.ConsoleLogger;
-import wob.city.city.City;
+import wob.city.controller.TaskController;
+import wob.city.food.abstraction.Food;
 import wob.city.util.Calculations;
 
 import java.util.ArrayList;
