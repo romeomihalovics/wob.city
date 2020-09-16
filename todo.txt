@@ -6,3 +6,35 @@ disaster event logs into db logs as well
 
 upload report to db
 fetch report from db
+	tables ->
+		consumption_news
+			id
+			location
+			meat
+			dairy
+			vegetable
+			grain
+			date
+			reported
+		death_news
+			id
+			type
+			fullname
+			age
+			weight
+			height
+			location
+			energy
+			lastfood
+		new_born_news
+			id
+			type
+			fullname
+			age
+			weight
+			height
+			location
+			energy
+			lastfood
+		disaster_hisrory
+			add reported field [default false]
