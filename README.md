@@ -14,7 +14,7 @@ People age every 5 minutes, kids become adults if they're over or 18 yo. 18 year
 
 Every 2 minutes, in a fertile family [which means there is a woman and a man "parent" roled person, both between the age of 20 and 40 and there is less then 3 kids in the family] a baby will born.
 
-Each city has 3 news papers, Death News, New Born News, Consumption News. Every 10 minutes the news are published to an ftp server with the latest data.
+Each city has 3 news papers, Death News, New Born News, Consumption News. Every 10 minutes the news are published to an ftp server with the latest data fetched from the database, where every event is uploaded.
 
 In the city, you will find foods. Foods are segregated to 4 categories, meat, dairy, grain, vegetables. Every food has details about itself, which are [by default smth/100g], protein, carbohydrate, fat. You can calculate the calories in a specific food with these details [by default /100g, but you could set it to what ever amount you like], or list all of them.
 
