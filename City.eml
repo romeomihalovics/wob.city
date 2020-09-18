@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" inheritJdk="true">
+	<output-test url="file://$MODULE_DIR$/out/test/City"/>
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$">
+		<testFolder url="file://$MODULE_DIR$/test"/>
+	</contentEntry>
+	<lib name="JUnit5.4" scope="TEST"/>
+	<levels>
+		<level name="commons-net:commons-net:3.3" value="project"/>
+		<level name="com.zaxxer:HikariCP:3.4.5" value="project"/>
+		<level name="mysql:mysql-connector-java:8.0.21" value="project"/>
+		<level name="org.slf4j:slf4j-nop:1.7.30" value="project"/>
+	</levels>
+</component>
