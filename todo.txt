@@ -1,5 +1,3 @@
-project export to eclipse
 startdisaster thread safe
 gettype.eq -> enum
-cleanup [e.g. dao.. type to instanceof etc.]
 generic type [e.g. at dao runquery]
