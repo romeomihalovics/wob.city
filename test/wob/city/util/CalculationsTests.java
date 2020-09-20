@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import wob.city.food.abstraction.Food;
 import wob.city.food.object.Meat;
 import wob.city.person.abstraction.Person;
+import wob.city.person.enums.Types;
 import wob.city.person.object.Boy;
 import wob.city.person.object.Girl;
 import wob.city.person.object.Man;
@@ -32,10 +33,10 @@ class CalculationsTests {
     void getPeopleCountByTypeShouldReturn() {
         List<Person> people = Arrays.asList(new Boy(), new Boy(), new Girl(), new Man(), new Woman(), new Woman());
 
-        assertEquals(2, Calculations.getPeopleCountByType(people, "Boy"));
-        assertEquals(1, Calculations.getPeopleCountByType(people, "Girl"));
-        assertEquals(1, Calculations.getPeopleCountByType(people, "Man"));
-        assertEquals(2, Calculations.getPeopleCountByType(people, "Woman"));
+        assertEquals(2, Calculations.getPeopleCountByType(people, Types.BOY));
+        assertEquals(1, Calculations.getPeopleCountByType(people, Types.GIRL));
+        assertEquals(1, Calculations.getPeopleCountByType(people, Types.MAN));
+        assertEquals(2, Calculations.getPeopleCountByType(people, Types.WOMAN));
     }
 
     @Test

@@ -16,11 +16,7 @@ class PeopleGeneratorTest {
     void generatePeopleShouldReturn() {
         PeopleGenerator peopleGenerator = new PeopleGenerator();
         List<Person> people = peopleGenerator.generatePeople(10);
-        List<String> personTypes = Arrays.asList("Man", "Woman", "Girl", "Boy");
 
         assertEquals(10, people.size());
-        for(Person person : people) {
-            assertTrue(personTypes.contains(person.getType()));
-        }
     }
 }

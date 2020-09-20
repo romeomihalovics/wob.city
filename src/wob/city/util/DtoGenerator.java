@@ -105,7 +105,7 @@ public class DtoGenerator {
 
     public static PersonNewsDto setupPersonNewsDto(Person person) {
         PersonNewsDto tempDto = new PersonNewsDto();
-        tempDto.setType(person.getType());
+        tempDto.setType(person.getType().getValue());
         tempDto.setFullname(person.getFullName());
         tempDto.setAge(person.getAge());
         tempDto.setWeight(person.getWeight());

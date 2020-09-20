@@ -3,6 +3,8 @@ package wob.city.family;
 import wob.city.city.City;
 import wob.city.housing.abstraction.Housing;
 import wob.city.person.abstraction.Person;
+import wob.city.person.enums.StatInFamily;
+import wob.city.person.enums.Types;
 import wob.city.util.Calculations;
 
 import java.util.ArrayList;
@@ -25,18 +27,18 @@ public class Family {
 
     public void tryToAdd(Person person, boolean mustAdd) {
         if(person.getFamily() == null){
-            if(person.getType().equals("Man") || person.getType().equals("Woman")) {
+            if(person.getType() == Types.MAN || person.getType() == Types.WOMAN) {
                 if(Calculations.getPeopleCountByType(people, person.getType()) == 0 && (Calculations.getRandomIntBetween(0,100) <= 50 || mustAdd)) {
                     people.add(person);
                     person.setFamily(this);
-                    person.setStatInFamily("Parent");
+                    person.setStatInFamily(StatInFamily.PARENT);
                 }
             }else {
-                if ((Calculations.getPeopleCountByType(people, "Boy") + Calculations.getPeopleCountByType(people, "Girl")) < 3 && (Calculations.getRandomIntBetween(0, 100) <= 20 || mustAdd)) {
+                if ((Calculations.getPeopleCountByType(people, Types.BOY) + Calculations.getPeopleCountByType(people, Types.GIRL)) < 3 && (Calculations.getRandomIntBetween(0, 100) <= 20 || mustAdd)) {
                     people.add(person);
                     person.setFamily(this);
                     person.setLastName(familyName);
-                    person.setStatInFamily("Child");
+                    person.setStatInFamily(StatInFamily.CHILD);
                 }
             }
         }

@@ -7,6 +7,8 @@ import wob.city.database.dao.PersonHistoryDao;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.family.Family;
 import wob.city.food.abstraction.Food;
+import wob.city.person.enums.StatInFamily;
+import wob.city.person.enums.Types;
 import wob.city.person.object.Man;
 import wob.city.person.worker.AgingWorker;
 import wob.city.person.worker.DigestionWorker;
@@ -40,7 +42,7 @@ public abstract class Person {
     protected int energy = 2500;
     protected String lastFood = null;
     protected Family family = null;
-    protected String statInFamily = null;
+    protected StatInFamily statInFamily = null;
     protected PersonHistoryDao personHistoryDao = new PersonHistoryDao();
     protected NewsPaperDao newsPaperDao = new NewsPaperDao();
 
@@ -109,7 +111,7 @@ public abstract class Person {
 
     public void addAge() {
         this.age++;
-        String event = "\n"+this.getType()+": " + this.getFullName() +
+        String event = "\n"+this.getType().getValue()+": " + this.getFullName() +
                 " became " + this.age + " years old";
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
@@ -199,11 +201,11 @@ public abstract class Person {
         this.family = family;
     }
 
-    public String getStatInFamily() {
+    public StatInFamily getStatInFamily() {
         return statInFamily;
     }
 
-    public void setStatInFamily(String statInFamily) {
+    public void setStatInFamily(StatInFamily statInFamily) {
         this.statInFamily = statInFamily;
     }
 
@@ -244,7 +246,7 @@ public abstract class Person {
         this.family.addDied(this);
         this.location.addDied(this);
 
-        String event = "\n"+this.getType()+": " + this.getFullName() +
+        String event = "\n"+this.getType().getValue()+": " + this.getFullName() +
                 " died at age " + this.getAge();
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
@@ -256,7 +258,7 @@ public abstract class Person {
     @Override
     public String toString() {
         return "\n{" +
-                "\n  \"type\": \"" + this.getType() + "\"," +
+                "\n  \"type\": \"" + this.getType().getValue() + "\"," +
                 "\n  \"firstName\": \"" + firstName + "\"," +
                 "\n  \"lastName\": \"" + lastName + "\"," +
                 "\n  \"age\": " + age + "," +
@@ -268,13 +270,13 @@ public abstract class Person {
                 "\n}";
     }
 
-    public abstract String getType();
+    public abstract Types getType();
 
     public abstract void doAging();
 
     public void doDigestion() {
         this.setEnergy(this.getEnergy() - 350);
-        String event = "\n"+this.getType()+": " + this.getFullName() +
+        String event = "\n"+this.getType().getValue()+": " + this.getFullName() +
                 " burned 350kcal, " + (this instanceof Man ? "his" : "her") +
                 " energy levels changed from " +
                 (this.getEnergy() + 350) + "kcal to " + this.getEnergy() + "kcal";
@@ -295,7 +297,7 @@ public abstract class Person {
 
         this.setEnergy(this.getEnergy() + amount);
 
-        String event = "\n"+this.getType()+": " + this.getFullName() + " ate " +
+        String event = "\n"+this.getType().getValue()+": " + this.getFullName() + " ate " +
                 Calculations.getAmountByEnergy(amount, food.getEnergy()) +
                 "g (" + amount + "kcal) of " + food.getName() +
                 " and " + (this instanceof Man ? "his" : "her") +
@@ -303,6 +305,6 @@ public abstract class Person {
                 (this.getEnergy() - amount) + "kcal to " + this.getEnergy() + "kcal";
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
-        newsPaperDao.uploadConsumptionNews(new ConsumptionNewsDto(this.location.getName(), food.getType(), Calculations.getAmountByEnergy(amount, food.getEnergy())));
+        newsPaperDao.uploadConsumptionNews(new ConsumptionNewsDto(this.location.getName(), food.getType().getValue(), Calculations.getAmountByEnergy(amount, food.getEnergy())));
     }
 }

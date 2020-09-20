@@ -1,6 +1,7 @@
 package wob.city.person.object;
 
 import wob.city.person.abstraction.Person;
+import wob.city.person.enums.Types;
 import wob.city.util.Calculations;
 
 public class Man extends Person {
@@ -17,8 +18,8 @@ public class Man extends Person {
     }
 
     @Override
-    public String getType() {
-        return "Man";
+    public Types getType() {
+        return Types.MAN;
     }
 
     @Override

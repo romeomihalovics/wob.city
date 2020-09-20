@@ -3,6 +3,7 @@ package wob.city.util;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
+import wob.city.person.enums.Types;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -15,13 +16,13 @@ public class Calculations {
         return (int) ((Math.random() * ((max - min) + 1)) + min);
     }
 
-    public static int getPeopleCountByType(List<Person> people, String type) {
+    public static int getPeopleCountByType(List<Person> people, Types type) {
         int count = 0;
         List<Person> syncPeople = Collections.synchronizedList(people);
 
         synchronized (syncPeople){
             for(Person person : syncPeople) {
-                if(person.getType().equals(type)) {
+                if(person.getType() == type) {
                     count++;
                 }
             }

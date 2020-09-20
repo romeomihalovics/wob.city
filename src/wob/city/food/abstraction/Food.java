@@ -1,5 +1,6 @@
 package wob.city.food.abstraction;
 
+import wob.city.food.enums.Types;
 import wob.city.util.Calculations;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public abstract class Food {
 
     public String toString(Integer gramm) {
         Double rate = ((double) gramm) / 100;
-        return "\n" + this.getType() +
+        return "\n" + this.getType().getValue() +
                 " (" + Calculations.round(100 * rate, 2) + "g) " +
                 "{" +
                 "name='" + name + '\'' +
@@ -50,5 +51,5 @@ public abstract class Food {
                 "\n " + Calculations.round(this.getEnergy() * rate, 2) + "kcal \n";
     }
 
-    public abstract String getType();
+    public abstract Types getType();
 }

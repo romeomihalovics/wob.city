@@ -1,6 +1,7 @@
 package wob.city.food.object;
 
 import wob.city.food.abstraction.Food;
+import wob.city.food.enums.Types;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class Meat extends Food {
     }
 
     @Override
-    public String getType() {
-        return "Meat";
+    public Types getType() {
+        return Types.MEAT;
     }
 }

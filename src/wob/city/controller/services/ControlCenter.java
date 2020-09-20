@@ -17,7 +17,7 @@ public class ControlCenter {
             for (int i = randomTenPeople.size() - 1; i >= 0; i--) {
                 Person person = city.getPeople().get(i);
 
-                ConsoleLogger.getLogger().log("\n Validating person (" + person.getType() + "): " +
+                ConsoleLogger.getLogger().log("\n Validating person (" + person.getType().getValue() + "): " +
                         person.getFirstName() + " " +
                         person.getLastName());
 

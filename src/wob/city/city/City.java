@@ -16,6 +16,8 @@ import wob.city.newspaper.object.DeathNews;
 import wob.city.newspaper.object.DisasterNews;
 import wob.city.newspaper.object.NewBornNews;
 import wob.city.person.abstraction.Person;
+import wob.city.person.enums.StatInFamily;
+import wob.city.person.enums.Types;
 import wob.city.util.Calculations;
 import wob.city.util.DtoGenerator;
 
@@ -151,7 +153,7 @@ public class City {
                 family.findHousing();
                 families.add(family);
                 person.setFamily(family);
-                person.setStatInFamily("Parent");
+                person.setStatInFamily(StatInFamily.PARENT);
             }else if(person.getFamily() == null && person.getAge() < 18){
                 orphans.add(person);
             }
@@ -193,10 +195,10 @@ public class City {
             List<Person> parents = new ArrayList<>();
             List<Person> children = new ArrayList<>();
             f.getPeople().forEach(person -> {
-                if ((person.getType().equals("Man") || person.getType().equals("Woman")) &&
-                        person.getStatInFamily().equals("Parent") && person.getAge() >= 20 && person.getAge() <= 40) {
+                if ((person.getType() == Types.MAN || person.getType() == Types.WOMAN) &&
+                        person.getStatInFamily() == StatInFamily.PARENT && person.getAge() >= 20 && person.getAge() <= 40) {
                     parents.add(person);
-                }else if(person.getType().equals("Boy") || person.getType().equals("Girl")){
+                }else if(person.getType() == Types.BOY || person.getType() == Types.GIRL){
                     children.add(person);
                 }
             });
@@ -233,11 +235,11 @@ public class City {
                 "\n  died: " + died.size() + "," +
                 "\n  people: {" +
                 "\n     kids: {" +
-                "\n         girls: " + Calculations.getPeopleCountByType(people, "Girl") +
-                "\n         boys: " + Calculations.getPeopleCountByType(people, "Boy") +
+                "\n         girls: " + Calculations.getPeopleCountByType(people, Types.GIRL) +
+                "\n         boys: " + Calculations.getPeopleCountByType(people, Types.BOY) +
                 "\n     }" +
-                "\n     Woman: " + Calculations.getPeopleCountByType(people, "Woman") +
-                "\n     Man: " + Calculations.getPeopleCountByType(people, "Man") +
+                "\n     Woman: " + Calculations.getPeopleCountByType(people, Types.WOMAN) +
+                "\n     Man: " + Calculations.getPeopleCountByType(people, Types.MAN) +
                 "\n  }, " +
                 "\n  families: " + families.size() +
                 "\n }";
