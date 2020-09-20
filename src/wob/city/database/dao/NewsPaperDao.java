@@ -65,18 +65,18 @@ public class NewsPaperDao implements Dao {
         return DtoGenerator.generatePersonNewsDto(runQuery(query,params));
     }
 
-    public void uploadPersonNews(String type, PersonNewsDto deathNews) {
+    public void uploadPersonNews(String type, PersonNewsDto personNews) {
         String query = (type.equals("death") ? "INSERT INTO `death_news` (`type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)" : "INSERT INTO `new_born_news` (`type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
         List<Object> params = new ArrayList<>();
-        params.add(deathNews.getType());
-        params.add(deathNews.getFullname());
-        params.add(deathNews.getAge());
-        params.add(deathNews.getWeight());
-        params.add(deathNews.getHeight());
-        params.add(deathNews.getCity());
-        params.add(deathNews.getEnergy());
-        params.add(deathNews.getLastFood());
+        params.add(personNews.getType());
+        params.add(personNews.getFullname());
+        params.add(personNews.getAge());
+        params.add(personNews.getWeight());
+        params.add(personNews.getHeight());
+        params.add(personNews.getCity());
+        params.add(personNews.getEnergy());
+        params.add((personNews.getLastFood() != null ? personNews.getLastFood() : "nothing"));
 
         runQuery(query, params);
     }

@@ -88,10 +88,10 @@ public class DtoGenerator {
         DisasterHistoryDto tempDto = new DisasterHistoryDto();
         tempDto.setCityName(city.getName());
         tempDto.setEvent(event);
-        tempDto.setType(city.getDisaster().getId());
-        tempDto.setDestroyedBuildings(city.getDisaster().getDestroyed().size());
-        tempDto.setDiedFamilies(city.getDisaster().getDiedFamilies());
-        tempDto.setDiedPeople(city.getDisaster().getDiedPeople());
+        tempDto.setType(city.getDisaster().get(0).getId());
+        tempDto.setDestroyedBuildings(city.getDisaster().get(0).getDestroyed().size());
+        tempDto.setDiedFamilies(city.getDisaster().get(0).getDiedFamilies());
+        tempDto.setDiedPeople(city.getDisaster().get(0).getDiedPeople());
         return tempDto;
     }
 

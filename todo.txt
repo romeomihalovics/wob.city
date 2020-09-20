@@ -1,8 +1,2 @@
-startdisaster thread safe
 generic type [e.g. at dao runquery]
-
-
-
-
-
 
