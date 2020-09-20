@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DisasterHistoryDao implements Dao {
     public List<DisasterHistoryDto> fetchDisasterHistory(String city) {
-        String query = "SELECT * FROM `disaster_history` WHERE `city` = ?";
+        String query = "SELECT `id`, `city`, `type`, `destroyed_buildings`, `died_families`, `died_people`, `date`, `event`, `reported` FROM `disaster_history` WHERE `city` = ?";
 
         List<Object> params = Collections.singletonList(city);
 
@@ -18,7 +18,7 @@ public class DisasterHistoryDao implements Dao {
     }
 
     public List<DisasterHistoryDto> fetchDisasterHistory(String city, Boolean reported) {
-        String query = "SELECT * FROM `disaster_history` WHERE `city` = ? AND `reported` = ?";
+        String query = "SELECT `id`, `city`, `type`, `destroyed_buildings`, `died_families`, `died_people`, `date`, `event`, `reported` FROM `disaster_history` WHERE `city` = ? AND `reported` = ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
@@ -28,7 +28,7 @@ public class DisasterHistoryDao implements Dao {
     }
 
     public List<DisasterHistoryDto> fetchDisasterHistory(String city, String type) {
-        String query = "SELECT * FROM `disaster_history` WHERE `city` = ? AND `type` = ?";
+        String query = "SELECT `id`, `city`, `type`, `destroyed_buildings`, `died_families`, `died_people`, `date`, `event`, `reported` FROM `disaster_history` WHERE `city` = ? AND `type` = ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
@@ -52,7 +52,7 @@ public class DisasterHistoryDao implements Dao {
     }
 
     public void setDisasterHistoryToReported(String city) {
-        String query = "UPDATE `disaster_history` SET `reported` = 1 WHERE `city` = ?";
+        String query = "UPDATE `disaster_history` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0";
 
         List<Object> params = Collections.singletonList(city);
 

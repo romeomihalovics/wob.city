@@ -145,11 +145,11 @@ public class City {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void createFamilies() {
         List<Person> orphans = new ArrayList<>();
         people.forEach(person -> {
-            List<Family> shuffledFamilies = new LinkedList<>(families);
-            Collections.shuffle(shuffledFamilies);
+            List<Family> shuffledFamilies = (List<Family>) Calculations.shuffleList(families);
             shuffledFamilies.forEach(family -> family.tryToAdd(person, false));
             if(person.getFamily() == null && person.getAge() >= 18) {
                 Family family = new Family(this, person);

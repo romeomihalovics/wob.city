@@ -28,19 +28,27 @@ public class Family {
     public void tryToAdd(Person person, boolean mustAdd) {
         if(person.getFamily() == null){
             if(person.getType() == Types.MAN || person.getType() == Types.WOMAN) {
-                if(Calculations.getPeopleCountByType(people, person.getType()) == 0 && (Calculations.getRandomIntBetween(0,100) <= 50 || mustAdd)) {
-                    people.add(person);
-                    person.setFamily(this);
-                    person.setStatInFamily(StatInFamily.PARENT);
-                }
-            }else {
-                if ((Calculations.getPeopleCountByType(people, Types.BOY) + Calculations.getPeopleCountByType(people, Types.GIRL)) < 3 && (Calculations.getRandomIntBetween(0, 100) <= 20 || mustAdd)) {
-                    people.add(person);
-                    person.setFamily(this);
-                    person.setLastName(familyName);
-                    person.setStatInFamily(StatInFamily.CHILD);
-                }
+                tryToFitAsParent(person, mustAdd);
+            } else {
+                tryToFitAsChild(person, mustAdd);
             }
+        }
+    }
+
+    private void tryToFitAsParent(Person person, boolean mustAdd) {
+        if(Calculations.getPeopleCountByType(people, person.getType()) == 0 && (Calculations.getRandomIntBetween(0,100) <= 50 || mustAdd)) {
+            people.add(person);
+            person.setFamily(this);
+            person.setStatInFamily(StatInFamily.PARENT);
+        }
+    }
+
+    private void tryToFitAsChild(Person person, boolean mustAdd) {
+        if ((Calculations.getPeopleCountByType(people, Types.BOY) + Calculations.getPeopleCountByType(people, Types.GIRL)) < 3 && (Calculations.getRandomIntBetween(0, 100) <= 20 || mustAdd)) {
+            people.add(person);
+            person.setFamily(this);
+            person.setLastName(familyName);
+            person.setStatInFamily(StatInFamily.CHILD);
         }
     }
 

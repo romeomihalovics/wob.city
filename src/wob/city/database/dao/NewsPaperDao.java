@@ -11,7 +11,7 @@ import java.util.List;
 
 public class NewsPaperDao implements Dao {
     public List<ConsumptionNewsDto> fetchConsumptionNews(String city) {
-        String query = "SELECT * FROM `consumption_news` WHERE `city` = ?";
+        String query = "SELECT `id`, `city`, `type`, `amount`, `reported` FROM `consumption_news` WHERE `city` = ?";
 
         List<Object> params = Collections.singletonList(city);
 
@@ -19,7 +19,7 @@ public class NewsPaperDao implements Dao {
     }
 
     public List<ConsumptionNewsDto> fetchConsumptionNews(String city, Boolean reported) {
-        String query = "SELECT * FROM `consumption_news` WHERE `city` = ? AND `reported` = ?";
+        String query = "SELECT `id`, `city`, `type`, `amount`, `reported` FROM `consumption_news` WHERE `city` = ? AND `reported` = ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
@@ -40,7 +40,7 @@ public class NewsPaperDao implements Dao {
     }
 
     public void setConsumptionNewsToReported(String city) {
-        String query = "UPDATE `consumption_news` SET `reported` = 1 WHERE `city` = ?";
+        String query = "UPDATE `consumption_news` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0";
 
         List<Object> params = Collections.singletonList(city);
 
@@ -48,7 +48,8 @@ public class NewsPaperDao implements Dao {
     }
 
     public List<PersonNewsDto> fetchPersonNews(String type, String city) {
-        String query = (type.equals("death") ? "SELECT * FROM `death_news` WHERE `city` = ?" : "SELECT * FROM `new_born_news` WHERE `city` = ?");
+        String table = (type.equals("death") ? "death_news" : "new_born_news");
+        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported` FROM `" + table + "` WHERE `city` = ?";
 
         List<Object> params = Collections.singletonList(city);
 
@@ -56,7 +57,8 @@ public class NewsPaperDao implements Dao {
     }
 
     public List<PersonNewsDto> fetchPersonNews(String type, String city, Boolean reported) {
-        String query = (type.equals("death") ? "SELECT * FROM `death_news` WHERE `city` = ? AND `reported` = ?" : "SELECT * FROM `new_born_news` WHERE `city` = ? AND `reported` = ?");
+        String table = (type.equals("death") ? "death_news" : "new_born_news");
+        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported` FROM `" + table + "` WHERE `city` = ? AND `reported` = ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
@@ -66,7 +68,8 @@ public class NewsPaperDao implements Dao {
     }
 
     public void uploadPersonNews(String type, PersonNewsDto personNews) {
-        String query = (type.equals("death") ? "INSERT INTO `death_news` (`type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)" : "INSERT INTO `new_born_news` (`type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        String table = (type.equals("death") ? "death_news" : "new_born_news");
+        String query = "INSERT INTO `" + table + "` (`type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         List<Object> params = new ArrayList<>();
         params.add(personNews.getType());
@@ -82,7 +85,8 @@ public class NewsPaperDao implements Dao {
     }
 
     public void setPersonNewsToReported(String type, String city) {
-        String query = (type.equals("death") ? "UPDATE `death_news` SET `reported` = 1 WHERE `city` = ?" : "UPDATE `new_born_news` SET `reported` = 1 WHERE `city` = ?");
+        String table = (type.equals("death") ? "death_news" : "new_born_news");
+        String query = "UPDATE `" + table + "` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0";
 
         List<Object> params = Collections.singletonList(city);
 

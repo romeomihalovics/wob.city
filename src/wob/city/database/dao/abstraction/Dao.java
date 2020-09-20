@@ -25,62 +25,54 @@ public interface Dao {
         return results;
     }
 
-    default void setPreparedStatementParams(PreparedStatement preparedStatement, List<Object> params) {
-        try {
-            int i = 1;
-            for (Object param : params) {
-                if (param instanceof String) {
-                    preparedStatement.setString(i, (String) param);
-                } else if (param instanceof Integer) {
-                    preparedStatement.setInt(i, (Integer) param);
-                } else if (param instanceof Boolean) {
-                    preparedStatement.setBoolean(i, (Boolean) param);
-                } else if (param instanceof Double) {
-                    preparedStatement.setDouble(i, (Double) param);
-                }
-                i++;
+    default void setPreparedStatementParams(PreparedStatement preparedStatement, List<Object> params) throws SQLException {
+        int i = 1;
+        for (Object param : params) {
+            if (param instanceof String) {
+                preparedStatement.setString(i, (String) param);
+            } else if (param instanceof Integer) {
+                preparedStatement.setInt(i, (Integer) param);
+            } else if (param instanceof Boolean) {
+                preparedStatement.setBoolean(i, (Boolean) param);
+            } else if (param instanceof Double) {
+                preparedStatement.setDouble(i, (Double) param);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            i++;
         }
     }
 
-    default ResultSet executeQuery(PreparedStatement preparedStatement, String query) {
+    default ResultSet executeQuery(PreparedStatement preparedStatement, String query) throws SQLException {
         ResultSet resultSet = null;
-        try {
-            if (query.toLowerCase().startsWith("update") || query.toLowerCase().startsWith("insert")) {
-                preparedStatement.executeUpdate();
-            } else {
-                preparedStatement.execute();
-                resultSet = preparedStatement.getResultSet();
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+
+        if (query.toLowerCase().startsWith("update") || query.toLowerCase().startsWith("insert")) {
+            preparedStatement.executeUpdate();
+        } else {
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
         }
+
         return  resultSet;
     }
 
-    default List<List<Object>> checkAndReturnResultSet(ResultSet resultSet) {
+    default List<List<Object>> checkAndReturnResultSet(ResultSet resultSet) throws SQLException {
         List<List<Object>> results = null;
-        try {
-            if (resultSet != null) {
-                ResultSetMetaData metaData = resultSet.getMetaData();
 
-                results = new ArrayList<>();
-                int j = 0;
-                while (resultSet.next()) {
-                    results.add(new ArrayList<>());
-                    for (int k = 1; k <= metaData.getColumnCount(); k++) {
-                        results.get(j).add(resultSet.getObject(k));
-                    }
-                    j++;
+        if (resultSet != null) {
+            ResultSetMetaData metaData = resultSet.getMetaData();
+
+            results = new ArrayList<>();
+            int j = 0;
+            while (resultSet.next()) {
+                results.add(new ArrayList<>());
+                for (int k = 1; k <= metaData.getColumnCount(); k++) {
+                    results.get(j).add(resultSet.getObject(k));
                 }
-
-                resultSet.close();
+                j++;
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+
+            resultSet.close();
         }
+
         return results;
     }
 }

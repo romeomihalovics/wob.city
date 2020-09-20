@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PersonHistoryDao implements Dao {
     public List<PersonHistoryDto> fetchPersonHistory(String city) {
-        String query = "SELECT * FROM `person_history` WHERE `city` = ?";
+        String query = "SELECT `id`, `city`, `fullname`, `event`, `date` FROM `person_history` WHERE `city` = ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
@@ -18,7 +18,7 @@ public class PersonHistoryDao implements Dao {
     }
 
     public List<PersonHistoryDto> fetchPersonHistory(String city, String fullName) {
-        String query = "SELECT * FROM `person_history` WHERE `city` = ? AND `fullname` = ?";
+        String query = "SELECT `id`, `city`, `fullname`, `event`, `date` FROM `person_history` WHERE `city` = ? AND `fullname` = ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
