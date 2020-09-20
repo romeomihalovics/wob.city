@@ -1,2 +1,3 @@
-generic type [e.g. at dao runquery]
 cleanup
+test compatibility with eclipse
+query return list of hashmaps with col names, value
