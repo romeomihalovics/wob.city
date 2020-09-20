@@ -1,2 +1,1 @@
-generic type [e.g. at dao runquery]
 cleanup
