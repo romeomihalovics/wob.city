@@ -9,75 +9,76 @@ import wob.city.person.abstraction.Person;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class DtoGenerator {
-    public static List<DisasterHistoryDto> generateDisasterHistoryDto(List<List<Object>> fetchResult){
+    public static List<DisasterHistoryDto> generateDisasterHistoryDto(List<HashMap<String, Object>> fetchResult){
         List<DisasterHistoryDto> disasterHistory = new ArrayList<>();
 
-        for(List<Object> row : fetchResult) {
+        for(HashMap<String, Object> row : fetchResult) {
             DisasterHistoryDto tempDto = new DisasterHistoryDto();
-            tempDto.setId((Integer) row.get(0));
-            tempDto.setCityName((String) row.get(1));
-            tempDto.setType((String) row.get(2));
-            tempDto.setDestroyedBuildings((Integer) row.get(3));
-            tempDto.setDiedFamilies((Integer) row.get(4));
-            tempDto.setDiedPeople((Integer) row.get(5));
-            tempDto.setDate((Date) row.get(6));
-            tempDto.setEvent((String) row.get(7));
+            tempDto.setId((Integer) row.get("id"));
+            tempDto.setCityName((String) row.get("city"));
+            tempDto.setType((String) row.get("type"));
+            tempDto.setDestroyedBuildings((Integer) row.get("destroyed_buildings"));
+            tempDto.setDiedFamilies((Integer) row.get("died_families"));
+            tempDto.setDiedPeople((Integer) row.get("died_people"));
+            tempDto.setDate((Date) row.get("date"));
+            tempDto.setEvent((String) row.get("event"));
             disasterHistory.add(tempDto);
         }
 
         return disasterHistory;
     }
 
-    public static List<PersonHistoryDto> generatePersonHistoryDto(List<List<Object>> fetchResult) {
+    public static List<PersonHistoryDto> generatePersonHistoryDto(List<HashMap<String, Object>> fetchResult) {
         List<PersonHistoryDto> personHistory = new ArrayList<>();
 
-        for(List<Object> row : fetchResult) {
+        for(HashMap<String, Object> row : fetchResult) {
             PersonHistoryDto tempDto = new PersonHistoryDto();
-            tempDto.setId((Integer) row.get(0));
-            tempDto.setCityName((String) row.get(1));
-            tempDto.setFullName((String) row.get(2));
-            tempDto.setEvent((String) row.get(3));
-            tempDto.setDate((Date) row.get(4));
+            tempDto.setId((Integer) row.get("id"));
+            tempDto.setCityName((String) row.get("city"));
+            tempDto.setFullName((String) row.get("fullname"));
+            tempDto.setEvent((String) row.get("event"));
+            tempDto.setDate((Date) row.get("date"));
             personHistory.add(tempDto);
         }
 
         return personHistory;
     }
 
-    public static List<ConsumptionNewsDto> generateConsumptionNewsDto(List<List<Object>> fetchResult) {
+    public static List<ConsumptionNewsDto> generateConsumptionNewsDto(List<HashMap<String, Object>> fetchResult) {
         List<ConsumptionNewsDto> consumptionNews = new ArrayList<>();
 
-        for(List<Object> row : fetchResult) {
+        for(HashMap<String, Object> row : fetchResult) {
             ConsumptionNewsDto tempDto = new ConsumptionNewsDto();
-            tempDto.setId((Integer) row.get(0));
-            tempDto.setCity((String) row.get(1));
-            tempDto.setType((String) row.get(2));
-            tempDto.setAmount((Double) row.get(3));
-            tempDto.setReported(((Integer) row.get(4) != 0));
+            tempDto.setId((Integer) row.get("id"));
+            tempDto.setCity((String) row.get("city"));
+            tempDto.setType((String) row.get("type"));
+            tempDto.setAmount((Double) row.get("amount"));
+            tempDto.setReported(((Integer) row.get("reported") != 0));
             consumptionNews.add(tempDto);
         }
 
         return consumptionNews;
     }
 
-    public static List<PersonNewsDto> generatePersonNewsDto(List<List<Object>> fetchResult) {
+    public static List<PersonNewsDto> generatePersonNewsDto(List<HashMap<String, Object>> fetchResult) {
         List<PersonNewsDto> deathNews = new ArrayList<>();
 
-        for(List<Object> row : fetchResult) {
+        for(HashMap<String, Object> row : fetchResult) {
             PersonNewsDto tempDto = new PersonNewsDto();
-            tempDto.setId((Integer) row.get(0));
-            tempDto.setType((String) row.get(1));
-            tempDto.setFullname((String) row.get(2));
-            tempDto.setAge((Integer) row.get(3));
-            tempDto.setWeight((Integer) row.get(4));
-            tempDto.setHeight((Integer) row.get(5));
-            tempDto.setCity((String) row.get(6));
-            tempDto.setEnergy((String) row.get(7));
-            tempDto.setLastFood((String) row.get(8));
-            tempDto.setReported(((Integer) row.get(9) != 0));
+            tempDto.setId((Integer) row.get("id"));
+            tempDto.setType((String) row.get("type"));
+            tempDto.setFullname((String) row.get("fullname"));
+            tempDto.setAge((Integer) row.get("age"));
+            tempDto.setWeight((Integer) row.get("weight"));
+            tempDto.setHeight((Integer) row.get("height"));
+            tempDto.setCity((String) row.get("city"));
+            tempDto.setEnergy((String) row.get("energy"));
+            tempDto.setLastFood((String) row.get("lastfood"));
+            tempDto.setReported(((Integer) row.get("reported") != 0));
             deathNews.add(tempDto);
         }
 
@@ -117,7 +118,6 @@ public class DtoGenerator {
     }
 
     public static ConsumptionNewsDto setupConsumptionNewsDto() {
-        ConsumptionNewsDto consumptionNewsDto = new ConsumptionNewsDto();
-        return consumptionNewsDto;
+        return new ConsumptionNewsDto();
     }
 }

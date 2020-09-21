@@ -4,11 +4,12 @@ import wob.city.database.Database;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface Dao {
-    default List<List<Object>> runQuery(String query, List<Object> params) {
-        List<List<Object>> results = null;
+    default List<HashMap<String, Object>> runQuery(String query, List<Object> params) {
+        List<HashMap<String, Object>> results = null;
         try(Connection connection = Database.getConnection()){
             try(PreparedStatement preparedStatement = connection.prepareStatement(query)){
                 ResultSet resultSet;
@@ -54,8 +55,8 @@ public interface Dao {
         return  resultSet;
     }
 
-    default List<List<Object>> checkAndReturnResultSet(ResultSet resultSet) throws SQLException {
-        List<List<Object>> results = null;
+    default List<HashMap<String, Object>> checkAndReturnResultSet(ResultSet resultSet) throws SQLException {
+        List<HashMap<String, Object>> results = null;
 
         if (resultSet != null) {
             ResultSetMetaData metaData = resultSet.getMetaData();
@@ -63,9 +64,9 @@ public interface Dao {
             results = new ArrayList<>();
             int j = 0;
             while (resultSet.next()) {
-                results.add(new ArrayList<>());
+                results.add(new HashMap<>());
                 for (int k = 1; k <= metaData.getColumnCount(); k++) {
-                    results.get(j).add(resultSet.getObject(k));
+                    results.get(j).put(metaData.getColumnName(k), resultSet.getObject(k));
                 }
                 j++;
             }
