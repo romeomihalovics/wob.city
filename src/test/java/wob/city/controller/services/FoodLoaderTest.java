@@ -2,6 +2,7 @@ package wob.city.controller.services;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import wob.city.controller.services.FoodLoader;
 import wob.city.food.abstraction.Food;
 import wob.city.food.object.Meat;
 

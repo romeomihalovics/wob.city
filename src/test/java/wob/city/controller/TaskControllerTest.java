@@ -2,6 +2,7 @@ package wob.city.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import wob.city.food.abstraction.Food;
 import wob.city.city.City;
 import wob.city.food.object.Meat;
@@ -26,6 +27,6 @@ class TaskControllerTest {
 
         assertEquals(1, cities.size());
         assertEquals("Wob City", cities.get(0).getName());
-        assertTrue(cities.get(0).getPeople().size() > 0 && cities.get(0).getPeople().size() <= 10 );
+        assertTrue(cities.get(0).getPeople().isEmpty() || cities.get(0).getPeople().size() <= 10 );
     }
 }

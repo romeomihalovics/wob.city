@@ -1,5 +1,6 @@
 package wob.city.util;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import wob.city.disaster.abstraction.Disaster;
@@ -26,7 +27,7 @@ class CommandUtilsTest {
 
         List<Food> foods = Arrays.asList(new Meat(foodDetails.get("Sausage")), new Meat(foodDetails.get("Chicken")));
 
-        assertEquals(foods.get(0), CommandUtils.parseFoodName(foods, "food -n Sausage", false));
+        Assertions.assertEquals(foods.get(0), CommandUtils.parseFoodName(foods, "food -n Sausage", false));
         assertEquals(foods.get(0), CommandUtils.parseFoodName(foods, "food -n Sausage -gramm 100", true));
         assertNull(CommandUtils.parseFoodName(foods, "food -n Fake", false));
         assertNull(CommandUtils.parseFoodName(foods, "food -n Fake -gramm 100", true));

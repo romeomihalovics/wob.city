@@ -2,6 +2,7 @@ package wob.city.database;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import wob.city.database.dao.DisasterHistoryDao;
 import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dao.PersonHistoryDao;
