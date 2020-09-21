@@ -116,8 +116,4 @@ public class DtoGenerator {
         tempDto.setLastFood(person.getLastFood());
         return tempDto;
     }
-
-    public static ConsumptionNewsDto setupConsumptionNewsDto() {
-        return new ConsumptionNewsDto();
-    }
 }
