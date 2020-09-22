@@ -5,7 +5,7 @@ Assign professions to people [cant be kids] [1 at 1 place at a time]
 		when someone is going to die, call the ambulance [if there is enough capacity], before dying, try to save them in 2 minutes with a 20% chance
 	Fire Fighter [aprox 10% of population]
 		during a disaster, fire fighters should save buildings [and people in it] with a 15% chance
-		in an apartment house, the chance of saving a flat gets lower with 10% by every 3rd successfully saved flat
+		in an apartment house, the chance of saving a flat gets lower with 10% by every 3rd flat
 
 Create criminals who are killing people [cant be kids]
 	[aprox 8% of people]
