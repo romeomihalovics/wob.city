@@ -7,6 +7,7 @@ import wob.city.disaster.worker.SecondWave;
 import wob.city.disaster.worker.ThirdWave;
 import wob.city.housing.abstraction.Housing;
 import wob.city.person.abstraction.Person;
+import wob.city.timing.Timings;
 import wob.city.util.Calculations;
 
 import java.util.*;
@@ -69,9 +70,9 @@ public abstract class Disaster {
         this.secondWaveWorker = new SecondWave(this);
         this.thirdWaveWorker = new ThirdWave(this);
 
-        this.timer.schedule(firstWaveWorker, (60*1000));
-        this.timer.schedule(secondWaveWorker, (60*1000*2));
-        this.timer.schedule(thirdWaveWorker, (60*1000*3));
+        this.timer.schedule(firstWaveWorker, Timings.DISASTER_FIRST_WAVE.getValue());
+        this.timer.schedule(secondWaveWorker, Timings.DISASTER_SECOND_WAVE.getValue());
+        this.timer.schedule(thirdWaveWorker, Timings.DISASTER_THIRD_WAVE.getValue());
     }
 
     public void killPeople() {

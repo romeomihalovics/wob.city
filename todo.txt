@@ -14,7 +14,4 @@ Create criminals who are killing people [cant be kids]
 		killed list
 		chance of getting caught [increases by 5% with every crime] (no crime -> 0 chance of getting caught...)
 
-make global variables for timings
-
-
 cleanup

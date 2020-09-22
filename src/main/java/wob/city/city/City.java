@@ -18,6 +18,7 @@ import wob.city.newspaper.object.NewBornNews;
 import wob.city.person.abstraction.Person;
 import wob.city.person.enums.StatInFamily;
 import wob.city.person.enums.Types;
+import wob.city.timing.Timings;
 import wob.city.util.Calculations;
 import wob.city.util.DtoGenerator;
 
@@ -98,7 +99,7 @@ public class City {
         this.timer = new Timer();
         this.newBornWorker = new NewBornWorker(this);
 
-        this.timer.scheduleAtFixedRate(newBornWorker, (60*1000*2), (60*1000*2));
+        this.timer.scheduleAtFixedRate(newBornWorker, Timings.NEW_BORN_WORKER.getValue(), Timings.NEW_BORN_WORKER.getValue());
     }
 
     public List<Disaster> getDisaster() {
