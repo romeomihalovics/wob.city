@@ -7,6 +7,7 @@ import wob.city.database.dao.PersonHistoryDao;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.family.Family;
 import wob.city.food.abstraction.Food;
+import wob.city.person.enums.Professions;
 import wob.city.person.enums.StatInFamily;
 import wob.city.person.enums.Types;
 import wob.city.person.object.Man;
@@ -18,6 +19,8 @@ import wob.city.util.Calculations;
 import wob.city.util.DtoGenerator;
 import wob.city.util.Names;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 
 public abstract class Person {
@@ -46,6 +49,10 @@ public abstract class Person {
     protected StatInFamily statInFamily = null;
     protected PersonHistoryDao personHistoryDao = new PersonHistoryDao();
     protected NewsPaperDao newsPaperDao = new NewsPaperDao();
+    protected Boolean isCriminal = false;
+    protected List<Person> killedPeople = new ArrayList<>();
+    protected Professions profession;
+    protected int chanceOfBeingArrested = 0;
 
     public Person(int normalMinWeight, int normalMaxWeight, String firstName, int weight){
         this.age = Calculations.getRandomIntBetween(18, 122);
@@ -208,6 +215,40 @@ public abstract class Person {
 
     public void setStatInFamily(StatInFamily statInFamily) {
         this.statInFamily = statInFamily;
+    }
+
+    public Boolean getCriminal() {
+        return isCriminal;
+    }
+
+    public void setIsCriminal(Boolean isCriminal) {
+        this.isCriminal = isCriminal;
+    }
+
+    public List<Person> getKilledPeople() {
+        return killedPeople;
+    }
+
+    public void addKilledPerson(Person person) {
+        this.killedPeople.add(person);
+    }
+
+    public Professions getProfession() {
+        return profession;
+    }
+
+    public void setProfession(Professions profession) {
+        this.profession = profession;
+    }
+
+    public int getChanceOfBeingArrested() {
+        return chanceOfBeingArrested;
+    }
+
+    public void increaseChanceOfBeingArrested() {
+        if(this.chanceOfBeingArrested + 5 <= 100) {
+            this.chanceOfBeingArrested += 5;
+        }
     }
 
     public void setWorkers() {

@@ -45,4 +45,9 @@ Person > assign stuff on or after generating
 
 disaster ->
     last wave before destroying buildings, call available firefighter to each building, & try to save them  [thus the families in it]
-    
+
+
+    db record & report for
+        saved people [ambulance, or firefighter]
+        caught criminals [police]
+        killed people [by criminals]
