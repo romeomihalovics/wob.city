@@ -39,6 +39,8 @@ public class City {
     private final List<Disaster> disaster = Collections.synchronizedList(new ArrayList<>());
     private final DisasterNews disasterNews;
     private final DisasterHistoryDao disasterHistoryDao = new DisasterHistoryDao();
+    private final HashMap<String, List<Person>> professionals = new HashMap<>();
+    private final List<Person> criminals = new ArrayList<>();
 
     public City(String name, List<Person> people, List<Food> foods) {
         this.name = name;
@@ -50,6 +52,10 @@ public class City {
         this.deathNews = new DeathNews(this);
         this.newBornNews = new NewBornNews(this);
         this.disasterNews = new DisasterNews(this);
+
+        this.professionals.put("Ambulance", new ArrayList<>());
+        this.professionals.put("Police", new ArrayList<>());
+        this.professionals.put("FireFighter", new ArrayList<>());
     }
 
     public String getName() {
@@ -104,6 +110,14 @@ public class City {
 
     public List<Disaster> getDisaster() {
         return disaster;
+    }
+
+    public Map<String, List<Person>> getProfessionals() {
+        return professionals;
+    }
+
+    public List<Person> getCriminals() {
+        return criminals;
     }
 
     public void startDisaster(Disaster disaster) {
