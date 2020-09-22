@@ -13,6 +13,7 @@ import wob.city.person.object.Man;
 import wob.city.person.worker.AgingWorker;
 import wob.city.person.worker.DigestionWorker;
 import wob.city.person.worker.EatingWorker;
+import wob.city.timing.Timings;
 import wob.city.util.Calculations;
 import wob.city.util.DtoGenerator;
 import wob.city.util.Names;
@@ -215,9 +216,9 @@ public abstract class Person {
         this.eatingWorker = new EatingWorker(this);
         this.agingWorker = new AgingWorker(this);
 
-        this.timer.scheduleAtFixedRate(digestionWorker, (60*1000), (60*1000));
-        this.timer.scheduleAtFixedRate(eatingWorker, (60*1000*3), (60*1000*3));
-        this.timer.scheduleAtFixedRate(agingWorker, (60*1000*5), (60*1000*5));
+        this.timer.scheduleAtFixedRate(digestionWorker, Timings.DIGESTION.getValue(), Timings.DIGESTION.getValue());
+        this.timer.scheduleAtFixedRate(eatingWorker, Timings.EATING.getValue(), Timings.EATING.getValue());
+        this.timer.scheduleAtFixedRate(agingWorker, Timings.AGING.getValue(), Timings.AGING.getValue());
 
     }
 
