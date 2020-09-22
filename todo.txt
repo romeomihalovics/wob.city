@@ -15,3 +15,34 @@ Create criminals who are killing people [cant be kids]
 		chance of getting caught [increases by 5% with every crime] (no crime -> 0 chance of getting caught...)
 
 cleanup
+
+
+City ->
+    profession list
+        hashmap
+            police
+                people list
+            .
+            .
+            .
+    Criminal list
+        people list
+
+Person > assign stuff on or after generating
+    profession field = string (default null)
+    iscriminal field = bool (default false)
+    killed people = list of people
+    chance of being arrested = int (default 0 max 100)
+
+    person set workers ->
+        if criminal ->
+            set killing worker
+
+    die()
+        call ambulance after 2 minutes & try to save the person
+        & call police if person was killed by criminal
+
+
+disaster ->
+    last wave before destroying buildings, call available firefighter to each building, & try to save them  [thus the families in it]
+    
