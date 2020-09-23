@@ -1,13 +1,13 @@
 package wob.city.person.object;
 
 import wob.city.person.abstraction.Person;
-import wob.city.person.enums.Professions;
-import wob.city.person.enums.Types;
-import wob.city.util.Calculations;
+import wob.city.person.enums.Profession;
+import wob.city.person.enums.Type;
+import wob.city.util.Calculation;
 
 public class Woman extends Person {
     public Woman(){
-        super(50, 65, NAMES.getFemaleName(), Calculations.getRandomIntBetween(50, 65));
+        super(50, 65, NAMES.getFemaleName(), Calculation.getRandomIntBetween(50, 65));
     }
 
     public Woman(int normalMinWeight, int normalMaxWeight, int weight, int age) {
@@ -19,14 +19,14 @@ public class Woman extends Person {
     }
 
     @Override
-    public Types getType() {
-        return Types.WOMAN;
+    public Type getType() {
+        return Type.WOMAN;
     }
 
     @Override
     public void doAging() {
         this.addAge();
-        if((this.getAge() >= 60 && Calculations.getRandomIntBetween(0, 100) <= 25) || this.getAge() >= Person.ABSOLUTE_MAX_AGE) {
+        if((this.getAge() >= 60 && Calculation.getRandomIntBetween(0, 100) <= 25) || this.getAge() >= Person.ABSOLUTE_MAX_AGE) {
             this.die();
         }
     }
@@ -34,13 +34,13 @@ public class Woman extends Person {
     @Override
     public void setProfession() {
         if(this.profession == null && !this.isCriminal && !(this instanceof Girl)) {
-            int random = Calculations.getRandomIntBetween(1, 100);
+            int random = Calculation.getRandomIntBetween(1, 100);
             if(random <= 10) {
-                this.profession = Professions.POLICE;
+                this.profession = Profession.POLICE;
             }else if(random <= 15) {
-                this.profession = Professions.AMBULANCE;
+                this.profession = Profession.AMBULANCE;
             }else if(random <= 25) {
-                this.profession = Professions.FIREFIGHTER;
+                this.profession = Profession.FIREFIGHTER;
             }else if(random <= 33) {
                 this.isCriminal = true;
             }

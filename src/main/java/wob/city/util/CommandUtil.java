@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommandUtils {
+public class CommandUtil {
     public static City parseCityName(List<City> cities, String input, String parseIn, boolean withName) {
         City result = null;
         Matcher matcher = getRegexMatch(input, (withName) ? "^" + parseIn + " -c (.*) -n (.*)$" : "^" + parseIn + " -c (.*)$");

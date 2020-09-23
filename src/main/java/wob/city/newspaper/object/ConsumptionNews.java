@@ -4,7 +4,7 @@ import wob.city.city.City;
 import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.newspaper.abstraction.NewsPaper;
-import wob.city.util.Calculations;
+import wob.city.util.Calculation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +39,6 @@ public class ConsumptionNews extends NewsPaper {
 
     @Override
     public String toString() {
-        return Calculations.sumConsumptionToString(consumptionData);
+        return Calculation.sumConsumptionToString(consumptionData);
     }
 }

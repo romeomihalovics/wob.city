@@ -1,11 +1,9 @@
-package wob.city.controller.services;
+package wob.city.controller.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wob.city.controller.services.PeopleGenerator;
 import wob.city.person.abstraction.Person;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

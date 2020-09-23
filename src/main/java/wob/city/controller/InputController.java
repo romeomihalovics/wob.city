@@ -5,7 +5,7 @@ import wob.city.console.logger.ConsoleLogger;
 import wob.city.disaster.abstraction.Disaster;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
-import wob.city.util.CommandUtils;
+import wob.city.util.CommandUtil;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,14 +21,14 @@ public class InputController {
     }
 
     public void listPeople(List<City> cities, String input) {
-        City city = CommandUtils.parseCityName(cities, input, "people", false);
+        City city = CommandUtil.parseCityName(cities, input, "people", false);
         ConsoleLogger.getLogger().log((city != null) ? city.getPeople().toString() : "City not found");
     }
 
     public void getPerson(List<City> cities, String input) {
-        City city = CommandUtils.parseCityName(cities, input, "person", true);
+        City city = CommandUtil.parseCityName(cities, input, "person", true);
         if(city != null) {
-            Person person = CommandUtils.getPerson(city, input);
+            Person person = CommandUtil.getPerson(city, input);
             ConsoleLogger.getLogger().log((person != null) ? person.toString() : "Person not found");
         } else {
             ConsoleLogger.getLogger().log("City not found");
@@ -36,13 +36,13 @@ public class InputController {
     }
 
     public void getFood(List<Food> foods, String input) {
-        Food food = CommandUtils.parseFoodName(foods, input, false);
+        Food food = CommandUtil.parseFoodName(foods, input, false);
         ConsoleLogger.getLogger().log((food != null) ? food.toString(100) : "Food not found");
     }
 
     public void getFoodByGramm(List<Food> foods, String input) {
-        Food food = CommandUtils.parseFoodName(foods, input, true);
-        Integer gramm = CommandUtils.parseFoodGramm(input);
+        Food food = CommandUtil.parseFoodName(foods, input, true);
+        Integer gramm = CommandUtil.parseFoodGramm(input);
         ConsoleLogger.getLogger().log((food != null) ? food.toString(gramm) : "Food not found");
     }
 
@@ -71,9 +71,9 @@ public class InputController {
     }
 
     public void startDisaster(List<City> cities, String input) {
-        City city = CommandUtils.parseCityName(cities, input, "disaster", true);
+        City city = CommandUtil.parseCityName(cities, input, "disaster", true);
         if (city != null) {
-            Disaster disaster = CommandUtils.getDisaster(input);
+            Disaster disaster = CommandUtil.getDisaster(input);
             if(disaster != null) {
                 disaster.setLocation(city);
                 city.startDisaster(disaster);

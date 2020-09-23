@@ -1,6 +1,6 @@
 package wob.city.food.enums;
 
-public enum Types {
+public enum Type {
     DAIRY("Dairy"),
     GRAIN("Grain"),
     MEAT("Meat"),
@@ -8,7 +8,7 @@ public enum Types {
 
     private final String type;
 
-    Types(String envType) {
+    Type(String envType) {
         this.type = envType;
     }
 

@@ -52,7 +52,6 @@ disaster ->
         caught criminals [police]
         killed people [by criminals]
 
-refactor class names [no plural]
 Report
 	merge death news, new born table & create new col [enum]
 	New abstract class for reports with same dao [newspaperdao]

@@ -1,4 +1,4 @@
-package wob.city.controller.services;
+package wob.city.controller.service;
 
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.food.abstraction.Food;

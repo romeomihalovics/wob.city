@@ -3,7 +3,7 @@ package wob.city.util;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
-import wob.city.person.enums.Types;
+import wob.city.person.enums.Type;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -11,12 +11,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Calculations {
+public class Calculation {
     public static int getRandomIntBetween(int min, int max){
         return (int) ((Math.random() * ((max - min) + 1)) + min);
     }
 
-    public static int getPeopleCountByType(List<Person> people, Types type) {
+    public static int getPeopleCountByType(List<Person> people, Type type) {
         int count = 0;
         List<Person> syncPeople = Collections.synchronizedList(people);
 
@@ -37,7 +37,7 @@ public class Calculations {
     }
 
     public static Food getRandomFood(List<Food> foods) {
-        return foods.get(Calculations.getRandomIntBetween(0, foods.size() - 1));
+        return foods.get(Calculation.getRandomIntBetween(0, foods.size() - 1));
     }
 
     public static Integer getEnergy(Food fromFood) {
@@ -45,7 +45,7 @@ public class Calculations {
     }
 
     public static Double getAmountByEnergy(int amount, int energy) {
-        return Calculations.round(((double) amount / 100) * energy, 2);
+        return Calculation.round(((double) amount / 100) * energy, 2);
     }
 
     public static Double round(Double number, Integer decimalPlaces){

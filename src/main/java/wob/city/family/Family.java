@@ -4,8 +4,8 @@ import wob.city.city.City;
 import wob.city.housing.abstraction.Housing;
 import wob.city.person.abstraction.Person;
 import wob.city.person.enums.StatInFamily;
-import wob.city.person.enums.Types;
-import wob.city.util.Calculations;
+import wob.city.person.enums.Type;
+import wob.city.util.Calculation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Family {
 
     public void tryToAdd(Person person, boolean mustAdd) {
         if(person.getFamily() == null){
-            if(person.getType() == Types.MAN || person.getType() == Types.WOMAN) {
+            if(person.getType() == Type.MAN || person.getType() == Type.WOMAN) {
                 tryToFitAsParent(person, mustAdd);
             } else {
                 tryToFitAsChild(person, mustAdd);
@@ -36,7 +36,7 @@ public class Family {
     }
 
     private void tryToFitAsParent(Person person, boolean mustAdd) {
-        if(Calculations.getPeopleCountByType(people, person.getType()) == 0 && (Calculations.getRandomIntBetween(0,100) <= 50 || mustAdd)) {
+        if(Calculation.getPeopleCountByType(people, person.getType()) == 0 && (Calculation.getRandomIntBetween(0,100) <= 50 || mustAdd)) {
             people.add(person);
             person.setFamily(this);
             person.setStatInFamily(StatInFamily.PARENT);
@@ -44,7 +44,7 @@ public class Family {
     }
 
     private void tryToFitAsChild(Person person, boolean mustAdd) {
-        if ((Calculations.getPeopleCountByType(people, Types.BOY) + Calculations.getPeopleCountByType(people, Types.GIRL)) < 3 && (Calculations.getRandomIntBetween(0, 100) <= 20 || mustAdd)) {
+        if ((Calculation.getPeopleCountByType(people, Type.BOY) + Calculation.getPeopleCountByType(people, Type.GIRL)) < 3 && (Calculation.getRandomIntBetween(0, 100) <= 20 || mustAdd)) {
             people.add(person);
             person.setFamily(this);
             person.setLastName(familyName);

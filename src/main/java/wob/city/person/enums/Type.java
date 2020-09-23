@@ -1,6 +1,6 @@
 package wob.city.person.enums;
 
-public enum Types {
+public enum Type {
     MAN ("Man"),
     WOMAN ("Woman"),
     BOY ("Boy"),
@@ -8,7 +8,7 @@ public enum Types {
 
     private final String type;
 
-    Types(String envType) {
+    Type(String envType) {
         this.type = envType;
     }
 

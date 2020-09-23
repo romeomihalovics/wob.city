@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import wob.city.food.abstraction.Food;
 import wob.city.food.object.Meat;
 import wob.city.person.abstraction.Person;
-import wob.city.person.enums.Types;
+import wob.city.person.enums.Type;
 import wob.city.person.object.Boy;
 import wob.city.person.object.Girl;
 import wob.city.person.object.Man;
@@ -17,7 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CalculationsTests {
+class CalculationTests {
     @Test
     @DisplayName("Random int between 1 and 10 should be on list from 1 and 10")
     void getRandomIntBetweenShouldReturn() {
@@ -25,7 +25,7 @@ class CalculationsTests {
         int max = 10;
         List<Integer> shouldContain = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
 
-        assertTrue(shouldContain.contains(Calculations.getRandomIntBetween(min, max)));
+        assertTrue(shouldContain.contains(Calculation.getRandomIntBetween(min, max)));
     }
 
     @Test
@@ -33,10 +33,10 @@ class CalculationsTests {
     void getPeopleCountByTypeShouldReturn() {
         List<Person> people = Arrays.asList(new Boy(), new Boy(), new Girl(), new Man(), new Woman(), new Woman());
 
-        assertEquals(2, Calculations.getPeopleCountByType(people, Types.BOY));
-        assertEquals(1, Calculations.getPeopleCountByType(people, Types.GIRL));
-        assertEquals(1, Calculations.getPeopleCountByType(people, Types.MAN));
-        assertEquals(2, Calculations.getPeopleCountByType(people, Types.WOMAN));
+        assertEquals(2, Calculation.getPeopleCountByType(people, Type.BOY));
+        assertEquals(1, Calculation.getPeopleCountByType(people, Type.GIRL));
+        assertEquals(1, Calculation.getPeopleCountByType(people, Type.MAN));
+        assertEquals(2, Calculation.getPeopleCountByType(people, Type.WOMAN));
     }
 
     @Test
@@ -44,7 +44,7 @@ class CalculationsTests {
     void getRandomNPeopleShouldReturn() {
         List<Person> people = Arrays.asList(new Woman(), new Woman(), new Woman(), new Man(), new Man(), new Girl());
 
-        assertEquals(5, Calculations.getRandomNPeople(people, 5).size());
+        assertEquals(5, Calculation.getRandomNPeople(people, 5).size());
     }
 
     @Test
@@ -53,7 +53,7 @@ class CalculationsTests {
         List<String> foodDetails = Arrays.asList("Sausage", "14", "1", "28");
         Food food = new Meat(foodDetails);
 
-        assertEquals(312, Calculations.getEnergy(food));
+        assertEquals(312, Calculation.getEnergy(food));
     }
 
     @Test
@@ -62,12 +62,12 @@ class CalculationsTests {
         int energyInAHundredGrammFood = 234;
         int desiredAmount = 512;
 
-        assertEquals(1198.08, Calculations.getAmountByEnergy(desiredAmount, energyInAHundredGrammFood));
+        assertEquals(1198.08, Calculation.getAmountByEnergy(desiredAmount, energyInAHundredGrammFood));
     }
 
     @Test
     @DisplayName("Rounding double '12.005' to 2 decimal places should return '12.01'")
     void roundShouldReturn() {
-        assertEquals(12.01, Calculations.round(12.005, 2));
+        assertEquals(12.01, Calculation.round(12.005, 2));
     }
 }

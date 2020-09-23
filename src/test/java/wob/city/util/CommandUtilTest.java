@@ -17,7 +17,7 @@ import java.util.regex.Matcher;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CommandUtilsTest {
+class CommandUtilTest {
     @Test
     @DisplayName("Parsing food name from console input with regex should return '(Food Object [Meat]) Sausage' when input is 'food -n Sausage' or with '-gramm 100', but fake name should return null")
     void parseFoodNameShouldReturn() {
@@ -27,10 +27,10 @@ class CommandUtilsTest {
 
         List<Food> foods = Arrays.asList(new Meat(foodDetails.get("Sausage")), new Meat(foodDetails.get("Chicken")));
 
-        Assertions.assertEquals(foods.get(0), CommandUtils.parseFoodName(foods, "food -n Sausage", false));
-        assertEquals(foods.get(0), CommandUtils.parseFoodName(foods, "food -n Sausage -gramm 100", true));
-        assertNull(CommandUtils.parseFoodName(foods, "food -n Fake", false));
-        assertNull(CommandUtils.parseFoodName(foods, "food -n Fake -gramm 100", true));
+        Assertions.assertEquals(foods.get(0), CommandUtil.parseFoodName(foods, "food -n Sausage", false));
+        assertEquals(foods.get(0), CommandUtil.parseFoodName(foods, "food -n Sausage -gramm 100", true));
+        assertNull(CommandUtil.parseFoodName(foods, "food -n Fake", false));
+        assertNull(CommandUtil.parseFoodName(foods, "food -n Fake -gramm 100", true));
     }
 
     @Test
@@ -42,14 +42,14 @@ class CommandUtilsTest {
 
         List<Food> foods = Arrays.asList(new Meat(foodDetails.get("Sausage")), new Meat(foodDetails.get("Chicken")));
 
-        assertEquals(foods.get(0), CommandUtils.getFood(foods, "Sausage"));
-        assertNull(CommandUtils.getFood(foods, "Fake"));
+        assertEquals(foods.get(0), CommandUtil.getFood(foods, "Sausage"));
+        assertNull(CommandUtil.getFood(foods, "Fake"));
     }
 
     @Test
     @DisplayName("Get food gramm from console input should return '100' when input is 'food -n name -gramm 100'")
     void parseFoodGrammShouldReturn() {
-        assertEquals(100, CommandUtils.parseFoodGramm("food -n name -gramm 100"));
+        assertEquals(100, CommandUtil.parseFoodGramm("food -n name -gramm 100"));
     }
 
     @Test
@@ -58,17 +58,17 @@ class CommandUtilsTest {
         List<Food> foods = new ArrayList<>();
         List<City> cities = Collections.singletonList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), foods));
 
-        assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "people -c WoB City", "people", false));
-        assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "person -c WoB City -n Person Name", "person", true));
-        assertEquals(cities.get(0), CommandUtils.parseCityName(cities, "disaster -c WoB City -n volcano", "disaster", true));
+        assertEquals(cities.get(0), CommandUtil.parseCityName(cities, "people -c WoB City", "people", false));
+        assertEquals(cities.get(0), CommandUtil.parseCityName(cities, "person -c WoB City -n Person Name", "person", true));
+        assertEquals(cities.get(0), CommandUtil.parseCityName(cities, "disaster -c WoB City -n volcano", "disaster", true));
 
-        assertNull(CommandUtils.parseCityName(cities, "people -c Fake Name", "people", false));
-        assertNull(CommandUtils.parseCityName(cities, "person -c Fake Name -n Person Name", "person",true));
-        assertNull(CommandUtils.parseCityName(cities, "disaster -c Fake Name -n volcano", "disaster", true));
+        assertNull(CommandUtil.parseCityName(cities, "people -c Fake Name", "people", false));
+        assertNull(CommandUtil.parseCityName(cities, "person -c Fake Name -n Person Name", "person",true));
+        assertNull(CommandUtil.parseCityName(cities, "disaster -c Fake Name -n volcano", "disaster", true));
 
-        assertNull(CommandUtils.parseCityName(cities, "disaster -c WoB City -n volcano", "fakecommand", true));
-        assertNull(CommandUtils.parseCityName(cities, "person -c WoB City -n Person Name", "fakecommand", true));
-        assertNull(CommandUtils.parseCityName(cities, "people -c WoB City", "fakecommand", false));
+        assertNull(CommandUtil.parseCityName(cities, "disaster -c WoB City -n volcano", "fakecommand", true));
+        assertNull(CommandUtil.parseCityName(cities, "person -c WoB City -n Person Name", "fakecommand", true));
+        assertNull(CommandUtil.parseCityName(cities, "people -c WoB City", "fakecommand", false));
 
     }
 
@@ -78,17 +78,17 @@ class CommandUtilsTest {
         List<Food> foods = new ArrayList<>();
         List<City> cities = Collections.singletonList(new City("WoB City", Arrays.asList(new Girl(), new Woman()), foods));
         Person person = cities.get(0).getPeople().get(0);
-        City city = CommandUtils.parseCityName(cities, "people -c WoB City", "people",false);
+        City city = CommandUtil.parseCityName(cities, "people -c WoB City", "people",false);
 
         assertNotNull(city);
 
-        assertEquals(person, CommandUtils.getPerson(city, "person -c WoB City -n " + person.getFullName()));
+        assertEquals(person, CommandUtil.getPerson(city, "person -c WoB City -n " + person.getFullName()));
     }
 
     @Test
     @DisplayName("Generating a disaster from console should return a valid disaster object")
     void getDisasterShouldReturn() {
-        Disaster volcanic = CommandUtils.getDisaster("disaster -c WoB City -n volcano");
+        Disaster volcanic = CommandUtil.getDisaster("disaster -c WoB City -n volcano");
         assertTrue(volcanic instanceof Volcano);
         assertEquals("God", volcanic.getCause());
         assertEquals("Volcanic Eruption", volcanic.getName());
@@ -98,8 +98,8 @@ class CommandUtilsTest {
     @Test
     @DisplayName("Get regex match should return the matcher object on successful matching or null on failed matching")
     void getRegexMatchShouldReturn() {
-        Matcher matcher = CommandUtils.getRegexMatch("test -n parameter", "^test -n (.*)$");
+        Matcher matcher = CommandUtil.getRegexMatch("test -n parameter", "^test -n (.*)$");
         assertEquals("parameter", (matcher != null) ? matcher.group(1) : null);
-        assertNull(CommandUtils.getRegexMatch("not matching", "^test -n (.*)$"));
+        assertNull(CommandUtil.getRegexMatch("not matching", "^test -n (.*)$"));
     }
 }

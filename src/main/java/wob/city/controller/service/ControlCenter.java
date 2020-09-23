@@ -1,10 +1,10 @@
-package wob.city.controller.services;
+package wob.city.controller.service;
 
 import wob.city.city.City;
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.person.abstraction.Person;
 import wob.city.person.object.Woman;
-import wob.city.util.Calculations;
+import wob.city.util.Calculation;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class ControlCenter {
     public void validate(List<City> cities) {
         for(City city : cities) {
             ConsoleLogger.getLogger().log("\n Validating random 10 people from city: " + city.getName());
-            List<Person> randomTenPeople = Calculations.getRandomNPeople(city.getPeople(), 10);
+            List<Person> randomTenPeople = Calculation.getRandomNPeople(city.getPeople(), 10);
 
             for (int i = randomTenPeople.size() - 1; i >= 0; i--) {
                 Person person = city.getPeople().get(i);

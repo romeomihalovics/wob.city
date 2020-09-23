@@ -7,8 +7,8 @@ import wob.city.disaster.worker.SecondWave;
 import wob.city.disaster.worker.ThirdWave;
 import wob.city.housing.abstraction.Housing;
 import wob.city.person.abstraction.Person;
-import wob.city.timing.Timings;
-import wob.city.util.Calculations;
+import wob.city.timing.Timing;
+import wob.city.util.Calculation;
 
 import java.util.*;
 
@@ -70,9 +70,9 @@ public abstract class Disaster {
         this.secondWaveWorker = new SecondWave(this);
         this.thirdWaveWorker = new ThirdWave(this);
 
-        this.timer.schedule(firstWaveWorker, Timings.DISASTER_FIRST_WAVE.getValue());
-        this.timer.schedule(secondWaveWorker, Timings.DISASTER_SECOND_WAVE.getValue());
-        this.timer.schedule(thirdWaveWorker, Timings.DISASTER_THIRD_WAVE.getValue());
+        this.timer.schedule(firstWaveWorker, Timing.DISASTER_FIRST_WAVE.getValue());
+        this.timer.schedule(secondWaveWorker, Timing.DISASTER_SECOND_WAVE.getValue());
+        this.timer.schedule(thirdWaveWorker, Timing.DISASTER_THIRD_WAVE.getValue());
     }
 
     public void killPeople() {
@@ -81,7 +81,7 @@ public abstract class Disaster {
         List<Person> toKill = new ArrayList<>();
         synchronized (housings) {
             for(Housing housing : housings) {
-                if(Calculations.getRandomIntBetween(0, 100) <= this.killingRate) {
+                if(Calculation.getRandomIntBetween(0, 100) <= this.killingRate) {
                     housing.getFamilies().forEach(family -> {
                         toKill.addAll(family.getPeople());
                         this.destroyed.add(housing);

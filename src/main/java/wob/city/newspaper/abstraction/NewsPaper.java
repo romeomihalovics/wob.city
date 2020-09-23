@@ -2,7 +2,7 @@ package wob.city.newspaper.abstraction;
 
 import wob.city.city.City;
 import wob.city.newspaper.worker.ReportWorker;
-import wob.city.timing.Timings;
+import wob.city.timing.Timing;
 
 import java.util.Timer;
 
@@ -18,7 +18,7 @@ public abstract class NewsPaper {
 
         if(scheduled){
             Timer timer = new Timer();
-            timer.scheduleAtFixedRate(reportWorker, Timings.REPORT.getValue(), Timings.REPORT.getValue());
+            timer.scheduleAtFixedRate(reportWorker, Timing.REPORT.getValue(), Timing.REPORT.getValue());
         }
     }
 

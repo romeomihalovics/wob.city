@@ -5,7 +5,7 @@ import wob.city.console.input.InputGrabber;
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.controller.TaskController;
 import wob.city.food.abstraction.Food;
-import wob.city.util.Calculations;
+import wob.city.util.Calculation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class Main {
         InputGrabber inputGrabber = new InputGrabber(foods, cities);
 
         taskController.loadFoods(foods);
-        taskController.createCity("WoB City", Calculations.getRandomIntBetween(100, 1000), cities, foods);
+        taskController.createCity("WoB City", Calculation.getRandomIntBetween(100, 1000), cities, foods);
         taskController.validateCitizens(cities);
 
 

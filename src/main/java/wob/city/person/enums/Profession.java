@@ -1,13 +1,13 @@
 package wob.city.person.enums;
 
-public enum Professions {
+public enum Profession {
     POLICE("Police"),
     AMBULANCE("Ambulance"),
     FIREFIGHTER("FireFighter");
 
     private final String profession;
 
-    Professions(String envProfession) {
+    Profession(String envProfession) {
         this.profession = envProfession;
     }
 

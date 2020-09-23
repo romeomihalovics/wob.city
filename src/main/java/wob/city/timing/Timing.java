@@ -1,6 +1,6 @@
 package wob.city.timing;
 
-public enum Timings {
+public enum Timing {
     MINUTE(60*1000),
     NEW_BORN_WORKER(MINUTE.getValue()*2),
     DISASTER_FIRST_WAVE(MINUTE.getValue()),
@@ -13,7 +13,7 @@ public enum Timings {
 
     private final int time;
 
-    Timings(int envTime){
+    Timing(int envTime){
         this.time = envTime;
     }
 

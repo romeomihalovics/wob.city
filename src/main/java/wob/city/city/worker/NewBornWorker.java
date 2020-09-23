@@ -2,7 +2,7 @@ package wob.city.city.worker;
 
 import wob.city.city.City;
 import wob.city.console.logger.ActivityLogger;
-import wob.city.controller.services.PeopleGenerator;
+import wob.city.controller.service.PeopleGenerator;
 import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dao.PersonHistoryDao;
 import wob.city.family.Family;

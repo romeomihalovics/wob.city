@@ -16,11 +16,11 @@ import wob.city.newspaper.object.DeathNews;
 import wob.city.newspaper.object.DisasterNews;
 import wob.city.newspaper.object.NewBornNews;
 import wob.city.person.abstraction.Person;
-import wob.city.person.enums.Professions;
+import wob.city.person.enums.Profession;
 import wob.city.person.enums.StatInFamily;
-import wob.city.person.enums.Types;
-import wob.city.timing.Timings;
-import wob.city.util.Calculations;
+import wob.city.person.enums.Type;
+import wob.city.timing.Timing;
+import wob.city.util.Calculation;
 import wob.city.util.DtoGenerator;
 
 import java.util.*;
@@ -54,9 +54,9 @@ public class City {
         this.newBornNews = new NewBornNews(this);
         this.disasterNews = new DisasterNews(this);
 
-        this.professionals.put(Professions.AMBULANCE.getValue(), new ArrayList<>());
-        this.professionals.put(Professions.POLICE.getValue(), new ArrayList<>());
-        this.professionals.put(Professions.FIREFIGHTER.getValue(), new ArrayList<>());
+        this.professionals.put(Profession.AMBULANCE.getValue(), new ArrayList<>());
+        this.professionals.put(Profession.POLICE.getValue(), new ArrayList<>());
+        this.professionals.put(Profession.FIREFIGHTER.getValue(), new ArrayList<>());
     }
 
     public String getName() {
@@ -106,7 +106,7 @@ public class City {
         this.timer = new Timer();
         this.newBornWorker = new NewBornWorker(this);
 
-        this.timer.scheduleAtFixedRate(newBornWorker, Timings.NEW_BORN_WORKER.getValue(), Timings.NEW_BORN_WORKER.getValue());
+        this.timer.scheduleAtFixedRate(newBornWorker, Timing.NEW_BORN_WORKER.getValue(), Timing.NEW_BORN_WORKER.getValue());
     }
 
     public List<Disaster> getDisaster() {
@@ -165,7 +165,7 @@ public class City {
     public void createFamilies() {
         List<Person> orphans = new ArrayList<>();
         people.forEach(person -> {
-            List<Family> shuffledFamilies = (List<Family>) Calculations.shuffleList(families);
+            List<Family> shuffledFamilies = (List<Family>) Calculation.shuffleList(families);
             shuffledFamilies.forEach(family -> family.tryToAdd(person, false));
             if(person.getFamily() == null && person.getAge() >= 18) {
                 Family family = new Family(this, person);
@@ -185,7 +185,7 @@ public class City {
     private void tryToFindFamily(List<Person> orphans) {
         List<Person> leftToDie = new ArrayList<>();
         orphans.forEach(person -> {
-            List<Family> shuffledFamilies = (List<Family>) Calculations.shuffleList(families);
+            List<Family> shuffledFamilies = (List<Family>) Calculation.shuffleList(families);
             shuffledFamilies.forEach(family -> family.tryToAdd(person, false));
             if(person.getFamily() == null) {
                 leftToDie.add(person);
@@ -209,15 +209,15 @@ public class City {
     @SuppressWarnings("unchecked")
     public Family getFertileFamily(){
         List<Family> family = new ArrayList<>();
-        List<Family> shuffledFamilies = (List<Family>) Calculations.shuffleList(families);
+        List<Family> shuffledFamilies = (List<Family>) Calculation.shuffleList(families);
         for (Family f : shuffledFamilies) {
             List<Person> parents = new ArrayList<>();
             List<Person> children = new ArrayList<>();
             f.getPeople().forEach(person -> {
-                if ((person.getType() == Types.MAN || person.getType() == Types.WOMAN) &&
+                if ((person.getType() == Type.MAN || person.getType() == Type.WOMAN) &&
                         person.getStatInFamily() == StatInFamily.PARENT && person.getAge() >= 20 && person.getAge() <= 40) {
                     parents.add(person);
-                }else if(person.getType() == Types.BOY || person.getType() == Types.GIRL){
+                }else if(person.getType() == Type.BOY || person.getType() == Type.GIRL){
                     children.add(person);
                 }
             });
@@ -231,7 +231,7 @@ public class City {
 
     public Housing buildHouse() {
         Housing housing;
-        switch (Calculations.getRandomIntBetween(1,3)) {
+        switch (Calculation.getRandomIntBetween(1,3)) {
             case 1:
                 housing = new BrickBlock();
                 break;
@@ -254,11 +254,11 @@ public class City {
                 "\n  died: " + died.size() + "," +
                 "\n  people: {" +
                 "\n     kids: {" +
-                "\n         girls: " + Calculations.getPeopleCountByType(people, Types.GIRL) +
-                "\n         boys: " + Calculations.getPeopleCountByType(people, Types.BOY) +
+                "\n         girls: " + Calculation.getPeopleCountByType(people, Type.GIRL) +
+                "\n         boys: " + Calculation.getPeopleCountByType(people, Type.BOY) +
                 "\n     }" +
-                "\n     Woman: " + Calculations.getPeopleCountByType(people, Types.WOMAN) +
-                "\n     Man: " + Calculations.getPeopleCountByType(people, Types.MAN) +
+                "\n     Woman: " + Calculation.getPeopleCountByType(people, Type.WOMAN) +
+                "\n     Man: " + Calculation.getPeopleCountByType(people, Type.MAN) +
                 "\n  }, " +
                 "\n  families: " + families.size() +
                 "\n }";

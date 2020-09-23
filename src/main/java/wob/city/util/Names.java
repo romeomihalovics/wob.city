@@ -53,6 +53,6 @@ public class Names {
     }
 
     private String getRandomName(List<String> fromList) {
-        return fromList.get(Calculations.getRandomIntBetween(0, fromList.size() - 1));
+        return fromList.get(Calculation.getRandomIntBetween(0, fromList.size() - 1));
     }
 }

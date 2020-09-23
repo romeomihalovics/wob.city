@@ -7,15 +7,15 @@ import wob.city.database.dao.PersonHistoryDao;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.family.Family;
 import wob.city.food.abstraction.Food;
-import wob.city.person.enums.Professions;
+import wob.city.person.enums.Profession;
 import wob.city.person.enums.StatInFamily;
-import wob.city.person.enums.Types;
+import wob.city.person.enums.Type;
 import wob.city.person.object.Man;
 import wob.city.person.worker.AgingWorker;
 import wob.city.person.worker.DigestionWorker;
 import wob.city.person.worker.EatingWorker;
-import wob.city.timing.Timings;
-import wob.city.util.Calculations;
+import wob.city.timing.Timing;
+import wob.city.util.Calculation;
 import wob.city.util.DtoGenerator;
 import wob.city.util.Names;
 
@@ -51,12 +51,13 @@ public abstract class Person {
     protected NewsPaperDao newsPaperDao = new NewsPaperDao();
     protected boolean isCriminal = false;
     protected List<Person> killedPeople = new ArrayList<>();
-    protected Professions profession;
+    protected Profession profession;
     protected int chanceOfBeingArrested = 0;
+    protected boolean busy = false;
 
     public Person(int normalMinWeight, int normalMaxWeight, String firstName, int weight){
-        this.age = Calculations.getRandomIntBetween(18, 122);
-        this.height = Calculations.getRandomIntBetween(1, 200);
+        this.age = Calculation.getRandomIntBetween(18, 122);
+        this.height = Calculation.getRandomIntBetween(1, 200);
         this.lastName = NAMES.getLastName();
         this.firstName = firstName;
         this.weight = weight;
@@ -66,7 +67,7 @@ public abstract class Person {
 
     public Person(int normalMinWeight, int normalMaxWeight, int weight, int age, String firstName) {
         this.age = age;
-        this.height = Calculations.getRandomIntBetween(1, 200);
+        this.height = Calculation.getRandomIntBetween(1, 200);
         this.lastName = NAMES.getLastName();
         this.firstName = firstName;
         this.weight = weight;
@@ -229,7 +230,7 @@ public abstract class Person {
         this.killedPeople.add(person);
     }
 
-    public Professions getProfession() {
+    public Profession getProfession() {
         return profession;
     }
 
@@ -245,15 +246,23 @@ public abstract class Person {
         }
     }
 
+    public boolean isBusy() {
+        return busy;
+    }
+
+    public void setBusy(boolean busy) {
+        this.busy = busy;
+    }
+
     public void setWorkers() {
         this.timer = new Timer();
         this.digestionWorker = new DigestionWorker(this);
         this.eatingWorker = new EatingWorker(this);
         this.agingWorker = new AgingWorker(this);
 
-        this.timer.scheduleAtFixedRate(digestionWorker, Timings.DIGESTION.getValue(), Timings.DIGESTION.getValue());
-        this.timer.scheduleAtFixedRate(eatingWorker, Timings.EATING.getValue(), Timings.EATING.getValue());
-        this.timer.scheduleAtFixedRate(agingWorker, Timings.AGING.getValue(), Timings.AGING.getValue());
+        this.timer.scheduleAtFixedRate(digestionWorker, Timing.DIGESTION.getValue(), Timing.DIGESTION.getValue());
+        this.timer.scheduleAtFixedRate(eatingWorker, Timing.EATING.getValue(), Timing.EATING.getValue());
+        this.timer.scheduleAtFixedRate(agingWorker, Timing.AGING.getValue(), Timing.AGING.getValue());
 
     }
 
@@ -306,7 +315,7 @@ public abstract class Person {
                 "\n}";
     }
 
-    public abstract Types getType();
+    public abstract Type getType();
 
     public abstract void doAging();
 
@@ -324,23 +333,23 @@ public abstract class Person {
     }
 
     public void doEating() {
-        Food food = Calculations.getRandomFood(this.getLocation().getFoods());
-        int amount = Calculations.getRandomIntBetween(0, 2500 - this.getEnergy());
+        Food food = Calculation.getRandomFood(this.getLocation().getFoods());
+        int amount = Calculation.getRandomIntBetween(0, 2500 - this.getEnergy());
 
         this.setLastFood(food.getName() + " " +
-                Calculations.getAmountByEnergy(amount, food.getEnergy()) +
+                Calculation.getAmountByEnergy(amount, food.getEnergy()) +
                 "g -> " + amount + "kcal");
 
         this.setEnergy(this.getEnergy() + amount);
 
         String event = "\n"+this.getType().getValue()+": " + this.getFullName() + " ate " +
-                Calculations.getAmountByEnergy(amount, food.getEnergy()) +
+                Calculation.getAmountByEnergy(amount, food.getEnergy()) +
                 "g (" + amount + "kcal) of " + food.getName() +
                 " and " + (this instanceof Man ? "his" : "her") +
                 " energy levels changed from " +
                 (this.getEnergy() - amount) + "kcal to " + this.getEnergy() + "kcal";
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
-        newsPaperDao.uploadConsumptionNews(new ConsumptionNewsDto(this.location.getName(), food.getType().getValue(), Calculations.getAmountByEnergy(amount, food.getEnergy())));
+        newsPaperDao.uploadConsumptionNews(new ConsumptionNewsDto(this.location.getName(), food.getType().getValue(), Calculation.getAmountByEnergy(amount, food.getEnergy())));
     }
 }
