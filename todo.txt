@@ -53,6 +53,5 @@ disaster ->
         killed people [by criminals]
 
 Report
-	New abstract class for reports with same dao [newspaperdao]
 	report person history with paging [limit] [every 1 hour]
 	fetch everything with paging [limit] where possible

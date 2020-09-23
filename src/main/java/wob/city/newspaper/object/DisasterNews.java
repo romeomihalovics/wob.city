@@ -4,6 +4,7 @@ import wob.city.city.City;
 import wob.city.database.dao.DisasterHistoryDao;
 import wob.city.database.dto.DisasterHistoryDto;
 import wob.city.newspaper.abstraction.NewsPaper;
+import wob.city.newspaper.enums.Folder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class DisasterNews extends NewsPaper {
     private final DisasterHistoryDao disasterHistoryDao = new DisasterHistoryDao();
 
     public DisasterNews(City city) {
-        super(city, "DisasterNews", false);
+        super(city, Folder.DISASTER_NEWS.name(), false);
         this.disasterData = new ArrayList<>();
     }
 

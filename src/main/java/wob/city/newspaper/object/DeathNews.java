@@ -1,44 +1,19 @@
 package wob.city.newspaper.object;
 
 import wob.city.city.City;
-import wob.city.database.dao.NewsPaperDao;
-import wob.city.database.dto.PersonNewsDto;
 import wob.city.database.enums.PersonNewsCategory;
-import wob.city.newspaper.abstraction.NewsPaper;
+import wob.city.newspaper.abstraction.PersonNews;
+import wob.city.newspaper.enums.Folder;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class DeathNews extends NewsPaper {
-    private List<PersonNewsDto> deathData;
-    private final NewsPaperDao newsPaperDao = new NewsPaperDao();
+public class DeathNews extends PersonNews {
 
     public DeathNews(City city) {
-        super(city, "DeathNews", true);
-        this.deathData = new ArrayList<>();
+        super(city, Folder.DEATH_NEWS.name(), true);
     }
 
     @Override
-    public void flushData() {
-        deathData.removeAll(getData());
-    }
-
-    @Override
-    public void fetchData() {
-        deathData = newsPaperDao.fetchPersonNews(PersonNewsCategory.DEATH, this.location.getName(), false);
-    }
-
-    @Override
-    public void setToReported() {
-        newsPaperDao.setPersonNewsToReported(PersonNewsCategory.DEATH, this.location.getName());
-    }
-
-    private List<PersonNewsDto> getData() {
-        return deathData;
-    }
-
-    @Override
-    public String toString() {
-        return deathData.toString();
+    public PersonNewsCategory getCategory() {
+        return PersonNewsCategory.DEATH;
     }
 }

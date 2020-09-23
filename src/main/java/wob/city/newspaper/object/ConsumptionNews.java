@@ -4,6 +4,7 @@ import wob.city.city.City;
 import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.newspaper.abstraction.NewsPaper;
+import wob.city.newspaper.enums.Folder;
 import wob.city.util.Calculation;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class ConsumptionNews extends NewsPaper {
     private final NewsPaperDao newsPaperDao = new NewsPaperDao();
 
     public ConsumptionNews(City city){
-        super(city,"ConsumptionNews", true);
+    super(city, Folder.CONSUMPTION_NEWS.name(), true);
         this.consumptionData = new ArrayList<>();
     }
 
