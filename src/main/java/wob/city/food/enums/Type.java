@@ -6,13 +6,13 @@ public enum Type {
     MEAT("Meat"),
     VEGETABLE("Vegetable");
 
-    private final String type;
+    private final String category;
 
-    Type(String envType) {
-        this.type = envType;
+    Type(String category) {
+        this.category = category;
     }
 
     public String getValue() {
-        return type;
+        return category;
     }
 }

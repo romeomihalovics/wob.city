@@ -5,13 +5,13 @@ public enum Profession {
     AMBULANCE("Ambulance"),
     FIREFIGHTER("FireFighter");
 
-    private final String profession;
+    private final String type;
 
-    Profession(String envProfession) {
-        this.profession = envProfession;
+    Profession(String type) {
+        this.type = type;
     }
 
     public String getValue() {
-        return profession;
+        return type;
     }
 }

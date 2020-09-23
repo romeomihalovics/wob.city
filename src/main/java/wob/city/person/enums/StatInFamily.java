@@ -6,8 +6,8 @@ public enum StatInFamily {
 
     private final String stat;
 
-    StatInFamily(String envStat) {
-        this.stat = envStat;
+    StatInFamily(String stat) {
+        this.stat = stat;
     }
 
     public String getValue() {
