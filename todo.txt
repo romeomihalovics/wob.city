@@ -51,3 +51,12 @@ disaster ->
         saved people [ambulance, or firefighter]
         caught criminals [police]
         killed people [by criminals]
+
+refactor class names [no plural]
+Report
+	merge death news, new born table & create new col [enum]
+	New abstract class for reports with same dao [newspaperdao]
+	report person history with paging [limit]
+	dto refactor [common fields into abstract class]
+
+	fetch everything with paging [limit] where possible
