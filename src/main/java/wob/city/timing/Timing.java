@@ -13,8 +13,8 @@ public enum Timing {
 
     private final int time;
 
-    Timing(int envTime){
-        this.time = envTime;
+    Timing(int time){
+        this.time = time;
     }
 
     public int getValue() {

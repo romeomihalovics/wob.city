@@ -5,6 +5,7 @@ import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.database.dto.DisasterHistoryDto;
 import wob.city.database.dto.PersonHistoryDto;
 import wob.city.database.dto.PersonNewsDto;
+import wob.city.database.enums.PersonNewsCategory;
 import wob.city.person.abstraction.Person;
 
 import java.util.ArrayList;
@@ -104,9 +105,10 @@ public class DtoGenerator {
         return tempDto;
     }
 
-    public static PersonNewsDto setupPersonNewsDto(Person person) {
+    public static PersonNewsDto setupPersonNewsDto(PersonNewsCategory category, Person person) {
         PersonNewsDto tempDto = new PersonNewsDto();
         tempDto.setType(person.getType().getValue());
+        tempDto.setCategory(category);
         tempDto.setFullname(person.getFullName());
         tempDto.setAge(person.getAge());
         tempDto.setWeight(person.getWeight());

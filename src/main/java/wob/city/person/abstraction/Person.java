@@ -5,6 +5,7 @@ import wob.city.console.logger.ActivityLogger;
 import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dao.PersonHistoryDao;
 import wob.city.database.dto.ConsumptionNewsDto;
+import wob.city.database.enums.PersonNewsCategory;
 import wob.city.family.Family;
 import wob.city.food.abstraction.Food;
 import wob.city.person.enums.Profession;
@@ -295,7 +296,7 @@ public abstract class Person {
                 " died at age " + this.getAge();
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
-        newsPaperDao.uploadPersonNews("death", DtoGenerator.setupPersonNewsDto(this));
+        newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.DEATH, this));
     }
 
 
