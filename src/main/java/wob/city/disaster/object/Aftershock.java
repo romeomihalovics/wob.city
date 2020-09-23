@@ -3,6 +3,7 @@ package wob.city.disaster.object;
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.disaster.abstraction.Consequence;
 import wob.city.disaster.abstraction.Disaster;
+import wob.city.person.enums.DeathCause;
 import wob.city.util.DtoGenerator;
 
 public class Aftershock extends Disaster implements Consequence {
@@ -31,5 +32,10 @@ public class Aftershock extends Disaster implements Consequence {
         this.killPeople();
         disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
         this.getLocation().finishDisaster();
+    }
+
+    @Override
+    public DeathCause getDeathCause() {
+        return DeathCause.DISASTER_AFTERSHOCK;
     }
 }

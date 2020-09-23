@@ -14,30 +14,9 @@ Create criminals who are killing people [cant be kids]
 		killed list
 		chance of getting caught [increases by 5% with every crime] (no crime -> 0 chance of getting caught...)
 
-cleanup
+---------------------------------------------------
 
-
-City ->
-    profession list ok
-        hashmap
-            police
-                people list
-            .
-            .
-            .
-    Criminal list ok
-        people list
-
-Person > assign stuff on or after generating
-    profession field = string (default null) ok
-    iscriminal field = bool (default false) ok
-    killed people = list of people ok
-    chance of being arrested = int (default 0 max 100)
-
-    person set workers ->
-        if criminal ->
-            set killing worker
-
+Person
     die()
         call ambulance after 2 minutes & try to save the person
         & call police if person was killed by criminal
@@ -55,3 +34,5 @@ disaster ->
 Report
 	report person history with paging [limit] [every 1 hour]
 	fetch everything with paging [limit] where possible
+
+cleanup

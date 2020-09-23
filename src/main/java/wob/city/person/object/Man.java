@@ -1,6 +1,7 @@
 package wob.city.person.object;
 
 import wob.city.person.abstraction.Person;
+import wob.city.person.enums.DeathCause;
 import wob.city.person.enums.Profession;
 import wob.city.person.enums.Type;
 import wob.city.util.Calculation;
@@ -27,13 +28,13 @@ public class Man extends Person {
     public void doAging() {
         this.addAge();
         if((this.getAge() >= 60 && Calculation.getRandomIntBetween(0, 100) <= 25) || this.getAge() >= Person.ABSOLUTE_MAX_AGE) {
-            this.die();
+            this.die(DeathCause.AGING);
         }
     }
 
     @Override
     public void setProfession() {
-        if(this.profession == null && !this.isCriminal && !(this instanceof Boy)) {
+        if(this.profession == null && !this.criminal && !(this instanceof Boy)) {
             int random = Calculation.getRandomIntBetween(1, 100);
             if(random <= 10) {
                 this.profession = Profession.POLICE;
@@ -42,7 +43,7 @@ public class Man extends Person {
             }else if(random <= 25) {
                 this.profession = Profession.FIREFIGHTER;
             }else if(random <= 33) {
-                this.isCriminal = true;
+                this.criminal = true;
             }
 
             if(this.profession != null) {
@@ -51,7 +52,7 @@ public class Man extends Person {
                         .add(this);
             }
 
-            if(this.isCriminal) {
+            if(this.criminal) {
                 this.location.getCriminals().add(this);
             }
         }

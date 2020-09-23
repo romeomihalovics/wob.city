@@ -7,6 +7,7 @@ import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
 import wob.city.city.City;
 import wob.city.food.object.Meat;
+import wob.city.person.enums.DeathCause;
 import wob.city.person.object.Woman;
 
 import java.util.*;
@@ -40,7 +41,7 @@ class EatingDigestionWorkerTest {
         assertTrue(person.getEnergy() < 2500 && person.getEnergy() >= 2150);
 
         person.setWorkers();
-        person.die();
+        person.die(DeathCause.STARVED);
         assertEquals(0, people.size());
     }
 }
