@@ -2,6 +2,7 @@ package wob.city.disaster.object;
 
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.disaster.abstraction.Disaster;
+import wob.city.person.enums.DeathCause;
 import wob.city.util.DtoGenerator;
 
 public class SubmarineVolcano extends Disaster {
@@ -26,5 +27,10 @@ public class SubmarineVolcano extends Disaster {
     @Override
     public void thirdWave() {
         this.getLocation().continueDisaster(new AftermathFlood("Submarine Volcanic Eruption"));
+    }
+
+    @Override
+    public DeathCause getDeathCause() {
+        return null;
     }
 }

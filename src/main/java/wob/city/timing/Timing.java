@@ -9,6 +9,7 @@ public enum Timing {
     DIGESTION(MINUTE.getValue()),
     EATING(MINUTE.getValue()*3),
     AGING(MINUTE.getValue()*5),
+    CRIMINAL_ACTIVITY(MINUTE.getValue()*8),
     REPORT(MINUTE.getValue()*10);
 
     private final int time;

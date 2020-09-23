@@ -2,6 +2,7 @@ package wob.city.disaster.object;
 
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.disaster.abstraction.Disaster;
+import wob.city.person.enums.DeathCause;
 import wob.city.util.DtoGenerator;
 
 public class Flood extends Disaster {
@@ -31,5 +32,10 @@ public class Flood extends Disaster {
         this.killPeople();
         disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
         this.getLocation().finishDisaster();
+    }
+
+    @Override
+    public DeathCause getDeathCause() {
+        return DeathCause.DISASTER_FLOOD;
     }
 }

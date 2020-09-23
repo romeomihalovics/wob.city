@@ -8,6 +8,7 @@ import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.database.enums.PersonNewsCategory;
 import wob.city.family.Family;
 import wob.city.food.abstraction.Food;
+import wob.city.person.enums.DeathCause;
 import wob.city.person.enums.Profession;
 import wob.city.person.enums.StatInFamily;
 import wob.city.person.enums.Type;
@@ -15,6 +16,7 @@ import wob.city.person.object.Man;
 import wob.city.person.worker.AgingWorker;
 import wob.city.person.worker.DigestionWorker;
 import wob.city.person.worker.EatingWorker;
+import wob.city.person.worker.KillingWorker;
 import wob.city.timing.Timing;
 import wob.city.util.Calculation;
 import wob.city.util.DtoGenerator;
@@ -43,6 +45,7 @@ public abstract class Person {
     protected DigestionWorker digestionWorker;
     protected EatingWorker eatingWorker;
     protected AgingWorker agingWorker;
+    protected KillingWorker killingWorker;
     protected City location;
     protected int energy = 2500;
     protected String lastFood = null;
@@ -50,7 +53,7 @@ public abstract class Person {
     protected StatInFamily statInFamily = null;
     protected PersonHistoryDao personHistoryDao = new PersonHistoryDao();
     protected NewsPaperDao newsPaperDao = new NewsPaperDao();
-    protected boolean isCriminal = false;
+    protected boolean criminal = false;
     protected List<Person> killedPeople = new ArrayList<>();
     protected Profession profession;
     protected int chanceOfBeingArrested = 0;
@@ -219,8 +222,8 @@ public abstract class Person {
         this.statInFamily = statInFamily;
     }
 
-    public Boolean getCriminal() {
-        return isCriminal;
+    public boolean isCriminal() {
+        return criminal;
     }
 
     public List<Person> getKilledPeople() {
@@ -265,6 +268,10 @@ public abstract class Person {
         this.timer.scheduleAtFixedRate(eatingWorker, Timing.EATING.getValue(), Timing.EATING.getValue());
         this.timer.scheduleAtFixedRate(agingWorker, Timing.AGING.getValue(), Timing.AGING.getValue());
 
+        if(criminal) {
+            this.killingWorker = new KillingWorker(this);
+            this.timer.scheduleAtFixedRate(killingWorker, Timing.CRIMINAL_ACTIVITY.getValue(), Timing.CRIMINAL_ACTIVITY.getValue());
+        }
     }
 
     public Timer getTimer() {
@@ -283,23 +290,43 @@ public abstract class Person {
         return agingWorker;
     }
 
-    public void die() {
+    private void recordAsDied(String event) {
         this.digestionWorker.cancel();
         this.eatingWorker.cancel();
         this.agingWorker.cancel();
+        if(this.criminal) {
+            this.killingWorker.cancel();
+        }
         this.timer.cancel();
 
         this.family.addDied(this);
         this.location.addDied(this);
 
-        String event = "\n"+this.getType().getValue()+": " + this.getFullName() +
-                " died at age " + this.getAge();
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
         newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.DEATH, this));
     }
 
+    public void die(DeathCause deathCause) {
+        String event = "\n"+this.getType().getValue()+": " + this.getFullName() +
+                " died at age " + this.getAge() + "(" + deathCause.getValue() + ")";
+        recordAsDied(event);
+    }
 
+    public void die(DeathCause deathCause, Person person) {
+        String event = "\n"+this.getType().getValue()+": " + this.getFullName() +
+                " died at age " + this.getAge() + "(" + deathCause.getValue() + " [" + person.getFullName() + "])";
+        recordAsDied(event);
+    }
+
+    public void tryToKillSomeone() {
+        if(!this.location.getPeople().isEmpty()){
+            Person randomPerson = Calculation.getRandomNPeople(this.location.getPeople(), 1).get(0);
+            killedPeople.add(randomPerson);
+            increaseChanceOfBeingArrested();
+            randomPerson.die(DeathCause.KILLED, this);
+        }
+    }
 
     @Override
     public String toString() {
@@ -329,7 +356,7 @@ public abstract class Person {
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
         if(this.getEnergy() <= 0) {
-            this.die();
+            this.die(DeathCause.STARVED);
         }
     }
 

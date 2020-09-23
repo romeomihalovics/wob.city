@@ -7,6 +7,7 @@ import wob.city.disaster.worker.SecondWave;
 import wob.city.disaster.worker.ThirdWave;
 import wob.city.housing.abstraction.Housing;
 import wob.city.person.abstraction.Person;
+import wob.city.person.enums.DeathCause;
 import wob.city.timing.Timing;
 import wob.city.util.Calculation;
 
@@ -92,7 +93,7 @@ public abstract class Disaster {
             }
         }
         synchronized (people) {
-            toKill.forEach(Person::die);
+            toKill.forEach(person -> person.die(getDeathCause()));
         }
     }
 
@@ -111,6 +112,7 @@ public abstract class Disaster {
     public abstract void firstWave();
     public abstract void secondWave();
     public abstract void thirdWave();
+    public abstract DeathCause getDeathCause();
 
     @Override
     public String toString() {

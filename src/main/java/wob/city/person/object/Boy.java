@@ -1,6 +1,7 @@
 package wob.city.person.object;
 
 import wob.city.person.abstraction.Person;
+import wob.city.person.enums.DeathCause;
 import wob.city.person.enums.Type;
 import wob.city.util.Calculation;
 
@@ -36,7 +37,7 @@ public class Boy extends Man {
             }
 
             if (Calculation.getRandomIntBetween(0, 100) <= 10) {
-                newAdult.die();
+                newAdult.die(DeathCause.AGING);
             }
         }
     }
