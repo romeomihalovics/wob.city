@@ -5,6 +5,7 @@ import wob.city.console.logger.ActivityLogger;
 import wob.city.controller.service.PeopleGenerator;
 import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dao.PersonHistoryDao;
+import wob.city.database.enums.PersonNewsCategory;
 import wob.city.family.Family;
 import wob.city.person.abstraction.Person;
 import wob.city.util.DtoGenerator;
@@ -42,7 +43,7 @@ public class NewBornWorker extends TimerTask {
                     " just born into city: " + city.getName();
             ActivityLogger.getLogger().log(event);
             personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, person));
-            newsPaperDao.uploadPersonNews("new_born", DtoGenerator.setupPersonNewsDto(person));
+            newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.NEW_BORN, person));
         }
     }
 }

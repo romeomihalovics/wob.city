@@ -35,30 +35,6 @@ CREATE TABLE `consumption_news` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `death_news`
---
-
-DROP TABLE IF EXISTS `death_news`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `death_news` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `type` text NOT NULL,
-  `fullname` text NOT NULL,
-  `age` int NOT NULL,
-  `weight` int NOT NULL,
-  `height` int NOT NULL,
-  `city` text NOT NULL,
-  `energy` text NOT NULL,
-  `lastfood` text,
-  `reported` tinyint DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `idx_death_news_reported` (`reported`),
-  KEY `idx_death_news_location` (`city`(100))
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `disaster_history`
 --
 
@@ -83,14 +59,15 @@ CREATE TABLE `disaster_history` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `new_born_news`
+-- Table structure for table `person_news`
 --
 
-DROP TABLE IF EXISTS `new_born_news`;
+DROP TABLE IF EXISTS `person_news`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `new_born_news` (
+CREATE TABLE `person_news` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `category` text NOT NULL,
   `type` text NOT NULL,
   `fullname` text NOT NULL,
   `age` int NOT NULL,
@@ -101,8 +78,9 @@ CREATE TABLE `new_born_news` (
   `lastfood` text,
   `reported` tinyint DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `idx_new_born_news_reported` (`reported`),
-  KEY `idx_new_born_news_location` (`city`(100))
+  KEY `idx_person_news_reported` (`reported`),
+  KEY `idx_person_news_location` (`city`(100)),
+  KEY `idx_person_news_category` (`category`(100))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

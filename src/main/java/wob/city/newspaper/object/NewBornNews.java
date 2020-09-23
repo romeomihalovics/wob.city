@@ -3,6 +3,7 @@ package wob.city.newspaper.object;
 import wob.city.city.City;
 import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dto.PersonNewsDto;
+import wob.city.database.enums.PersonNewsCategory;
 import wob.city.newspaper.abstraction.NewsPaper;
 
 import java.util.ArrayList;
@@ -24,12 +25,12 @@ public class NewBornNews extends NewsPaper {
 
     @Override
     public void fetchData() {
-        newBornData = newsPaperDao.fetchPersonNews("new_born", this.location.getName(), false);
+        newBornData = newsPaperDao.fetchPersonNews(PersonNewsCategory.NEW_BORN, this.location.getName(), false);
     }
 
     @Override
     public void setToReported() {
-        newsPaperDao.setPersonNewsToReported("new_born", this.location.getName());
+        newsPaperDao.setPersonNewsToReported(PersonNewsCategory.NEW_BORN, this.location.getName());
     }
 
     private List<PersonNewsDto> getData() {

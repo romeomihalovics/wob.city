@@ -53,9 +53,7 @@ disaster ->
         killed people [by criminals]
 
 Report
-	merge death news, new born table & create new col [enum]
 	New abstract class for reports with same dao [newspaperdao]
 	report person history with paging [limit]
 	dto refactor [common fields into abstract class]
-
 	fetch everything with paging [limit] where possible

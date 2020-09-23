@@ -10,6 +10,7 @@ import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.database.dto.DisasterHistoryDto;
 import wob.city.database.dto.PersonHistoryDto;
 import wob.city.database.dto.PersonNewsDto;
+import wob.city.database.enums.PersonNewsCategory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -141,13 +142,16 @@ class DatabaseTest {
         personNewsDto.setType("Boy");
         personNewsDto.setLastFood("Test Food");
 
-        newsPaperDao.uploadPersonNews("death", personNewsDto);
-        newsPaperDao.uploadPersonNews("new_born", personNewsDto);
+        personNewsDto.setCategory(PersonNewsCategory.DEATH);
+        newsPaperDao.uploadPersonNews(personNewsDto);
 
-        List<PersonNewsDto> personDeathNewsFetched = newsPaperDao.fetchPersonNews("death", "DBTest City");
-        List<PersonNewsDto> personDeathNewsFetched1 = newsPaperDao.fetchPersonNews("death", "DBTest City", false);
-        List<PersonNewsDto> personNewBornNewsFetched = newsPaperDao.fetchPersonNews("new_born", "DBTest City");
-        List<PersonNewsDto> personNewBornNewsFetched1 = newsPaperDao.fetchPersonNews("new_born", "DBTest City", false);
+        personNewsDto.setCategory(PersonNewsCategory.NEW_BORN);
+        newsPaperDao.uploadPersonNews(personNewsDto);
+
+        List<PersonNewsDto> personDeathNewsFetched = newsPaperDao.fetchPersonNews(PersonNewsCategory.DEATH, "DBTest City");
+        List<PersonNewsDto> personDeathNewsFetched1 = newsPaperDao.fetchPersonNews(PersonNewsCategory.DEATH, "DBTest City", false);
+        List<PersonNewsDto> personNewBornNewsFetched = newsPaperDao.fetchPersonNews(PersonNewsCategory.NEW_BORN, "DBTest City");
+        List<PersonNewsDto> personNewBornNewsFetched1 = newsPaperDao.fetchPersonNews(PersonNewsCategory.NEW_BORN, "DBTest City", false);
 
         assertTrue(personDeathNewsFetched.size() == 1 && personDeathNewsFetched1.size() == 1);
         assertTrue(personNewBornNewsFetched.size() == 1 && personNewBornNewsFetched1.size() == 1);
@@ -161,12 +165,12 @@ class DatabaseTest {
         assertEquals("Boy", personDeathNewsFetched.get(0).getType());
         assertEquals("Test Food", personDeathNewsFetched.get(0).getLastFood());
 
-        newsPaperDao.setPersonNewsToReported("death", "DBTest City");
-        personDeathNewsFetched = newsPaperDao.fetchPersonNews("death", "DBTest City");
+        newsPaperDao.setPersonNewsToReported(PersonNewsCategory.DEATH, "DBTest City");
+        personDeathNewsFetched = newsPaperDao.fetchPersonNews(PersonNewsCategory.DEATH, "DBTest City");
         assertEquals(true, personDeathNewsFetched.get(0).getReported());
 
-        newsPaperDao.setPersonNewsToReported("new_born", "DBTest City");
-        personNewBornNewsFetched = newsPaperDao.fetchPersonNews("new_born", "DBTest City");
+        newsPaperDao.setPersonNewsToReported(PersonNewsCategory.NEW_BORN, "DBTest City");
+        personNewBornNewsFetched = newsPaperDao.fetchPersonNews(PersonNewsCategory.NEW_BORN, "DBTest City");
         assertEquals(true, personNewBornNewsFetched.get(0).getReported());
     }
 }

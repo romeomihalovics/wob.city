@@ -3,6 +3,7 @@ package wob.city.database.dao;
 import wob.city.database.dao.abstraction.Dao;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.database.dto.PersonNewsDto;
+import wob.city.database.enums.PersonNewsCategory;
 import wob.city.util.DtoGenerator;
 
 import java.util.ArrayList;
@@ -47,18 +48,16 @@ public class NewsPaperDao implements Dao {
         runQuery(query, params);
     }
 
-    public List<PersonNewsDto> fetchPersonNews(String type, String city) {
-        String table = (type.equals("death") ? "death_news" : "new_born_news");
-        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported` FROM `" + table + "` WHERE `city` = ?";
+    public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city) {
+        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported` FROM `person_news` WHERE `city` = ? AND `category` = '" + category.getValue() + "'";
 
         List<Object> params = Collections.singletonList(city);
 
         return DtoGenerator.generatePersonNewsDto(runQuery(query,params));
     }
 
-    public List<PersonNewsDto> fetchPersonNews(String type, String city, Boolean reported) {
-        String table = (type.equals("death") ? "death_news" : "new_born_news");
-        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported` FROM `" + table + "` WHERE `city` = ? AND `reported` = ?";
+    public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city, Boolean reported) {
+        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported` FROM `person_news` WHERE `city` = ? AND `reported` = ?  AND `category` = '" + category.getValue() + "'";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
@@ -67,11 +66,11 @@ public class NewsPaperDao implements Dao {
         return DtoGenerator.generatePersonNewsDto(runQuery(query,params));
     }
 
-    public void uploadPersonNews(String type, PersonNewsDto personNews) {
-        String table = (type.equals("death") ? "death_news" : "new_born_news");
-        String query = "INSERT INTO `" + table + "` (`type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public void uploadPersonNews(PersonNewsDto personNews) {
+        String query = "INSERT INTO `person_news` (`category`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         List<Object> params = new ArrayList<>();
+        params.add(personNews.getCategory().getValue());
         params.add(personNews.getType());
         params.add(personNews.getFullname());
         params.add(personNews.getAge());
@@ -84,9 +83,8 @@ public class NewsPaperDao implements Dao {
         runQuery(query, params);
     }
 
-    public void setPersonNewsToReported(String type, String city) {
-        String table = (type.equals("death") ? "death_news" : "new_born_news");
-        String query = "UPDATE `" + table + "` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0";
+    public void setPersonNewsToReported(PersonNewsCategory category, String city) {
+        String query = "UPDATE `person_news` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0  AND `category` = '" + category.getValue() + "'";
 
         List<Object> params = Collections.singletonList(city);
 

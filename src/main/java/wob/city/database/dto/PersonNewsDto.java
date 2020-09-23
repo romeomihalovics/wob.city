@@ -1,8 +1,11 @@
 package wob.city.database.dto;
 
+import wob.city.database.enums.PersonNewsCategory;
+
 public class PersonNewsDto {
     private Integer id;
     private String type;
+    private PersonNewsCategory category;
     private String fullname;
     private Integer age;
     private Integer weight;
@@ -18,6 +21,14 @@ public class PersonNewsDto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public PersonNewsCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(PersonNewsCategory category) {
+        this.category = category;
     }
 
     public String getType() {
