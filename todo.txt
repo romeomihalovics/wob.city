@@ -18,20 +18,20 @@ cleanup
 
 
 City ->
-    profession list
+    profession list ok
         hashmap
             police
                 people list
             .
             .
             .
-    Criminal list
+    Criminal list ok
         people list
 
 Person > assign stuff on or after generating
-    profession field = string (default null)
-    iscriminal field = bool (default false)
-    killed people = list of people
+    profession field = string (default null) ok
+    iscriminal field = bool (default false) ok
+    killed people = list of people ok
     chance of being arrested = int (default 0 max 100)
 
     person set workers ->

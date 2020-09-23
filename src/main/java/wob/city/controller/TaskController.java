@@ -7,6 +7,8 @@ import wob.city.controller.services.FoodLoader;
 import wob.city.controller.services.PeopleGenerator;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
+import wob.city.person.object.Man;
+import wob.city.person.object.Woman;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,8 +29,12 @@ public class TaskController {
 
         City city = new City(name, people, foods);
 
-        city.getPeople().forEach(person -> person.setLocation(city));
-        city.getPeople().forEach(Person::setWorkers);
+        city.getPeople().forEach(person -> {
+            person.setLocation(city);
+            person.setProfession();
+            person.setWorkers();
+        });
+
         city.createFamilies();
 
         city.setWorkers();

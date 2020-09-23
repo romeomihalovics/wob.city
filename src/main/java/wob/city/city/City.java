@@ -16,6 +16,7 @@ import wob.city.newspaper.object.DeathNews;
 import wob.city.newspaper.object.DisasterNews;
 import wob.city.newspaper.object.NewBornNews;
 import wob.city.person.abstraction.Person;
+import wob.city.person.enums.Professions;
 import wob.city.person.enums.StatInFamily;
 import wob.city.person.enums.Types;
 import wob.city.timing.Timings;
@@ -53,9 +54,9 @@ public class City {
         this.newBornNews = new NewBornNews(this);
         this.disasterNews = new DisasterNews(this);
 
-        this.professionals.put("Ambulance", new ArrayList<>());
-        this.professionals.put("Police", new ArrayList<>());
-        this.professionals.put("FireFighter", new ArrayList<>());
+        this.professionals.put(Professions.AMBULANCE.getValue(), new ArrayList<>());
+        this.professionals.put(Professions.POLICE.getValue(), new ArrayList<>());
+        this.professionals.put(Professions.FIREFIGHTER.getValue(), new ArrayList<>());
     }
 
     public String getName() {

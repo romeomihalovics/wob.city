@@ -49,7 +49,7 @@ public abstract class Person {
     protected StatInFamily statInFamily = null;
     protected PersonHistoryDao personHistoryDao = new PersonHistoryDao();
     protected NewsPaperDao newsPaperDao = new NewsPaperDao();
-    protected Boolean isCriminal = false;
+    protected boolean isCriminal = false;
     protected List<Person> killedPeople = new ArrayList<>();
     protected Professions profession;
     protected int chanceOfBeingArrested = 0;
@@ -221,10 +221,6 @@ public abstract class Person {
         return isCriminal;
     }
 
-    public void setIsCriminal(Boolean isCriminal) {
-        this.isCriminal = isCriminal;
-    }
-
     public List<Person> getKilledPeople() {
         return killedPeople;
     }
@@ -237,9 +233,7 @@ public abstract class Person {
         return profession;
     }
 
-    public void setProfession(Professions profession) {
-        this.profession = profession;
-    }
+    public abstract void setProfession();
 
     public int getChanceOfBeingArrested() {
         return chanceOfBeingArrested;
