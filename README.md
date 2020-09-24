@@ -12,6 +12,14 @@ People burn 350 kcal per minute and eat a random amount of a random food every 3
 
 People age every 5 minutes, kids become adults if they're over or 18 yo. 18 years old or older people have a 10% chance of dying spontaneously every year. 60 years old people or older have a 25% chance of dying spontaneously every year. A person who reaches the 122 year age limit, will automatically die.
 
+Some adults have professions, and some are criminals. Aprox. 10% of the population are police officers, 5% are paramedics, 10% are fire fighters and 8% are criminals. 
+
+When someone dies, an available paramedic can revive him/her with CPR, with a 20% chance of success, within 2 minutes. If the person who died an available police officer will be also called, who will try to catch the criminal, and then kill him/her. The chance of the criminal getting caught increases 5% every time when he/she commits a crime.
+
+When natural disasters destroy buildings, available fire fighters can save apartments, thus a family in it with a 15% chance of success. If the disaster destroys an apartment house, then after every 3rd flat, the chance of being saved by a fire fighter gets less with 10%.
+
+A criminal will commit a crime every 5 minutes, where he/she will kill someone randomly.
+
 Every 2 minutes, in a fertile family [which means there is a woman and a man "parent" roled person, both between the age of 20 and 40 and there is less then 3 kids in the family] a baby will born.
 
 Each city has 3 news papers, Death News, New Born News, Consumption News. Every 10 minutes the news are published to an ftp server with the latest data fetched from the database, where every event is uploaded.
