@@ -24,12 +24,12 @@ public abstract class PersonNews extends NewsPaper {
 
     @Override
     public void fetchData() {
-        data = newsPaperDao.fetchPersonNews(getCategory(), this.location.getName(), false);
+        data = newsPaperDao.fetchPersonNews(getCategory(), location.getName(), false);
     }
 
     @Override
     public void setToReported() {
-        newsPaperDao.setPersonNewsToReported(getCategory(), this.location.getName());
+        newsPaperDao.setPersonNewsToReported(getCategory(), location.getName());
     }
 
     private List<PersonNewsDto> getData() {

@@ -26,12 +26,12 @@ public class ConsumptionNews extends NewsPaper {
 
     @Override
     public void fetchData() {
-        consumptionData = newsPaperDao.fetchConsumptionNews(this.location.getName(), false);
+        consumptionData = newsPaperDao.fetchConsumptionNews(location.getName(), false);
     }
 
     @Override
     public void setToReported() {
-        newsPaperDao.setConsumptionNewsToReported(this.location.getName());
+        newsPaperDao.setConsumptionNewsToReported(location.getName());
     }
 
     private List<ConsumptionNewsDto> getData() {

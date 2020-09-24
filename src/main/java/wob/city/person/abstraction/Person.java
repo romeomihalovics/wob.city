@@ -13,10 +13,7 @@ import wob.city.person.enums.Profession;
 import wob.city.person.enums.StatInFamily;
 import wob.city.person.enums.Type;
 import wob.city.person.object.Man;
-import wob.city.person.worker.AgingWorker;
-import wob.city.person.worker.DigestionWorker;
-import wob.city.person.worker.EatingWorker;
-import wob.city.person.worker.KillingWorker;
+import wob.city.person.worker.*;
 import wob.city.timing.Timing;
 import wob.city.util.Calculation;
 import wob.city.util.DtoGenerator;
@@ -46,6 +43,7 @@ public abstract class Person {
     protected EatingWorker eatingWorker;
     protected AgingWorker agingWorker;
     protected KillingWorker killingWorker;
+    protected CPRWorker cprWorker;
     protected City location;
     protected int energy = 2500;
     protected String lastFood = null;
@@ -124,8 +122,8 @@ public abstract class Person {
 
     public void addAge() {
         this.age++;
-        String event = "\n"+this.getType().getValue()+": " + this.getFullName() +
-                " became " + this.age + " years old";
+        String event = "\n"+getType().getValue()+": " + getFullName() +
+                " became " + age + " years old";
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
     }
@@ -259,18 +257,18 @@ public abstract class Person {
     }
 
     public void setWorkers() {
-        this.timer = new Timer();
-        this.digestionWorker = new DigestionWorker(this);
-        this.eatingWorker = new EatingWorker(this);
-        this.agingWorker = new AgingWorker(this);
+        timer = new Timer();
+        digestionWorker = new DigestionWorker(this);
+        eatingWorker = new EatingWorker(this);
+        agingWorker = new AgingWorker(this);
 
-        this.timer.scheduleAtFixedRate(digestionWorker, Timing.DIGESTION.getValue(), Timing.DIGESTION.getValue());
-        this.timer.scheduleAtFixedRate(eatingWorker, Timing.EATING.getValue(), Timing.EATING.getValue());
-        this.timer.scheduleAtFixedRate(agingWorker, Timing.AGING.getValue(), Timing.AGING.getValue());
+        timer.scheduleAtFixedRate(digestionWorker, Timing.DIGESTION.getValue(), Timing.DIGESTION.getValue());
+        timer.scheduleAtFixedRate(eatingWorker, Timing.EATING.getValue(), Timing.EATING.getValue());
+        timer.scheduleAtFixedRate(agingWorker, Timing.AGING.getValue(), Timing.AGING.getValue());
 
         if(criminal) {
-            this.killingWorker = new KillingWorker(this);
-            this.timer.scheduleAtFixedRate(killingWorker, Timing.CRIMINAL_ACTIVITY.getValue(), Timing.CRIMINAL_ACTIVITY.getValue());
+            killingWorker = new KillingWorker(this);
+            timer.scheduleAtFixedRate(killingWorker, Timing.CRIMINAL_ACTIVITY.getValue(), Timing.CRIMINAL_ACTIVITY.getValue());
         }
     }
 
@@ -290,17 +288,20 @@ public abstract class Person {
         return agingWorker;
     }
 
-    private void recordAsDied(String event) {
-        this.digestionWorker.cancel();
-        this.eatingWorker.cancel();
-        this.agingWorker.cancel();
-        if(this.criminal) {
-            this.killingWorker.cancel();
+    public void recordAsDied(String event) {
+        digestionWorker.cancel();
+        eatingWorker.cancel();
+        agingWorker.cancel();
+        if(criminal) {
+            killingWorker.cancel();
         }
-        this.timer.cancel();
+        if(profession != null) {
+            location.getProfessionals().get(profession.getValue()).remove(this);
+        }
+        timer.cancel();
 
-        this.family.addDied(this);
-        this.location.addDied(this);
+        family.addDied(this);
+        location.addDied(this);
 
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
@@ -308,30 +309,38 @@ public abstract class Person {
     }
 
     public void die(DeathCause deathCause) {
-        String event = "\n"+this.getType().getValue()+": " + this.getFullName() +
-                " died at age " + this.getAge() + "(" + deathCause.getValue() + ")";
-        recordAsDied(event);
+        String event = "\n"+getType().getValue()+": " + getFullName() +
+                " died at age " + getAge() + " (" + deathCause.getValue() + ")";
+        location.callAmbulance(this, deathCause, event);
     }
 
     public void die(DeathCause deathCause, Person person) {
-        String event = "\n"+this.getType().getValue()+": " + this.getFullName() +
-                " died at age " + this.getAge() + "(" + deathCause.getValue() + " [" + person.getFullName() + "])";
-        recordAsDied(event);
+        String event = "\n"+getType().getValue()+": " + getFullName() +
+                " died at age " + getAge() + " (" + deathCause.getValue() + " [" + person.getFullName() + "])";
+        location.callAmbulance(this, deathCause, event);
     }
 
     public void tryToKillSomeone() {
-        if(!this.location.getPeople().isEmpty()){
-            Person randomPerson = Calculation.getRandomNPeople(this.location.getPeople(), 1).get(0);
+        if(!location.getPeople().isEmpty() && criminal){
+            Person randomPerson = Calculation.getRandomNPeople(location.getPeople(), 1).get(0);
             killedPeople.add(randomPerson);
             increaseChanceOfBeingArrested();
             randomPerson.die(DeathCause.KILLED, this);
         }
     }
 
+    public void tryToRevivePerson(Person person, DeathCause deathCause, String event) {
+        if(profession == Profession.AMBULANCE) {
+            setBusy(true);
+            cprWorker = new CPRWorker(this, person, deathCause, event);
+            timer.schedule(cprWorker, Timing.AMBULANCE_CPR.getValue());
+        }
+    }
+
     @Override
     public String toString() {
         return "\n{" +
-                "\n  \"type\": \"" + this.getType().getValue() + "\"," +
+                "\n  \"type\": \"" + getType().getValue() + "\"," +
                 "\n  \"firstName\": \"" + firstName + "\"," +
                 "\n  \"lastName\": \"" + lastName + "\"," +
                 "\n  \"age\": " + age + "," +
@@ -348,36 +357,36 @@ public abstract class Person {
     public abstract void doAging();
 
     public void doDigestion() {
-        this.setEnergy(this.getEnergy() - 350);
-        String event = "\n"+this.getType().getValue()+": " + this.getFullName() +
+        this.setEnergy(getEnergy() - 350);
+        String event = "\n"+getType().getValue()+": " + getFullName() +
                 " burned 350kcal, " + (this instanceof Man ? "his" : "her") +
                 " energy levels changed from " +
-                (this.getEnergy() + 350) + "kcal to " + this.getEnergy() + "kcal";
+                (getEnergy() + 350) + "kcal to " + getEnergy() + "kcal";
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
-        if(this.getEnergy() <= 0) {
-            this.die(DeathCause.STARVED);
+        if(getEnergy() <= 0) {
+            die(DeathCause.STARVED);
         }
     }
 
     public void doEating() {
-        Food food = Calculation.getRandomFood(this.getLocation().getFoods());
-        int amount = Calculation.getRandomIntBetween(0, 2500 - this.getEnergy());
+        Food food = Calculation.getRandomFood(getLocation().getFoods());
+        int amount = Calculation.getRandomIntBetween(0, 2500 - getEnergy());
 
-        this.setLastFood(food.getName() + " " +
+        setLastFood(food.getName() + " " +
                 Calculation.getAmountByEnergy(amount, food.getEnergy()) +
                 "g -> " + amount + "kcal");
 
-        this.setEnergy(this.getEnergy() + amount);
+        setEnergy(getEnergy() + amount);
 
-        String event = "\n"+this.getType().getValue()+": " + this.getFullName() + " ate " +
+        String event = "\n"+getType().getValue()+": " + getFullName() + " ate " +
                 Calculation.getAmountByEnergy(amount, food.getEnergy()) +
                 "g (" + amount + "kcal) of " + food.getName() +
                 " and " + (this instanceof Man ? "his" : "her") +
                 " energy levels changed from " +
-                (this.getEnergy() - amount) + "kcal to " + this.getEnergy() + "kcal";
+                (getEnergy() - amount) + "kcal to " + getEnergy() + "kcal";
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
-        newsPaperDao.uploadConsumptionNews(new ConsumptionNewsDto(this.location.getName(), food.getType().getValue(), Calculation.getAmountByEnergy(amount, food.getEnergy())));
+        newsPaperDao.uploadConsumptionNews(new ConsumptionNewsDto(location.getName(), food.getType().getValue(), Calculation.getAmountByEnergy(amount, food.getEnergy())));
     }
 }

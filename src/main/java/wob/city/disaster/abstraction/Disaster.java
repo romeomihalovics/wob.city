@@ -54,10 +54,10 @@ public abstract class Disaster {
     }
 
     public void cancel() {
-        this.firstWaveWorker.cancel();
-        this.secondWaveWorker.cancel();
-        this.thirdWaveWorker.cancel();
-        this.timer.cancel();
+        firstWaveWorker.cancel();
+        secondWaveWorker.cancel();
+        thirdWaveWorker.cancel();
+        timer.cancel();
     }
 
     public String getCause() {
@@ -65,15 +65,15 @@ public abstract class Disaster {
     }
 
     public void start() {
-        this.timer = new Timer();
+        timer = new Timer();
 
-        this.firstWaveWorker = new FirstWave(this);
-        this.secondWaveWorker = new SecondWave(this);
-        this.thirdWaveWorker = new ThirdWave(this);
+        firstWaveWorker = new FirstWave(this);
+        secondWaveWorker = new SecondWave(this);
+        thirdWaveWorker = new ThirdWave(this);
 
-        this.timer.schedule(firstWaveWorker, Timing.DISASTER_FIRST_WAVE.getValue());
-        this.timer.schedule(secondWaveWorker, Timing.DISASTER_SECOND_WAVE.getValue());
-        this.timer.schedule(thirdWaveWorker, Timing.DISASTER_THIRD_WAVE.getValue());
+        timer.schedule(firstWaveWorker, Timing.DISASTER_FIRST_WAVE.getValue());
+        timer.schedule(secondWaveWorker, Timing.DISASTER_SECOND_WAVE.getValue());
+        timer.schedule(thirdWaveWorker, Timing.DISASTER_THIRD_WAVE.getValue());
     }
 
     public void killPeople() {
@@ -85,10 +85,10 @@ public abstract class Disaster {
                 if(Calculation.getRandomIntBetween(0, 100) <= this.killingRate) {
                     housing.getFamilies().forEach(family -> {
                         toKill.addAll(family.getPeople());
-                        this.destroyed.add(housing);
-                        this.diedPeople += family.getPeople().size();
+                        destroyed.add(housing);
+                        diedPeople += family.getPeople().size();
                     });
-                    this.diedFamilies += housing.getFamilies().size();
+                    diedFamilies += housing.getFamilies().size();
                 }
             }
         }

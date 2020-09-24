@@ -14,23 +14,23 @@ public class Tornado extends Disaster {
     public void firstWave() {
         String event = "First Wave of Tornado -> A super cell started to form at the edge of the city";
         ConsoleLogger.getLogger().log(event);
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
     }
 
     @Override
     public void secondWave() {
         String event = "Second Wave of Tornado -> It started to destroy objects in the city";
         ConsoleLogger.getLogger().log(event);
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
     }
 
     @Override
     public void thirdWave() {
         String event = "Third Wave of Tornado -> People started to die";
         ConsoleLogger.getLogger().log(event);
-        this.killPeople();
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
-        this.getLocation().finishDisaster();
+        killPeople();
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
+        getLocation().finishDisaster();
     }
 
     @Override

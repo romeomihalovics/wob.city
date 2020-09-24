@@ -14,23 +14,23 @@ public class Earthquake extends Disaster {
     public void firstWave() {
         String event = "First Wave of Earthquake -> The earth starts to shake";
         ConsoleLogger.getLogger().log(event);
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
     }
 
     @Override
     public void secondWave() {
         String event = "Second Wave of Earthquake -> Electricity cuts off, a caos begins";
         ConsoleLogger.getLogger().log(event);
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
     }
 
     @Override
     public void thirdWave() {
         String event = "Third Wave of Earthquake -> People started to die";
         ConsoleLogger.getLogger().log(event);
-        this.killPeople();
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
-        this.getLocation().continueDisaster(new Aftershock("Earthquake"));
+        killPeople();
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
+        getLocation().continueDisaster(new Aftershock("Earthquake"));
     }
 
     @Override

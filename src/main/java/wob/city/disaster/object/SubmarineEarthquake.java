@@ -14,19 +14,19 @@ public class SubmarineEarthquake extends Disaster {
     public void firstWave() {
         String event = "First Wave of Submarine Earthquake -> Plate tectonic activity starts to begin under the sea the earth starts to shake";
         ConsoleLogger.getLogger().log(event);
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
     }
 
     @Override
     public void secondWave() {
         String event = "Second Wave of Submarine Earthquake -> The plates move 3 meter apart";
         ConsoleLogger.getLogger().log(event);
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
     }
 
     @Override
     public void thirdWave() {
-        this.getLocation().continueDisaster(new AftermathFlood("Submarine Earthquake"));
+        getLocation().continueDisaster(new AftermathFlood("Submarine Earthquake"));
     }
 
     @Override

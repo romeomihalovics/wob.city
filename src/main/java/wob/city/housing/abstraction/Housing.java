@@ -13,8 +13,8 @@ public abstract class Housing {
     }
 
     public void addFamily(Family family) {
-        if(this.families.size() < maxFamilies()) {
-            this.families.add(family);
+        if(families.size() < maxFamilies()) {
+            families.add(family);
         }
     }
 

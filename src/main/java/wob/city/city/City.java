@@ -16,6 +16,7 @@ import wob.city.newspaper.object.DeathNews;
 import wob.city.newspaper.object.DisasterNews;
 import wob.city.newspaper.object.NewBornNews;
 import wob.city.person.abstraction.Person;
+import wob.city.person.enums.DeathCause;
 import wob.city.person.enums.Profession;
 import wob.city.person.enums.StatInFamily;
 import wob.city.person.enums.Type;
@@ -95,7 +96,7 @@ public class City {
         synchronized (people) {
             people.remove(person);
         }
-        this.died.add(person);
+        died.add(person);
     }
 
     public List<Person> getDied() {
@@ -103,10 +104,10 @@ public class City {
     }
 
     public void setWorkers() {
-        this.timer = new Timer();
-        this.newBornWorker = new NewBornWorker(this);
+        timer = new Timer();
+        newBornWorker = new NewBornWorker(this);
 
-        this.timer.scheduleAtFixedRate(newBornWorker, Timing.NEW_BORN_WORKER.getValue(), Timing.NEW_BORN_WORKER.getValue());
+        timer.scheduleAtFixedRate(newBornWorker, Timing.NEW_BORN_WORKER.getValue(), Timing.NEW_BORN_WORKER.getValue());
     }
 
     public List<Disaster> getDisaster() {
@@ -127,23 +128,23 @@ public class City {
                 this.disaster.add(disaster);
                 this.disaster.get(0).start();
 
-                String event = "A natural disaster '" + disaster.getName() + "' caused by '" + disaster.getCause() + "' started happening in city '" + this.getName() + "'";
+                String event = "A natural disaster '" + disaster.getName() + "' caused by '" + disaster.getCause() + "' started happening in city '" + getName() + "'";
                 ConsoleLogger.getLogger().log(event);
 
                 disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this));
             } else {
-                ConsoleLogger.getLogger().log("A disaster is already happening in city '" + this.getName() + "'");
+                ConsoleLogger.getLogger().log("A disaster is already happening in city '" + getName() + "'");
             }
         }
     }
 
     public void finishDisaster() {
-        String event = "The disaster ("+disaster.get(0).getName()+") is ended in city '"+this.getName()+"' with "+this.disaster.get(0).getDiedPeople()+" deaths";
+        String event = "The disaster ("+disaster.get(0).getName()+") is ended in city '"+getName()+"' with "+disaster.get(0).getDiedPeople()+" deaths";
         ConsoleLogger.getLogger().log(event);
         disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this));
-        this.disasterNews.manualPublish();
-        this.disaster.get(0).cancel();
-        this.disaster.remove(0);
+        disasterNews.manualPublish();
+        disaster.get(0).cancel();
+        disaster.remove(0);
     }
 
     public void continueDisaster(Disaster disaster) {
@@ -244,6 +245,30 @@ public class City {
         }
         addHousing(housing);
         return housing;
+    }
+
+    public void callAmbulance(Person person, DeathCause deathCause, String event) {
+        synchronized (professionals.get(Profession.AMBULANCE.getValue())){
+            boolean findAmbulance = false;
+            for(Person ambulance : professionals.get(Profession.AMBULANCE.getValue())) {
+                if(!ambulance.isBusy() && ambulance != person) {
+                    ambulance.tryToRevivePerson(person, deathCause, event);
+                    findAmbulance = true;
+                    break;
+                }
+            }
+            if(!findAmbulance) {
+                person.recordAsDied("There was no available ambulance, thus " + event);
+            }
+        }
+    }
+
+    public void callPolice() {
+
+    }
+
+    public void callFireFighter() {
+
     }
 
     @Override

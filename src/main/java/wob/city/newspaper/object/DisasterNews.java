@@ -25,12 +25,12 @@ public class DisasterNews extends NewsPaper {
 
     @Override
     public void fetchData() {
-        disasterData = disasterHistoryDao.fetchDisasterHistory(this.location.getName(), false);
+        disasterData = disasterHistoryDao.fetchDisasterHistory(location.getName(), false);
     }
 
     @Override
     public void setToReported() {
-        disasterHistoryDao.setDisasterHistoryToReported(this.location.getName());
+        disasterHistoryDao.setDisasterHistoryToReported(location.getName());
     }
 
     private List<DisasterHistoryDto> getData() {

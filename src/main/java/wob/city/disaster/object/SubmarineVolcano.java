@@ -14,19 +14,19 @@ public class SubmarineVolcano extends Disaster {
     public void firstWave() {
         String event = "First Wave of Submarine Volcanic Eruption -> At the bottom of the sea a volcano becomes active";
         ConsoleLogger.getLogger().log(event);
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
     }
 
     @Override
     public void secondWave() {
         String event = "Second Wave of Submarine Volcanic Eruption -> The volcano erupts, lava gets into the sea";
         ConsoleLogger.getLogger().log(event);
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
     }
 
     @Override
     public void thirdWave() {
-        this.getLocation().continueDisaster(new AftermathFlood("Submarine Volcanic Eruption"));
+        getLocation().continueDisaster(new AftermathFlood("Submarine Volcanic Eruption"));
     }
 
     @Override

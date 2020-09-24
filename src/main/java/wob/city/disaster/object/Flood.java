@@ -15,23 +15,23 @@ public class Flood extends Disaster {
     public void firstWave() {
         String event = "First Wave of Flood -> Next to the city a meteor falls into the sea, causing enormous waves";
         ConsoleLogger.getLogger().log(event);
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
     }
 
     @Override
     public void secondWave() {
         String event = "Second Wave of Flood -> The waves reach the city and flood it";
         ConsoleLogger.getLogger().log(event);
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
     }
 
     @Override
     public void thirdWave() {
         String event = "Third Wave of Flood -> People started to die";
         ConsoleLogger.getLogger().log(event);
-        this.killPeople();
-        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, this.location));
-        this.getLocation().finishDisaster();
+        killPeople();
+        disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
+        getLocation().finishDisaster();
     }
 
     @Override
