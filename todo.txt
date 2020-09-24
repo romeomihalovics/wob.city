@@ -7,6 +7,4 @@ Report
 	report person history with paging [limit] [every 1 hour]
 	fetch everything with paging [limit] where possible
 
-newadult setprof || criminal stat
-
 cleanup
