@@ -10,7 +10,7 @@ People have families, which have buildings, like apartment houses or family hous
 
 People burn 350 kcal per minute and eat a random amount of a random food every 3 minutes that is available in the city to refill his/her energy levels. If he/she does not eat enough, and his/her energy levels reaches 0, he/she will die.
 
-People age every 5 minutes, kids become adults if they're over or 18 yo. 18 years old or older people have a 10% chance of dying spontaneously every year. 60 years old people or older have a 25% chance of dying spontaneously every year. A person who reaches the 122 year age limit, will automatically die.
+People age every 5 minutes, kids become adults & have a chance of becoming a professional or a criminal if they're over or 18 yo. 18 years old or older people have a 10% chance of dying spontaneously every year. 60 years old people or older have a 25% chance of dying spontaneously every year. A person who reaches the 122 year age limit, will automatically die.
 
 Some adults have professions, and some are criminals. Aprox. 10% of the population are police officers, 5% are paramedics, 10% are fire fighters and 8% are criminals. 
 
