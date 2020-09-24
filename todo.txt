@@ -16,15 +16,6 @@ Create criminals who are killing people [cant be kids]
 
 ---------------------------------------------------
 
-Person
-    die()
-        & call police if person was killed by criminal
-
-
-disaster ->
-    last wave before destroying buildings, call available firefighter to each building, & try to save them  [thus the families in it]
-
-
     db record & report for
         saved people [ambulance, or firefighter]
         caught criminals && run aways [police]
