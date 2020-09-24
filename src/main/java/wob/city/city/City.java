@@ -55,7 +55,7 @@ public class City {
         this.newBornNews = new NewBornNews(this);
         this.disasterNews = new DisasterNews(this);
 
-        this.professionals.put(Profession.AMBULANCE.getValue(), new ArrayList<>());
+        this.professionals.put(Profession.PARAMEDIC.getValue(), new ArrayList<>());
         this.professionals.put(Profession.POLICE.getValue(), new ArrayList<>());
         this.professionals.put(Profession.FIREFIGHTER.getValue(), new ArrayList<>());
     }
@@ -247,18 +247,18 @@ public class City {
         return housing;
     }
 
-    public void callAmbulance(Person person, DeathCause deathCause, String event) {
-        synchronized (professionals.get(Profession.AMBULANCE.getValue())){
-            boolean foundAmbulance = false;
-            for(Person ambulance : professionals.get(Profession.AMBULANCE.getValue())) {
-                if(!ambulance.isBusy() && ambulance != person) {
-                    ambulance.tryToRevivePerson(person, deathCause, event);
-                    foundAmbulance = true;
+    public void callParamedic(Person person, DeathCause deathCause, String event) {
+        synchronized (professionals.get(Profession.PARAMEDIC.getValue())){
+            boolean foundParamedic = false;
+            for(Person paramedic : professionals.get(Profession.PARAMEDIC.getValue())) {
+                if(!paramedic.isBusy() && paramedic != person) {
+                    paramedic.tryToRevivePerson(person, deathCause, event);
+                    foundParamedic = true;
                     break;
                 }
             }
-            if(!foundAmbulance) {
-                person.recordAsDied("There was no available ambulance, thus " + event);
+            if(!foundParamedic) {
+                person.recordAsDied("There was no available paramedic, thus " + event);
             }
         }
     }

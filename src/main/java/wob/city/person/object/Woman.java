@@ -39,7 +39,7 @@ public class Woman extends Person {
             if(random <= 10) {
                 this.profession = Profession.POLICE;
             }else if(random <= 15) {
-                this.profession = Profession.AMBULANCE;
+                this.profession = Profession.PARAMEDIC;
             }else if(random <= 25) {
                 this.profession = Profession.FIREFIGHTER;
             }else if(random <= 33) {

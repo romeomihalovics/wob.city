@@ -2,7 +2,7 @@ package wob.city.person.enums;
 
 public enum Profession {
     POLICE("Police"),
-    AMBULANCE("Ambulance"),
+    PARAMEDIC("Paramedic"),
     FIREFIGHTER("FireFighter");
 
     private final String type;

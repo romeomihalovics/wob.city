@@ -314,14 +314,14 @@ public abstract class Person {
         setBusy(true);
         String event = "\n"+getType().getValue()+": " + getFullName() +
                 " died at age " + getAge() + " (" + deathCause.getValue() + ")";
-        location.callAmbulance(this, deathCause, event);
+        location.callParamedic(this, deathCause, event);
     }
 
     public void die(DeathCause deathCause, Person criminal) {
         setBusy(true);
         String event = "\n"+getType().getValue()+": " + getFullName() +
                 " died at age " + getAge() + " (" + deathCause.getValue() + " [" + criminal.getFullName() + "])";
-        location.callAmbulance(this, deathCause, event);
+        location.callParamedic(this, deathCause, event);
         if(deathCause == DeathCause.KILLED) {
             location.callPolice(criminal);
         }
@@ -337,10 +337,10 @@ public abstract class Person {
     }
 
     public void tryToRevivePerson(Person toSave, DeathCause deathCause, String event) {
-        if(profession == Profession.AMBULANCE) {
+        if(profession == Profession.PARAMEDIC) {
             setBusy(true);
             cprWorker = new CPRWorker(this, toSave, deathCause, event);
-            timer.schedule(cprWorker, Timing.AMBULANCE_CPR.getValue());
+            timer.schedule(cprWorker, Timing.PARAMEDIC_CPR.getValue());
         }
     }
 
