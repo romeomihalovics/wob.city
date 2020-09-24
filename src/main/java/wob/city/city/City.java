@@ -249,22 +249,34 @@ public class City {
 
     public void callAmbulance(Person person, DeathCause deathCause, String event) {
         synchronized (professionals.get(Profession.AMBULANCE.getValue())){
-            boolean findAmbulance = false;
+            boolean foundAmbulance = false;
             for(Person ambulance : professionals.get(Profession.AMBULANCE.getValue())) {
                 if(!ambulance.isBusy() && ambulance != person) {
                     ambulance.tryToRevivePerson(person, deathCause, event);
-                    findAmbulance = true;
+                    foundAmbulance = true;
                     break;
                 }
             }
-            if(!findAmbulance) {
+            if(!foundAmbulance) {
                 person.recordAsDied("There was no available ambulance, thus " + event);
             }
         }
     }
 
-    public void callPolice() {
-
+    public void callPolice(Person criminal) {
+        synchronized (professionals.get(Profession.POLICE.getValue())){
+            boolean foundPolice = false;
+            for(Person police : professionals.get(Profession.POLICE.getValue())) {
+                if(!police.isBusy()) {
+                    police.tryToCatchCriminal(criminal);
+                    foundPolice = true;
+                    break;
+                }
+            }
+            if(!foundPolice) {
+                // criminal ran away cuz no available police
+            }
+        }
     }
 
     public void callFireFighter() {

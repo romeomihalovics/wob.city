@@ -26,6 +26,7 @@ public class CPRWorker extends TimerTask {
             if(deathCause == DeathCause.STARVED) {
                 toSave.setEnergy(2500);
             }
+            // Person saved
         }else{
             toSave.recordAsDied(diedEvent+event);
         }

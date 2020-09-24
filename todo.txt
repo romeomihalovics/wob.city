@@ -18,7 +18,6 @@ Create criminals who are killing people [cant be kids]
 
 Person
     die()
-        call ambulance & try to save the person within 2 minutes
         & call police if person was killed by criminal
 
 
@@ -28,7 +27,7 @@ disaster ->
 
     db record & report for
         saved people [ambulance, or firefighter]
-        caught criminals [police]
+        caught criminals && run aways [police]
         killed people [by criminals]
 
 Report

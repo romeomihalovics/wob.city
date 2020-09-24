@@ -309,15 +309,20 @@ public abstract class Person {
     }
 
     public void die(DeathCause deathCause) {
+        setBusy(true);
         String event = "\n"+getType().getValue()+": " + getFullName() +
                 " died at age " + getAge() + " (" + deathCause.getValue() + ")";
         location.callAmbulance(this, deathCause, event);
     }
 
-    public void die(DeathCause deathCause, Person person) {
+    public void die(DeathCause deathCause, Person criminal) {
+        setBusy(true);
         String event = "\n"+getType().getValue()+": " + getFullName() +
-                " died at age " + getAge() + " (" + deathCause.getValue() + " [" + person.getFullName() + "])";
+                " died at age " + getAge() + " (" + deathCause.getValue() + " [" + criminal.getFullName() + "])";
         location.callAmbulance(this, deathCause, event);
+        if(deathCause == DeathCause.KILLED) {
+            location.callPolice(criminal);
+        }
     }
 
     public void tryToKillSomeone() {
@@ -329,11 +334,24 @@ public abstract class Person {
         }
     }
 
-    public void tryToRevivePerson(Person person, DeathCause deathCause, String event) {
+    public void tryToRevivePerson(Person toSave, DeathCause deathCause, String event) {
         if(profession == Profession.AMBULANCE) {
             setBusy(true);
-            cprWorker = new CPRWorker(this, person, deathCause, event);
+            cprWorker = new CPRWorker(this, toSave, deathCause, event);
             timer.schedule(cprWorker, Timing.AMBULANCE_CPR.getValue());
+        }
+    }
+
+    public void tryToCatchCriminal(Person criminal) {
+        if(profession == Profession.POLICE) {
+            setBusy(true);
+            if (Calculation.getRandomIntBetween(0, 100) <= criminal.getChanceOfBeingArrested()) {
+                String event = "Criminal (" + criminal.getFullName() + ") was caught by police (" + getFullName() + ") and shot to death";
+                criminal.recordAsDied(event);
+            } else {
+                // criminal ran away
+            }
+            setBusy(false);
         }
     }
 
