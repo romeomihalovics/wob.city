@@ -23,9 +23,9 @@ public abstract class Disaster {
     protected Integer killingRate;
     protected String cause;
     protected City location;
-    protected List<Housing> destroyed = new ArrayList<>();
-    protected int diedFamilies = 0;
-    protected int diedPeople = 0;
+    protected Integer destroyedApartments = 0;
+    protected Integer diedFamilies = 0;
+    protected Integer diedPeople = 0;
     protected Date date;
     protected DisasterHistoryDao disasterHistoryDao = new DisasterHistoryDao();
 
@@ -83,12 +83,7 @@ public abstract class Disaster {
         synchronized (housings) {
             for(Housing housing : housings) {
                 if(Calculation.getRandomIntBetween(0, 100) <= this.killingRate) {
-                    housing.getFamilies().forEach(family -> {
-                        toKill.addAll(family.getPeople());
-                        destroyed.add(housing);
-                        diedPeople += family.getPeople().size();
-                    });
-                    diedFamilies += housing.getFamilies().size();
+                    location.callFireFighter(housing, toKill, this);
                 }
             }
         }
@@ -97,16 +92,28 @@ public abstract class Disaster {
         }
     }
 
-    public List<Housing> getDestroyed() {
-        return destroyed;
+    public Integer getDestroyedApartments() {
+        return destroyedApartments;
     }
 
-    public int getDiedPeople() {
+    public void setDestroyedApartments(Integer destroyedApartments) {
+        this.destroyedApartments = destroyedApartments;
+    }
+
+    public Integer getDiedPeople() {
         return  diedPeople;
     }
 
-    public int getDiedFamilies() {
+    public Integer getDiedFamilies() {
         return diedFamilies;
+    }
+
+    public void setDiedFamilies(Integer diedFamilies) {
+        this.diedFamilies = diedFamilies;
+    }
+
+    public void setDiedPeople(Integer diedPeople) {
+        this.diedPeople = diedPeople;
     }
 
     public abstract void firstWave();
@@ -122,7 +129,7 @@ public abstract class Disaster {
                 "\n  \"name\": \"" + name + "\"," +
                 "\n  \"killingRate\": \"" + killingRate + "%\"," +
                 "\n  \"cause\": \"" + cause + "\"," +
-                "\n  \"destroyedBuildings\":" + destroyed.size() + "," +
+                "\n  \"destroyedApartments\":" + destroyedApartments + "," +
                 "\n \"diedFamilies\": " + diedFamilies + "," +
                 "\n \"diedPeople\": " + diedPeople +
                 "\n}";

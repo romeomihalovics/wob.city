@@ -279,8 +279,20 @@ public class City {
         }
     }
 
-    public void callFireFighter() {
-
+    public void callFireFighter(Housing housing, List<Person> toKill, Disaster disaster) {
+        synchronized (professionals.get(Profession.FIREFIGHTER.getValue())){
+            boolean foundFireFighter = false;
+            for(Person fireFighter : professionals.get(Profession.FIREFIGHTER.getValue())) {
+                if(!fireFighter.isBusy()) {
+                    fireFighter.tryToSaveHousing(housing, toKill, disaster);
+                    foundFireFighter = true;
+                    break;
+                }
+            }
+            if(!foundFireFighter) {
+                // destroy building & kill people in it
+            }
+        }
     }
 
     @Override

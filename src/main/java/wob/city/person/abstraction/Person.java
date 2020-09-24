@@ -6,8 +6,10 @@ import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dao.PersonHistoryDao;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.database.enums.PersonNewsCategory;
+import wob.city.disaster.abstraction.Disaster;
 import wob.city.family.Family;
 import wob.city.food.abstraction.Food;
+import wob.city.housing.abstraction.Housing;
 import wob.city.person.enums.DeathCause;
 import wob.city.person.enums.Profession;
 import wob.city.person.enums.StatInFamily;
@@ -350,6 +352,32 @@ public abstract class Person {
                 criminal.recordAsDied(event);
             } else {
                 // criminal ran away
+            }
+            setBusy(false);
+        }
+    }
+
+    public void tryToSaveHousing(Housing housing, List<Person> toKill, Disaster disaster) {
+        if(profession == Profession.FIREFIGHTER) {
+            setBusy(true);
+            int chanceOfSuccess = 15;
+            int attempts = 0;
+
+            for(Family currentFamily : housing.getFamilies()) {
+                if(Calculation.getRandomIntBetween(0, 100) > chanceOfSuccess) {
+                    toKill.addAll(currentFamily.getPeople());
+                    disaster.setDestroyedApartments(disaster.getDestroyedApartments() + 1);
+                    disaster.setDiedPeople(disaster.getDiedPeople() + currentFamily.getPeople().size());
+                    disaster.setDiedFamilies(disaster.getDiedFamilies() + 1);
+                }else{
+                    // Saved family & apartment
+                }
+
+                attempts++;
+                if(attempts == 3 ) {
+                    attempts = 0;
+                    chanceOfSuccess = Math.max(chanceOfSuccess - 10, 0);
+                }
             }
             setBusy(false);
         }
