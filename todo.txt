@@ -18,7 +18,7 @@ Create criminals who are killing people [cant be kids]
 
 Person
     die()
-        call ambulance after 2 minutes & try to save the person
+        call ambulance & try to save the person within 2 minutes
         & call police if person was killed by criminal
 
 
