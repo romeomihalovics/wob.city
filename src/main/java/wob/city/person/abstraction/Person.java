@@ -96,6 +96,9 @@ public abstract class Person {
         this.agingWorker = newAdult.getAgingWorker();
         this.family = newAdult.getFamily();
         this.statInFamily = newAdult.getStatInFamily();
+
+        setProfession();
+        startKillingIfCriminal();
     }
 
     public String getFirstName() {
@@ -267,7 +270,10 @@ public abstract class Person {
         timer.scheduleAtFixedRate(digestionWorker, Timing.DIGESTION.getValue(), Timing.DIGESTION.getValue());
         timer.scheduleAtFixedRate(eatingWorker, Timing.EATING.getValue(), Timing.EATING.getValue());
         timer.scheduleAtFixedRate(agingWorker, Timing.AGING.getValue(), Timing.AGING.getValue());
+        startKillingIfCriminal();
+    }
 
+    private void startKillingIfCriminal() {
         if(criminal) {
             killingWorker = new KillingWorker(this);
             timer.scheduleAtFixedRate(killingWorker, Timing.CRIMINAL_ACTIVITY.getValue(), Timing.CRIMINAL_ACTIVITY.getValue());

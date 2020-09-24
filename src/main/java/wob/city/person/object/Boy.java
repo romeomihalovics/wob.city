@@ -24,12 +24,12 @@ public class Boy extends Man {
 
     @Override
     public void doAging() {
-        this.addAge();
-        if (this.getAge() >= 18) {
+        addAge();
+        if (getAge() >= 18) {
             Person newAdult = new Man(this);
             family.getPeople().remove(this);
             family.getPeople().add(newAdult);
-            List<Person> people = Collections.synchronizedList(this.getLocation().getPeople());
+            List<Person> people = Collections.synchronizedList(getLocation().getPeople());
 
             synchronized (people) {
                 people.remove(this);

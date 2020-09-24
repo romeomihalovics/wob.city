@@ -26,34 +26,34 @@ public class Woman extends Person {
 
     @Override
     public void doAging() {
-        this.addAge();
-        if((this.getAge() >= 60 && Calculation.getRandomIntBetween(0, 100) <= 25) || this.getAge() >= Person.ABSOLUTE_MAX_AGE) {
-            this.die(DeathCause.AGING);
+        addAge();
+        if((getAge() >= 60 && Calculation.getRandomIntBetween(0, 100) <= 25) || getAge() >= Person.ABSOLUTE_MAX_AGE) {
+            die(DeathCause.AGING);
         }
     }
 
     @Override
     public void setProfession() {
-        if(this.profession == null && !this.criminal && !(this instanceof Girl)) {
+        if(profession == null && !criminal && !(this instanceof Girl)) {
             int random = Calculation.getRandomIntBetween(1, 100);
             if(random <= 10) {
-                this.profession = Profession.POLICE;
+                profession = Profession.POLICE;
             }else if(random <= 15) {
-                this.profession = Profession.PARAMEDIC;
+                profession = Profession.PARAMEDIC;
             }else if(random <= 25) {
-                this.profession = Profession.FIREFIGHTER;
+                profession = Profession.FIREFIGHTER;
             }else if(random <= 33) {
-                this.criminal = true;
+                criminal = true;
             }
 
-            if(this.profession != null) {
-                this.location.getProfessionals()
-                        .get(this.profession.getValue())
+            if(profession != null) {
+                location.getProfessionals()
+                        .get(profession.getValue())
                         .add(this);
             }
 
-            if(this.criminal) {
-                this.location.getCriminals().add(this);
+            if(criminal) {
+                location.getCriminals().add(this);
             }
         }
     }
