@@ -80,6 +80,7 @@ public class DtoGenerator {
             tempDto.setEnergy((String) row.get("energy"));
             tempDto.setLastFood((String) row.get("lastfood"));
             tempDto.setReported(((Integer) row.get("reported") != 0));
+            tempDto.setInvolvedPerson((String) row.get("involved_person"));
             deathNews.add(tempDto);
         }
 
@@ -105,7 +106,7 @@ public class DtoGenerator {
         return tempDto;
     }
 
-    public static PersonNewsDto setupPersonNewsDto(PersonNewsCategory category, Person person) {
+    public static PersonNewsDto setupPersonNewsDto(PersonNewsCategory category, Person person, Person involvedPerson) {
         PersonNewsDto tempDto = new PersonNewsDto();
         tempDto.setType(person.getType().getValue());
         tempDto.setCategory(category);
@@ -116,6 +117,7 @@ public class DtoGenerator {
         tempDto.setCity(person.getLocation().getName());
         tempDto.setEnergy(person.getEnergy() + "kcal");
         tempDto.setLastFood(person.getLastFood());
+        tempDto.setInvolvedPerson((involvedPerson != null ? involvedPerson.getFullName() : "nobody"));
         return tempDto;
     }
 }

@@ -141,6 +141,7 @@ class DatabaseTest {
         personNewsDto.setWeight(10);
         personNewsDto.setType("Boy");
         personNewsDto.setLastFood("Test Food");
+        personNewsDto.setInvolvedPerson("nobody");
 
         personNewsDto.setCategory(PersonNewsCategory.DEATH);
         newsPaperDao.uploadPersonNews(personNewsDto);

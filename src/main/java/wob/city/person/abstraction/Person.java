@@ -313,7 +313,7 @@ public abstract class Person {
 
         ActivityLogger.getLogger().log(event);
         personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
-        newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.DEATH, this));
+        newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.DEATH, this, null));
     }
 
     public void die(DeathCause deathCause) {
@@ -330,6 +330,7 @@ public abstract class Person {
         location.callParamedic(this, deathCause, event);
         if(deathCause == DeathCause.KILLED) {
             location.callPolice(criminal);
+            newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.KILLED_BY_CRIMINAL, this, criminal));
         }
     }
 
@@ -345,7 +346,7 @@ public abstract class Person {
     public void tryToRevivePerson(Person toSave, DeathCause deathCause, String event) {
         if(profession == Profession.PARAMEDIC) {
             setBusy(true);
-            cprWorker = new CPRWorker(this, toSave, deathCause, event);
+            cprWorker = new CPRWorker(this, toSave, deathCause, event, newsPaperDao);
             timer.schedule(cprWorker, Timing.PARAMEDIC_CPR.getValue());
         }
     }
@@ -355,9 +356,11 @@ public abstract class Person {
             setBusy(true);
             if (Calculation.getRandomIntBetween(0, 100) <= criminal.getChanceOfBeingArrested()) {
                 String event = "Criminal (" + criminal.getFullName() + ") was caught by police (" + getFullName() + ") and shot to death";
+                newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.CAUGHT_CRIMINAL, criminal, this));
                 criminal.recordAsDied(event);
             } else {
-                // criminal ran away
+                ActivityLogger.getLogger().log("A criminal ("+ criminal.getFullName() +") escaped from the police officer " + this.getFullName());
+                newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.ESCAPED_CRIMINAL, criminal, this));
             }
             setBusy(false);
         }
@@ -376,7 +379,10 @@ public abstract class Person {
                     disaster.setDiedPeople(disaster.getDiedPeople() + currentFamily.getPeople().size());
                     disaster.setDiedFamilies(disaster.getDiedFamilies() + 1);
                 }else{
-                    // Saved family & apartment
+                    currentFamily.getPeople().forEach(person -> {
+                        ActivityLogger.getLogger().log("A fire fighter ("+ this.getFullName() +") successfully saved a person ("+ person.getFullName() +")");
+                        newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.SAVED_BY_FIREFIGHTER, person, this));
+                    });
                 }
 
                 attempts++;

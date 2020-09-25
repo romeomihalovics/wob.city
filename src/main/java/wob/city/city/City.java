@@ -1,8 +1,11 @@
 package wob.city.city;
 
 import wob.city.city.worker.NewBornWorker;
+import wob.city.console.logger.ActivityLogger;
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.database.dao.DisasterHistoryDao;
+import wob.city.database.dao.NewsPaperDao;
+import wob.city.database.enums.PersonNewsCategory;
 import wob.city.disaster.abstraction.Consequence;
 import wob.city.disaster.abstraction.Disaster;
 import wob.city.family.Family;
@@ -11,10 +14,7 @@ import wob.city.housing.abstraction.Housing;
 import wob.city.housing.object.BrickBlock;
 import wob.city.housing.object.FamilyHouse;
 import wob.city.housing.object.PanelBlock;
-import wob.city.newspaper.object.ConsumptionNews;
-import wob.city.newspaper.object.DeathNews;
-import wob.city.newspaper.object.DisasterNews;
-import wob.city.newspaper.object.NewBornNews;
+import wob.city.newspaper.object.*;
 import wob.city.person.abstraction.Person;
 import wob.city.person.enums.DeathCause;
 import wob.city.person.enums.Profession;
@@ -38,6 +38,12 @@ public class City {
     private final ConsumptionNews consumptionNews;
     private final DeathNews deathNews;
     private final NewBornNews newBornNews;
+    private final SavedByParamedicNews savedByParamedicNews;
+    private final SavedByFireFighterNews savedByFireFighterNews;
+    private final CaughtCriminalNews caughtCriminalNews;
+    private final EscapedCriminalNews escapedCriminalNews;
+    private final KilledByCriminalNews killedByCriminalNews;
+    private final NewsPaperDao newsPaperDao;
     private final List<Disaster> disaster = Collections.synchronizedList(new ArrayList<>());
     private final DisasterNews disasterNews;
     private final DisasterHistoryDao disasterHistoryDao = new DisasterHistoryDao();
@@ -54,6 +60,12 @@ public class City {
         this.deathNews = new DeathNews(this);
         this.newBornNews = new NewBornNews(this);
         this.disasterNews = new DisasterNews(this);
+        this.savedByParamedicNews = new SavedByParamedicNews(this);
+        this.savedByFireFighterNews = new SavedByFireFighterNews(this);
+        this.caughtCriminalNews = new CaughtCriminalNews(this);
+        this.escapedCriminalNews = new EscapedCriminalNews(this);
+        this.killedByCriminalNews = new KilledByCriminalNews(this);
+        this.newsPaperDao = new NewsPaperDao();
 
         this.professionals.put(Profession.PARAMEDIC.getValue(), new ArrayList<>());
         this.professionals.put(Profession.POLICE.getValue(), new ArrayList<>());
@@ -274,23 +286,19 @@ public class City {
                 }
             }
             if(!foundPolice) {
-                // criminal ran away cuz no available police
+                ActivityLogger.getLogger().log("There was no police available, criminal " + criminal.getFullName() + " escaped the crime scene");
+                newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.ESCAPED_CRIMINAL, criminal, null));
             }
         }
     }
 
     public void callFireFighter(Housing housing, List<Person> toKill, Disaster disaster) {
         synchronized (professionals.get(Profession.FIREFIGHTER.getValue())){
-            boolean foundFireFighter = false;
             for(Person fireFighter : professionals.get(Profession.FIREFIGHTER.getValue())) {
                 if(!fireFighter.isBusy()) {
                     fireFighter.tryToSaveHousing(housing, toKill, disaster);
-                    foundFireFighter = true;
                     break;
                 }
-            }
-            if(!foundFireFighter) {
-                // destroy building & kill people in it
             }
         }
     }

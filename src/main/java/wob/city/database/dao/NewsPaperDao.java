@@ -49,7 +49,7 @@ public class NewsPaperDao implements Dao {
     }
 
     public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city) {
-        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported` FROM `person_news` WHERE `city` = ? AND `category` = '" + category.getValue() + "'";
+        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported`, `involved_person` FROM `person_news` WHERE `city` = ? AND `category` = '" + category.getValue() + "'";
 
         List<Object> params = Collections.singletonList(city);
 
@@ -57,7 +57,7 @@ public class NewsPaperDao implements Dao {
     }
 
     public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city, Boolean reported) {
-        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported` FROM `person_news` WHERE `city` = ? AND `reported` = ?  AND `category` = '" + category.getValue() + "'";
+        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported`, `involved_person` FROM `person_news` WHERE `city` = ? AND `reported` = ?  AND `category` = '" + category.getValue() + "'";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
@@ -67,7 +67,7 @@ public class NewsPaperDao implements Dao {
     }
 
     public void uploadPersonNews(PersonNewsDto personNews) {
-        String query = "INSERT INTO `person_news` (`category`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO `person_news` (`category`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `involved_person`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         List<Object> params = new ArrayList<>();
         params.add(personNews.getCategory().getValue());
@@ -79,6 +79,7 @@ public class NewsPaperDao implements Dao {
         params.add(personNews.getCity());
         params.add(personNews.getEnergy());
         params.add((personNews.getLastFood() != null ? personNews.getLastFood() : "nothing"));
+        params.add(personNews.getInvolvedPerson());
 
         runQuery(query, params);
     }

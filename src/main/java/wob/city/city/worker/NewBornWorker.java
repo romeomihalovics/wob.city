@@ -43,7 +43,7 @@ public class NewBornWorker extends TimerTask {
                     " just born into city: " + city.getName();
             ActivityLogger.getLogger().log(event);
             personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, person));
-            newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.NEW_BORN, person));
+            newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.NEW_BORN, person, null));
         }
     }
 }

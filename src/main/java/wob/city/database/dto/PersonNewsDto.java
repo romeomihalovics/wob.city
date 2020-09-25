@@ -7,6 +7,7 @@ public class PersonNewsDto {
     private String type;
     private PersonNewsCategory category;
     private String fullname;
+    private String involvedPerson;
     private Integer age;
     private Integer weight;
     private Integer height;
@@ -103,6 +104,14 @@ public class PersonNewsDto {
         this.reported = reported;
     }
 
+    public String getInvolvedPerson() {
+        return involvedPerson;
+    }
+
+    public void setInvolvedPerson(String involvedPerson) {
+        this.involvedPerson = involvedPerson;
+    }
+
     @Override
     public String toString() {
         return "\n{" +
@@ -115,6 +124,7 @@ public class PersonNewsDto {
                 "\n \"city\": \"" + city + "\"," +
                 "\n \"energy\": \"" + energy + "\"," +
                 "\n \"lastFood\": \"" + lastFood + "\"," +
+                "\n \"involvedPerson\": \"" + involvedPerson + "\"" +
                 "\n}";
     }
 }
