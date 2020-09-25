@@ -8,21 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonHistoryDao implements Dao {
-    public List<PersonHistoryDto> fetchPersonHistory(String city) {
-        String query = "SELECT `id`, `city`, `fullname`, `event`, `date` FROM `person_history` WHERE `city` = ?";
+    public List<PersonHistoryDto> fetchPersonHistory(String city, Integer limit, Integer fromId) {
+        String query = "SELECT `id`, `city`, `fullname`, `event`, `date` FROM `person_history` WHERE `city` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
+        params.add(fromId);
+        params.add(limit);
 
         return DtoGenerator.generatePersonHistoryDto(runQuery(query, params));
     }
 
-    public List<PersonHistoryDto> fetchPersonHistory(String city, String fullName) {
-        String query = "SELECT `id`, `city`, `fullname`, `event`, `date` FROM `person_history` WHERE `city` = ? AND `fullname` = ?";
+    public List<PersonHistoryDto> fetchPersonHistory(String city, String fullName, Integer limit, Integer fromId) {
+        String query = "SELECT `id`, `city`, `fullname`, `event`, `date` FROM `person_history` WHERE `city` = ? AND `fullname` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
         params.add(fullName);
+        params.add(fromId);
+        params.add(limit);
 
         return DtoGenerator.generatePersonHistoryDto(runQuery(query, params));
     }
