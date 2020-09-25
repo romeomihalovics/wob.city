@@ -15,7 +15,7 @@ public class ConsumptionNews extends NewsPaper {
     private final NewsPaperDao newsPaperDao = new NewsPaperDao();
 
     public ConsumptionNews(City city){
-    super(city, Folder.CONSUMPTION_NEWS.name(), true);
+        super(city, Folder.CONSUMPTION_NEWS.name(), true);
         this.consumptionData = new ArrayList<>();
     }
 

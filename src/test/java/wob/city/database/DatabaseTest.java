@@ -82,8 +82,8 @@ class DatabaseTest {
 
         personHistoryDao.uploadPersonHistory(personHistoryDto);
 
-        List<PersonHistoryDto> personHistoryFetched = personHistoryDao.fetchPersonHistory("DBTest City");
-        List<PersonHistoryDto> personHistoryFetched1 = personHistoryDao.fetchPersonHistory("DBTest City", "Test Person");
+        List<PersonHistoryDto> personHistoryFetched = personHistoryDao.fetchPersonHistory("DBTest City", 1000, 0);
+        List<PersonHistoryDto> personHistoryFetched1 = personHistoryDao.fetchPersonHistory("DBTest City", "Test Person", 1000, 0);
 
         assertTrue(personHistoryFetched.size() == 1 && personHistoryFetched1.size() == 1);
         assertEquals("DBTest City", personHistoryFetched.get(0).getCityName());
