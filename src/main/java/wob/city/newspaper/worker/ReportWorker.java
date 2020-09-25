@@ -3,6 +3,8 @@ package wob.city.newspaper.worker;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import wob.city.newspaper.abstraction.NewsPaper;
+import wob.city.newspaper.enums.Limit;
+import wob.city.newspaper.object.PersonHistoryNews;
 import wob.city.util.FtpConfig;
 
 import java.io.*;
@@ -10,6 +12,7 @@ import java.util.TimerTask;
 
 public class ReportWorker extends TimerTask {
     private final NewsPaper newsPaper;
+    private int fromId = 0;
 
     public ReportWorker(NewsPaper newsPaper) {
         this.newsPaper = newsPaper;
@@ -18,11 +21,8 @@ public class ReportWorker extends TimerTask {
     @Override
     public void run() {
         try {
-            try {
-                newsPaper.fetchData();
-            } finally {
-                generateReport();
-            }
+            newsPaper.fetchData(Limit.FETCH_LIMIT.getValue(), fromId);
+            generateReport();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,6 +40,7 @@ public class ReportWorker extends TimerTask {
 
     private void uploadReport(File tempReport) {
         FTPClient ftpClient = new FTPClient();
+        boolean hasNextPage = false;
         try {
             ftpClient.connect(FtpConfig.URL);
             ftpClient.login(FtpConfig.USER, FtpConfig.PASSWORD);
@@ -50,7 +51,11 @@ public class ReportWorker extends TimerTask {
                 ftpClient.makeDirectory(newsPaper.getFolder());
                 ftpClient.changeWorkingDirectory(newsPaper.getFolder());
                 ftpClient.storeFile(tempReport.getName(), inputStream);
-                newsPaper.setToReported();
+                newsPaper.setToReported(Limit.FETCH_LIMIT.getValue(), fromId);
+                if(newsPaper instanceof PersonHistoryNews && newsPaper.getFetchedSize() == Limit.FETCH_LIMIT.getValue()) {
+                    fromId = newsPaper.getLastId();
+                    hasNextPage = true;
+                }
             }finally {
                 newsPaper.flushData();
             }
@@ -58,6 +63,9 @@ public class ReportWorker extends TimerTask {
             e.printStackTrace();
         } finally {
             tempReport.delete();
+            if(hasNextPage) {
+                run();
+            }
         }
     }
 }

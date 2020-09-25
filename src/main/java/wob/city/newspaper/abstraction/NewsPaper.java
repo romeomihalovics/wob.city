@@ -18,7 +18,7 @@ public abstract class NewsPaper {
 
         if(scheduled){
             Timer timer = new Timer();
-            timer.scheduleAtFixedRate(reportWorker, Timing.REPORT.getValue(), Timing.REPORT.getValue());
+            timer.scheduleAtFixedRate(reportWorker, getTiming().getValue(), getTiming().getValue());
         }
     }
 
@@ -30,9 +30,13 @@ public abstract class NewsPaper {
         reportWorker.run();
     }
 
-    public abstract void fetchData();
+    public abstract void fetchData(int limit, int fromId);
     public abstract void flushData();
-    public abstract void setToReported();
+    public abstract void setToReported(int limit, int fromId);
+    public abstract Integer getFetchedSize();
+    public abstract Integer getLastId();
+    public abstract Timing getTiming();
+
     @Override
     public abstract String toString();
 }

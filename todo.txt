@@ -1,14 +1,4 @@
 Report
-	report person history with paging [limit] [every 1 hour]
-		report worker new fields
-			limit
-			currid
-		constructor
-			set limit if instaceof personhistorynews
-
-		after fetching, saving, run again if fetch had results, increase from id to last id..
-		set to reported by limit and fromid...
-		
 	fetch everything with paging [limit] where possible
 
 cleanup

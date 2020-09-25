@@ -56,8 +56,8 @@ public class PersonHistoryDto {
                 "\n \"id\": " + id + "," +
                 "\n \"cityName\": \"" + cityName + "\"," +
                 "\n \"fullName\": \"" + fullName + "\"," +
-                "\n \"event\": \"" + event + "\"," +
-                "\n \"date\": \"" + date +
+                "\n \"event\": \"" + event.replaceAll("\n", "") + "\"," +
+                "\n \"date\": \"" + date + "\"" +
                 "\n}";
     }
 }

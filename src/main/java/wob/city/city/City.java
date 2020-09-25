@@ -43,6 +43,7 @@ public class City {
     private final CaughtCriminalNews caughtCriminalNews;
     private final EscapedCriminalNews escapedCriminalNews;
     private final KilledByCriminalNews killedByCriminalNews;
+    private final PersonHistoryNews personHistoryNews;
     private final NewsPaperDao newsPaperDao;
     private final List<Disaster> disaster = Collections.synchronizedList(new ArrayList<>());
     private final DisasterNews disasterNews;
@@ -65,6 +66,7 @@ public class City {
         this.caughtCriminalNews = new CaughtCriminalNews(this);
         this.escapedCriminalNews = new EscapedCriminalNews(this);
         this.killedByCriminalNews = new KilledByCriminalNews(this);
+        this.personHistoryNews = new PersonHistoryNews(this);
         this.newsPaperDao = new NewsPaperDao();
 
         this.professionals.put(Profession.PARAMEDIC.getValue(), new ArrayList<>());

@@ -5,6 +5,7 @@ import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.newspaper.abstraction.NewsPaper;
 import wob.city.newspaper.enums.Folder;
+import wob.city.timing.Timing;
 import wob.city.util.Calculation;
 
 import java.util.ArrayList;
@@ -25,13 +26,28 @@ public class ConsumptionNews extends NewsPaper {
     }
 
     @Override
-    public void fetchData() {
+    public void fetchData(int limit, int fromId) {
         consumptionData = newsPaperDao.fetchConsumptionNews(location.getName(), false);
     }
 
     @Override
-    public void setToReported() {
+    public void setToReported(int limit, int fromId) {
         newsPaperDao.setConsumptionNewsToReported(location.getName());
+    }
+
+    @Override
+    public Integer getFetchedSize() {
+        return null;
+    }
+
+    @Override
+    public Integer getLastId() {
+        return null;
+    }
+
+    @Override
+    public Timing getTiming() {
+        return Timing.AVERAGE_REPORT;
     }
 
     private List<ConsumptionNewsDto> getData() {
