@@ -2,6 +2,8 @@
         saved people [paramedic, or firefighter]
         caught criminals && run aways [police]
         killed people [by criminals]
+       ^
+       (person news with involved person)
 
 Report
 	report person history with paging [limit] [every 1 hour]
