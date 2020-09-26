@@ -27,22 +27,22 @@ public class ConsumptionNews extends NewsPaper {
 
     @Override
     public void fetchData(int limit, int fromId) {
-        consumptionData = newsPaperDao.fetchConsumptionNews(location.getName(), false);
+        consumptionData = newsPaperDao.fetchConsumptionNews(location.getName(), false, limit, fromId);
     }
 
     @Override
     public void setToReported(int limit, int fromId) {
-        newsPaperDao.setConsumptionNewsToReported(location.getName());
+        newsPaperDao.setConsumptionNewsToReported(location.getName(), limit, fromId);
     }
 
     @Override
     public Integer getFetchedSize() {
-        return null;
+        return consumptionData.size();
     }
 
     @Override
     public Integer getLastId() {
-        return null;
+        return consumptionData.get(consumptionData.size() - 1) != null ? consumptionData.get(consumptionData.size() - 1).getId() : 0;
     }
 
     @Override

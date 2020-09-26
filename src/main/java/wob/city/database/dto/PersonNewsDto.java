@@ -2,6 +2,8 @@ package wob.city.database.dto;
 
 import wob.city.database.enums.PersonNewsCategory;
 
+import java.util.Date;
+
 public class PersonNewsDto {
     private Integer id;
     private String type;
@@ -15,6 +17,7 @@ public class PersonNewsDto {
     private String energy;
     private String lastFood;
     private Boolean reported;
+    private Date date;
 
     public Integer getId() {
         return id;
@@ -112,6 +115,14 @@ public class PersonNewsDto {
         this.involvedPerson = involvedPerson;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "\n{" +
@@ -124,7 +135,8 @@ public class PersonNewsDto {
                 "\n \"city\": \"" + city + "\"," +
                 "\n \"energy\": \"" + energy + "\"," +
                 "\n \"lastFood\": \"" + lastFood + "\"," +
-                "\n \"involvedPerson\": \"" + involvedPerson + "\"" +
+                "\n \"involvedPerson\": \"" + involvedPerson + "\"," +
+                "\n \"date\": \"" + date + "\"" +
                 "\n}";
     }
 }

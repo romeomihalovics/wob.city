@@ -1,11 +1,14 @@
 package wob.city.database.dto;
 
+import java.util.Date;
+
 public class ConsumptionNewsDto {
     private Integer id;
     private String city;
     private String type;
     private Double amount;
     private Boolean reported;
+    private Date date;
 
     public ConsumptionNewsDto(){}
 
@@ -53,5 +56,13 @@ public class ConsumptionNewsDto {
 
     public void setReported(Boolean reported) {
         this.reported = reported;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

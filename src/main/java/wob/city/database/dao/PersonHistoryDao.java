@@ -42,7 +42,7 @@ public class PersonHistoryDao implements Dao {
         runQuery(query, params);
     }
 
-    public void setPersonHistoryToReported(String city, Integer limit, Integer fromId) {
+    public void setPersonHistoryToReported(String city, int limit, int fromId) {
         String query = "UPDATE `person_history` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0  AND `id` > ? AND `id` < ?";
 
         List<Object> params = new ArrayList<>();

@@ -28,10 +28,11 @@ CREATE TABLE `consumption_news` (
   `type` text NOT NULL,
   `amount` double NOT NULL,
   `reported` tinyint DEFAULT '0',
+  `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_consumption_news_location` (`city`(100)),
   KEY `idx_consumption_news_reported` (`reported`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,7 +56,7 @@ CREATE TABLE `disaster_history` (
   KEY `idx_disaster_history_city` (`city`(100)),
   KEY `idx_disaster_history_type` (`type`(100)),
   KEY `idx_disaster_history_reported` (`reported`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +77,7 @@ CREATE TABLE `person_history` (
   KEY `idx_person_history_fullname` (`fullname`(100)),
   KEY `idx_person_history_city` (`city`(100)),
   KEY `idx_person_history_reported` (`reported`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,12 +100,13 @@ CREATE TABLE `person_news` (
   `lastfood` text,
   `reported` tinyint DEFAULT '0',
   `involved_person` text,
+  `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_person_news_reported` (`reported`),
   KEY `idx_person_news_location` (`city`(100)),
   KEY `idx_person_news_category` (`category`(100)),
   KEY `idx_person_news_involved_person` (`involved_person`(100))
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -116,4 +118,4 @@ CREATE TABLE `person_news` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-25 12:46:23
+-- Dump completed on 2020-09-26 12:08:00

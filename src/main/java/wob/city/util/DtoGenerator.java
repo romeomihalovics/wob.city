@@ -59,6 +59,7 @@ public class DtoGenerator {
             tempDto.setType((String) row.get("type"));
             tempDto.setAmount((Double) row.get("amount"));
             tempDto.setReported(((Integer) row.get("reported") != 0));
+            tempDto.setDate((Date) row.get("date"));
             consumptionNews.add(tempDto);
         }
 
@@ -81,6 +82,7 @@ public class DtoGenerator {
             tempDto.setLastFood((String) row.get("lastfood"));
             tempDto.setReported(((Integer) row.get("reported") != 0));
             tempDto.setInvolvedPerson((String) row.get("involved_person"));
+            tempDto.setDate((Date) row.get("date"));
             deathNews.add(tempDto);
         }
 

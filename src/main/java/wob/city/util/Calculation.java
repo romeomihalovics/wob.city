@@ -87,6 +87,8 @@ public class Calculation {
         }
 
         return "{" +
+                "\n  \"fromDate\": \"" + (fetchResult.get(0) != null ? fetchResult.get(0).getDate() : "unknown") + "\"," +
+                "\n  \"toDate\": \"" + (fetchResult.get(fetchResult.size() - 1) != null ? fetchResult.get(fetchResult.size() - 1).getDate() : "unknown") + "\"," +
                 "\n  \"meat\": \"" + round(meat / 1000, 2) + "kg\"," +
                 "\n  \"dairy\": \"" + round(dairy / 1000, 2)  + "kg\"," +
                 "\n  \"vegetable\": \"" + round(vegetable / 1000, 2) + "kg\"," +

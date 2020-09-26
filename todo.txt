@@ -1,4 +1,1 @@
-Report
-	fetch everything with paging [limit] where possible
-
 cleanup

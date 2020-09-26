@@ -7,30 +7,34 @@ import wob.city.database.enums.PersonNewsCategory;
 import wob.city.util.DtoGenerator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class NewsPaperDao implements Dao {
-    public List<ConsumptionNewsDto> fetchConsumptionNews(String city) {
-        String query = "SELECT `id`, `city`, `type`, `amount`, `reported` FROM `consumption_news` WHERE `city` = ?";
+    public List<ConsumptionNewsDto> fetchConsumptionNews(String city, int limit, int fromId) {
+        String query = "SELECT `id`, `city`, `type`, `amount`, `reported`, `date` FROM `consumption_news` WHERE `city` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
-        List<Object> params = Collections.singletonList(city);
+        List<Object> params = new ArrayList<>();
+        params.add(city);
+        params.add(fromId);
+        params.add(limit);
 
         return DtoGenerator.generateConsumptionNewsDto(runQuery(query, params));
     }
 
-    public List<ConsumptionNewsDto> fetchConsumptionNews(String city, Boolean reported) {
-        String query = "SELECT `id`, `city`, `type`, `amount`, `reported` FROM `consumption_news` WHERE `city` = ? AND `reported` = ?";
+    public List<ConsumptionNewsDto> fetchConsumptionNews(String city, Boolean reported, int limit, int fromId) {
+        String query = "SELECT `id`, `city`, `type`, `amount`, `reported`, `date` FROM `consumption_news` WHERE `city` = ? AND `reported` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
         params.add(reported);
+        params.add(fromId);
+        params.add(limit);
 
         return DtoGenerator.generateConsumptionNewsDto(runQuery(query, params));
     }
 
     public void uploadConsumptionNews(ConsumptionNewsDto consumptionNews) {
-        String query = "INSERT INTO `consumption_news` (`city`, `type`, `amount`) VALUES (?, ?, ?)";
+        String query = "INSERT INTO `consumption_news` (`city`, `type`, `amount`, `date`) VALUES (?, ?, ?, NOW())";
 
         List<Object> params = new ArrayList<>();
         params.add(consumptionNews.getCity());
@@ -40,34 +44,44 @@ public class NewsPaperDao implements Dao {
         runQuery(query, params);
     }
 
-    public void setConsumptionNewsToReported(String city) {
-        String query = "UPDATE `consumption_news` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0";
+    public void setConsumptionNewsToReported(String city, int limit, int fromId) {
+        String query = "UPDATE `consumption_news` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0 AND `id` > ? AND `id` < ?";
 
-        List<Object> params = Collections.singletonList(city);
+        List<Object> params = new ArrayList<>();
+        params.add(city);
+        params.add(fromId);
+        params.add(limit+fromId);
 
         runQuery(query, params);
     }
 
-    public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city) {
-        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported`, `involved_person` FROM `person_news` WHERE `city` = ? AND `category` = '" + category.getValue() + "'";
+    public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city, int limit, int fromId) {
+        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported`, `involved_person`, `date` FROM `person_news` WHERE `city` = ? AND `category` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
-        List<Object> params = Collections.singletonList(city);
+        List<Object> params = new ArrayList<>();
+        params.add(city);
+        params.add(category.getValue());
+        params.add(fromId);
+        params.add(limit);
 
         return DtoGenerator.generatePersonNewsDto(runQuery(query,params));
     }
 
-    public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city, Boolean reported) {
-        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported`, `involved_person` FROM `person_news` WHERE `city` = ? AND `reported` = ?  AND `category` = '" + category.getValue() + "'";
+    public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city, Boolean reported, int limit, int fromId) {
+        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported`, `involved_person`, `date` FROM `person_news` WHERE `city` = ? AND `reported` = ?  AND `category` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
         params.add(reported);
+        params.add(category.getValue());
+        params.add(fromId);
+        params.add(limit);
 
         return DtoGenerator.generatePersonNewsDto(runQuery(query,params));
     }
 
     public void uploadPersonNews(PersonNewsDto personNews) {
-        String query = "INSERT INTO `person_news` (`category`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `involved_person`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO `person_news` (`category`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `involved_person`, `date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
 
         List<Object> params = new ArrayList<>();
         params.add(personNews.getCategory().getValue());
@@ -84,10 +98,14 @@ public class NewsPaperDao implements Dao {
         runQuery(query, params);
     }
 
-    public void setPersonNewsToReported(PersonNewsCategory category, String city) {
-        String query = "UPDATE `person_news` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0  AND `category` = '" + category.getValue() + "'";
+    public void setPersonNewsToReported(PersonNewsCategory category, String city, int limit, int fromId) {
+        String query = "UPDATE `person_news` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0  AND `category` = ? AND `id` > ? AND `id` < ?";
 
-        List<Object> params = Collections.singletonList(city);
+        List<Object> params = new ArrayList<>();
+        params.add(city);
+        params.add(category.getValue());
+        params.add(fromId);
+        params.add(limit+fromId);
 
         runQuery(query, params);
     }

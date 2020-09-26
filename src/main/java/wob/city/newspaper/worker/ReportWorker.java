@@ -3,7 +3,9 @@ package wob.city.newspaper.worker;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import wob.city.newspaper.abstraction.NewsPaper;
+import wob.city.newspaper.abstraction.PersonNews;
 import wob.city.newspaper.enums.Limit;
+import wob.city.newspaper.object.DisasterNews;
 import wob.city.newspaper.object.PersonHistoryNews;
 import wob.city.util.FtpConfig;
 
@@ -52,10 +54,8 @@ public class ReportWorker extends TimerTask {
                 ftpClient.changeWorkingDirectory(newsPaper.getFolder());
                 ftpClient.storeFile(tempReport.getName(), inputStream);
                 newsPaper.setToReported(Limit.FETCH_LIMIT.getValue(), fromId);
-                if(newsPaper instanceof PersonHistoryNews && newsPaper.getFetchedSize() == Limit.FETCH_LIMIT.getValue()) {
-                    fromId = newsPaper.getLastId();
-                    hasNextPage = true;
-                }
+
+                hasNextPage = checkForPagination();
             }finally {
                 newsPaper.flushData();
             }
@@ -67,5 +67,14 @@ public class ReportWorker extends TimerTask {
                 run();
             }
         }
+    }
+
+    private boolean checkForPagination() {
+        boolean hasNextPage = false;
+        if (newsPaper.getFetchedSize() == Limit.FETCH_LIMIT.getValue()) {
+            fromId = newsPaper.getLastId();
+            hasNextPage = true;
+        }
+        return hasNextPage;
     }
 }

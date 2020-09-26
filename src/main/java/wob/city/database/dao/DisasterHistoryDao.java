@@ -9,30 +9,37 @@ import java.util.Collections;
 import java.util.List;
 
 public class DisasterHistoryDao implements Dao {
-    public List<DisasterHistoryDto> fetchDisasterHistory(String city) {
-        String query = "SELECT `id`, `city`, `type`, `destroyed_buildings`, `died_families`, `died_people`, `date`, `event`, `reported` FROM `disaster_history` WHERE `city` = ?";
+    public List<DisasterHistoryDto> fetchDisasterHistory(String city, int limit, int fromId) {
+        String query = "SELECT `id`, `city`, `type`, `destroyed_buildings`, `died_families`, `died_people`, `date`, `event`, `reported` FROM `disaster_history` WHERE `city` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
-        List<Object> params = Collections.singletonList(city);
+        List<Object> params = new ArrayList<>();
+        params.add(city);
+        params.add(fromId);
+        params.add(limit);
 
         return DtoGenerator.generateDisasterHistoryDto(runQuery(query, params));
     }
 
-    public List<DisasterHistoryDto> fetchDisasterHistory(String city, Boolean reported) {
-        String query = "SELECT `id`, `city`, `type`, `destroyed_buildings`, `died_families`, `died_people`, `date`, `event`, `reported` FROM `disaster_history` WHERE `city` = ? AND `reported` = ?";
+    public List<DisasterHistoryDto> fetchDisasterHistory(String city, Boolean reported, int limit, int fromId) {
+        String query = "SELECT `id`, `city`, `type`, `destroyed_buildings`, `died_families`, `died_people`, `date`, `event`, `reported` FROM `disaster_history` WHERE `city` = ? AND `reported` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
         params.add(reported);
+        params.add(fromId);
+        params.add(limit);
 
         return DtoGenerator.generateDisasterHistoryDto(runQuery(query, params));
     }
 
-    public List<DisasterHistoryDto> fetchDisasterHistory(String city, String type) {
-        String query = "SELECT `id`, `city`, `type`, `destroyed_buildings`, `died_families`, `died_people`, `date`, `event`, `reported` FROM `disaster_history` WHERE `city` = ? AND `type` = ?";
+    public List<DisasterHistoryDto> fetchDisasterHistory(String city, String type, int limit, int fromId) {
+        String query = "SELECT `id`, `city`, `type`, `destroyed_buildings`, `died_families`, `died_people`, `date`, `event`, `reported` FROM `disaster_history` WHERE `city` = ? AND `type` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
         params.add(type);
+        params.add(fromId);
+        params.add(limit);
 
         return DtoGenerator.generateDisasterHistoryDto(runQuery(query, params));
     }
@@ -51,10 +58,13 @@ public class DisasterHistoryDao implements Dao {
         runQuery(query, params);
     }
 
-    public void setDisasterHistoryToReported(String city) {
-        String query = "UPDATE `disaster_history` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0";
+    public void setDisasterHistoryToReported(String city, int limit, int fromId) {
+        String query = "UPDATE `disaster_history` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0 AND `id` > ? AND `id` < ?";
 
-        List<Object> params = Collections.singletonList(city);
+        List<Object> params = new ArrayList<>();
+        params.add(city);
+        params.add(fromId);
+        params.add(limit+fromId);
 
         runQuery(query, params);
     }
