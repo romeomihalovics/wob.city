@@ -56,7 +56,7 @@ public class NewsPaperDao implements Dao {
     }
 
     public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city, int limit, int fromId) {
-        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported`, `involved_person`, `date` FROM `person_news` WHERE `city` = ? AND `category` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
+        String query = "SELECT `id`, `type`, `full_name`, `age`, `weight`, `height`, `city`, `energy`, `last_food`, `reported`, `involved_person`, `date` FROM `person_news` WHERE `city` = ? AND `category` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
@@ -68,7 +68,7 @@ public class NewsPaperDao implements Dao {
     }
 
     public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city, Boolean reported, int limit, int fromId) {
-        String query = "SELECT `id`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `reported`, `involved_person`, `date` FROM `person_news` WHERE `city` = ? AND `reported` = ?  AND `category` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
+        String query = "SELECT `id`, `type`, `full_name`, `age`, `weight`, `height`, `city`, `energy`, `last_food`, `reported`, `involved_person`, `date` FROM `person_news` WHERE `city` = ? AND `reported` = ?  AND `category` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
@@ -81,12 +81,12 @@ public class NewsPaperDao implements Dao {
     }
 
     public void uploadPersonNews(PersonNewsDto personNews) {
-        String query = "INSERT INTO `person_news` (`category`, `type`, `fullname`, `age`, `weight`, `height`, `city`, `energy`, `lastfood`, `involved_person`, `date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+        String query = "INSERT INTO `person_news` (`category`, `type`, `full_name`, `age`, `weight`, `height`, `city`, `energy`, `last_food`, `involved_person`, `date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
 
         List<Object> params = new ArrayList<>();
         params.add(personNews.getCategory().getValue());
         params.add(personNews.getType());
-        params.add(personNews.getFullname());
+        params.add(personNews.getFullName());
         params.add(personNews.getAge());
         params.add(personNews.getWeight());
         params.add(personNews.getHeight());

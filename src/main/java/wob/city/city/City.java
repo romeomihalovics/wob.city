@@ -182,18 +182,26 @@ public class City {
         people.forEach(person -> {
             List<Family> shuffledFamilies = (List<Family>) Calculation.shuffleList(families);
             shuffledFamilies.forEach(family -> family.tryToAdd(person, false));
-            if(person.getFamily() == null && person.getAge() >= 18) {
-                Family family = new Family(this, person);
-                family.findHousing();
-                families.add(family);
-                person.setFamily(family);
-                person.setStatInFamily(StatInFamily.PARENT);
-            }else if(person.getFamily() == null && person.getAge() < 18){
-                orphans.add(person);
-            }
+            checkIfGotIntoFamily(person, orphans);
         });
 
         tryToFindFamily(orphans);
+    }
+
+    private void checkIfGotIntoFamily(Person person, List<Person> orphans) {
+        if(person.getFamily() == null && person.getAge() >= 18) {
+            createNewFamily(person);
+        }else if(person.getFamily() == null && person.getAge() < 18){
+            orphans.add(person);
+        }
+    }
+
+    private void createNewFamily(Person person) {
+        Family family = new Family(this, person);
+        family.findHousing();
+        families.add(family);
+        person.setFamily(family);
+        person.setStatInFamily(StatInFamily.PARENT);
     }
 
     @SuppressWarnings("unchecked")
@@ -228,14 +236,7 @@ public class City {
         for (Family f : shuffledFamilies) {
             List<Person> parents = new ArrayList<>();
             List<Person> children = new ArrayList<>();
-            f.getPeople().forEach(person -> {
-                if ((person.getType() == Type.MAN || person.getType() == Type.WOMAN) &&
-                        person.getStatInFamily() == StatInFamily.PARENT && person.getAge() >= 20 && person.getAge() <= 40) {
-                    parents.add(person);
-                }else if(person.getType() == Type.BOY || person.getType() == Type.GIRL){
-                    children.add(person);
-                }
-            });
+            f.getPeople().forEach(person -> Calculation.sortFertileParentsFromChildren(person, parents, children));
             if (parents.size() == 2 && children.size() < 3) {
                 family.add(f);
                 break;

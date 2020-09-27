@@ -32,7 +32,7 @@ CREATE TABLE `consumption_news` (
   PRIMARY KEY (`id`),
   KEY `idx_consumption_news_location` (`city`(100)),
   KEY `idx_consumption_news_reported` (`reported`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,7 +56,7 @@ CREATE TABLE `disaster_history` (
   KEY `idx_disaster_history_city` (`city`(100)),
   KEY `idx_disaster_history_type` (`type`(100)),
   KEY `idx_disaster_history_reported` (`reported`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,15 +69,15 @@ DROP TABLE IF EXISTS `person_history`;
 CREATE TABLE `person_history` (
   `id` int NOT NULL AUTO_INCREMENT,
   `city` text NOT NULL,
-  `fullname` text NOT NULL,
+  `full_name` text NOT NULL,
   `event` text NOT NULL,
   `date` datetime NOT NULL,
   `reported` tinyint DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `idx_person_history_fullname` (`fullname`(100)),
+  KEY `idx_person_history_fullname` (`full_name`(100)),
   KEY `idx_person_history_city` (`city`(100)),
   KEY `idx_person_history_reported` (`reported`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,13 +91,13 @@ CREATE TABLE `person_news` (
   `id` int NOT NULL AUTO_INCREMENT,
   `category` text NOT NULL,
   `type` text NOT NULL,
-  `fullname` text NOT NULL,
+  `full_name` text NOT NULL,
   `age` int NOT NULL,
   `weight` int NOT NULL,
   `height` int NOT NULL,
   `city` text NOT NULL,
   `energy` text NOT NULL,
-  `lastfood` text,
+  `last_food` text,
   `reported` tinyint DEFAULT '0',
   `involved_person` text,
   `date` datetime NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE `person_news` (
   KEY `idx_person_news_location` (`city`(100)),
   KEY `idx_person_news_category` (`category`(100)),
   KEY `idx_person_news_involved_person` (`involved_person`(100))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -118,4 +118,4 @@ CREATE TABLE `person_news` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-26 12:08:00
+-- Dump completed on 2020-09-27 11:27:04

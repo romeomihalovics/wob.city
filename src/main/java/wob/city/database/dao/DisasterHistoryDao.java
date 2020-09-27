@@ -5,7 +5,6 @@ import wob.city.database.dto.DisasterHistoryDto;
 import wob.city.util.DtoGenerator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DisasterHistoryDao implements Dao {

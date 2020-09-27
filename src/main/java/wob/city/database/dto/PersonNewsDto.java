@@ -8,7 +8,7 @@ public class PersonNewsDto {
     private Integer id;
     private String type;
     private PersonNewsCategory category;
-    private String fullname;
+    private String fullName;
     private String involvedPerson;
     private Integer age;
     private Integer weight;
@@ -43,12 +43,12 @@ public class PersonNewsDto {
         this.type = type;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public Integer getAge() {
@@ -128,7 +128,7 @@ public class PersonNewsDto {
         return "\n{" +
                 "\n \"id\": " + id + "," +
                 "\n \"type\": \"" + type + "\"," +
-                "\n \"fullname\": \"" + fullname + "\"," +
+                "\n \"fullname\": \"" + fullName + "\"," +
                 "\n \"age\": " + age + "," +
                 "\n \"weight\": " + weight + "," +
                 "\n \"height\": " + height + "," +

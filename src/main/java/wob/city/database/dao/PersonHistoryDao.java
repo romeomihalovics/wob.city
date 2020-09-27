@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PersonHistoryDao implements Dao {
     public List<PersonHistoryDto> fetchPersonHistory(String city, int limit, int fromId) {
-        String query = "SELECT `id`, `city`, `fullname`, `event`, `date` FROM `person_history` WHERE `city` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
+        String query = "SELECT `id`, `city`, `full_name`, `event`, `date` FROM `person_history` WHERE `city` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
@@ -20,7 +20,7 @@ public class PersonHistoryDao implements Dao {
     }
 
     public List<PersonHistoryDto> fetchPersonHistory(String city, String fullName, int limit, int fromId) {
-        String query = "SELECT `id`, `city`, `fullname`, `event`, `date` FROM `person_history` WHERE `city` = ? AND `fullname` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
+        String query = "SELECT `id`, `city`, `full_name`, `event`, `date` FROM `person_history` WHERE `city` = ? AND `full_name` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
 
         List<Object> params = new ArrayList<>();
         params.add(city);
@@ -32,7 +32,7 @@ public class PersonHistoryDao implements Dao {
     }
 
     public void uploadPersonHistory(PersonHistoryDto personHistory) {
-        String query = "INSERT INTO `person_history` (`city`, `fullname`, `event`, `date`) VALUES (?, ?, ?, NOW())";
+        String query = "INSERT INTO `person_history` (`city`, `full_name`, `event`, `date`) VALUES (?, ?, ?, NOW())";
 
         List<Object> params = new ArrayList<>();
         params.add(personHistory.getCityName());

@@ -3,10 +3,7 @@ package wob.city.newspaper.worker;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import wob.city.newspaper.abstraction.NewsPaper;
-import wob.city.newspaper.abstraction.PersonNews;
 import wob.city.newspaper.enums.Limit;
-import wob.city.newspaper.object.DisasterNews;
-import wob.city.newspaper.object.PersonHistoryNews;
 import wob.city.util.FtpConfig;
 
 import java.io.*;

@@ -3,6 +3,7 @@ package wob.city.util;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
+import wob.city.person.enums.StatInFamily;
 import wob.city.person.enums.Type;
 
 import java.math.BigDecimal;
@@ -60,6 +61,15 @@ public class Calculation {
         List<?> shuffled = new LinkedList<>(list);
         Collections.shuffle(shuffled);
         return shuffled;
+    }
+
+    public static void sortFertileParentsFromChildren(Person person, List<Person> parents, List<Person> children) {
+        if ((person.getType() == Type.MAN || person.getType() == Type.WOMAN) &&
+                person.getStatInFamily() == StatInFamily.PARENT && person.getAge() >= 20 && person.getAge() <= 40) {
+            parents.add(person);
+        }else if(person.getType() == Type.BOY || person.getType() == Type.GIRL){
+            children.add(person);
+        }
     }
 
     public static String sumConsumptionToString(List<ConsumptionNewsDto> fetchResult) {

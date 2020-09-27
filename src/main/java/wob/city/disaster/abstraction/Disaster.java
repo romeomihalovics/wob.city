@@ -77,9 +77,13 @@ public abstract class Disaster {
     }
 
     public void killPeople() {
-        List<Person> people = Collections.synchronizedList(this.getLocation().getPeople());
-        List<Housing> housings = Collections.synchronizedList(this.getLocation().getHouses());
         List<Person> toKill = new ArrayList<>();
+        destroyHousings(toKill);
+        killVictims(toKill);
+    }
+
+    private void destroyHousings(List<Person> toKill) {
+        List<Housing> housings = Collections.synchronizedList(this.getLocation().getHouses());
         synchronized (housings) {
             for(Housing housing : housings) {
                 if(Calculation.getRandomIntBetween(0, 100) <= this.killingRate) {
@@ -87,6 +91,10 @@ public abstract class Disaster {
                 }
             }
         }
+    }
+
+    private void killVictims(List<Person> toKill) {
+        List<Person> people = Collections.synchronizedList(this.getLocation().getPeople());
         synchronized (people) {
             toKill.forEach(person -> person.die(getDeathCause()));
         }

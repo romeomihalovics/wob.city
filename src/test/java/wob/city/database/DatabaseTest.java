@@ -135,7 +135,7 @@ class DatabaseTest {
         PersonNewsDto personNewsDto = new PersonNewsDto();
         personNewsDto.setCity("DBTest City");
         personNewsDto.setAge(1);
-        personNewsDto.setFullname("Test Person");
+        personNewsDto.setFullName("Test Person");
         personNewsDto.setEnergy("2500kcal");
         personNewsDto.setHeight(30);
         personNewsDto.setWeight(10);
@@ -159,7 +159,7 @@ class DatabaseTest {
 
         assertEquals("DBTest City", personDeathNewsFetched.get(0).getCity());
         assertEquals(1, personDeathNewsFetched.get(0).getAge());
-        assertEquals("Test Person", personDeathNewsFetched.get(0).getFullname());
+        assertEquals("Test Person", personDeathNewsFetched.get(0).getFullName());
         assertEquals("2500kcal", personDeathNewsFetched.get(0).getEnergy());
         assertEquals(30, personDeathNewsFetched.get(0).getHeight());
         assertEquals(10, personDeathNewsFetched.get(0).getWeight());

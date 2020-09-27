@@ -40,7 +40,7 @@ public class DtoGenerator {
             PersonHistoryDto tempDto = new PersonHistoryDto();
             tempDto.setId((Integer) row.get("id"));
             tempDto.setCityName((String) row.get("city"));
-            tempDto.setFullName((String) row.get("fullname"));
+            tempDto.setFullName((String) row.get("full_name"));
             tempDto.setEvent((String) row.get("event"));
             tempDto.setDate((Date) row.get("date"));
             personHistory.add(tempDto);
@@ -73,13 +73,13 @@ public class DtoGenerator {
             PersonNewsDto tempDto = new PersonNewsDto();
             tempDto.setId((Integer) row.get("id"));
             tempDto.setType((String) row.get("type"));
-            tempDto.setFullname((String) row.get("fullname"));
+            tempDto.setFullName((String) row.get("full_name"));
             tempDto.setAge((Integer) row.get("age"));
             tempDto.setWeight((Integer) row.get("weight"));
             tempDto.setHeight((Integer) row.get("height"));
             tempDto.setCity((String) row.get("city"));
             tempDto.setEnergy((String) row.get("energy"));
-            tempDto.setLastFood((String) row.get("lastfood"));
+            tempDto.setLastFood((String) row.get("last_food"));
             tempDto.setReported(((Integer) row.get("reported") != 0));
             tempDto.setInvolvedPerson((String) row.get("involved_person"));
             tempDto.setDate((Date) row.get("date"));
@@ -112,7 +112,7 @@ public class DtoGenerator {
         PersonNewsDto tempDto = new PersonNewsDto();
         tempDto.setType(person.getType().getValue());
         tempDto.setCategory(category);
-        tempDto.setFullname(person.getFullName());
+        tempDto.setFullName(person.getFullName());
         tempDto.setAge(person.getAge());
         tempDto.setWeight(person.getWeight());
         tempDto.setHeight(person.getHeight());

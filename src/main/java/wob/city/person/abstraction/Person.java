@@ -233,10 +233,6 @@ public abstract class Person {
         return killedPeople;
     }
 
-    public void addKilledPerson(Person person) {
-        this.killedPeople.add(person);
-    }
-
     public Profession getProfession() {
         return profession;
     }
@@ -373,17 +369,8 @@ public abstract class Person {
             int attempts = 0;
 
             for(Family currentFamily : housing.getFamilies()) {
-                if(Calculation.getRandomIntBetween(0, 100) > chanceOfSuccess) {
-                    toKill.addAll(currentFamily.getPeople());
-                    disaster.setDestroyedApartments(disaster.getDestroyedApartments() + 1);
-                    disaster.setDiedPeople(disaster.getDiedPeople() + currentFamily.getPeople().size());
-                    disaster.setDiedFamilies(disaster.getDiedFamilies() + 1);
-                }else{
-                    currentFamily.getPeople().forEach(person -> {
-                        ActivityLogger.getLogger().log("A fire fighter ("+ this.getFullName() +") successfully saved a person ("+ person.getFullName() +")");
-                        newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.SAVED_BY_FIREFIGHTER, person, this));
-                    });
-                }
+
+                tryToSaveFamily(chanceOfSuccess, currentFamily, disaster, toKill);
 
                 attempts++;
                 if(attempts == 3 ) {
@@ -392,6 +379,20 @@ public abstract class Person {
                 }
             }
             setBusy(false);
+        }
+    }
+
+    private void tryToSaveFamily(int chanceOfSuccess, Family currentFamily, Disaster disaster, List<Person> toKill){
+        if(Calculation.getRandomIntBetween(0, 100) > chanceOfSuccess) {
+            toKill.addAll(currentFamily.getPeople());
+            disaster.setDestroyedApartments(disaster.getDestroyedApartments() + 1);
+            disaster.setDiedPeople(disaster.getDiedPeople() + currentFamily.getPeople().size());
+            disaster.setDiedFamilies(disaster.getDiedFamilies() + 1);
+        }else{
+            currentFamily.getPeople().forEach(person -> {
+                ActivityLogger.getLogger().log("A fire fighter ("+ this.getFullName() +") successfully saved a person ("+ person.getFullName() +")");
+                newsPaperDao.uploadPersonNews(DtoGenerator.setupPersonNewsDto(PersonNewsCategory.SAVED_BY_FIREFIGHTER, person, this));
+            });
         }
     }
 
