@@ -1,6 +1,7 @@
 package wob.city.database.dao.abstraction;
 
 import wob.city.database.Database;
+import wob.city.database.dto.QueryDto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,15 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface Dao {
-    default List<HashMap<String, Object>> runQuery(String query, List<Object> params) {
+    default List<HashMap<String, Object>> runQuery(QueryDto queryDto) {
         List<HashMap<String, Object>> results = null;
         try(Connection connection = Database.getConnection()){
-            try(PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            try(PreparedStatement preparedStatement = connection.prepareStatement(queryDto.getQuery())){
                 ResultSet resultSet;
 
-                setPreparedStatementParams(preparedStatement, params);
+                setPreparedStatementParams(preparedStatement, queryDto.getParams());
 
-                resultSet = executeQuery(preparedStatement, query);
+                resultSet = executeQuery(preparedStatement, queryDto.getQuery());
 
                 results = checkAndReturnResultSet(resultSet);
             }

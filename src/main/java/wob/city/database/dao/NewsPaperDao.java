@@ -3,110 +3,118 @@ package wob.city.database.dao;
 import wob.city.database.dao.abstraction.Dao;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.database.dto.PersonNewsDto;
+import wob.city.database.dto.QueryDto;
 import wob.city.database.enums.PersonNewsCategory;
 import wob.city.util.DtoGenerator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewsPaperDao implements Dao {
     public List<ConsumptionNewsDto> fetchConsumptionNews(String city, int limit, int fromId) {
-        String query = "SELECT `id`, `city`, `type`, `amount`, `reported`, `date` FROM `consumption_news` WHERE `city` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = new ArrayList<>();
-        params.add(city);
-        params.add(fromId);
-        params.add(limit);
+        queryDto.setQuery("SELECT `id`, `city`, `type`, `amount`, `reported`, `date` FROM `consumption_news` WHERE `city` = ? AND `id` > ? ORDER BY `id` LIMIT ?");
 
-        return DtoGenerator.generateConsumptionNewsDto(runQuery(query, params));
+        queryDto.addParam(city);
+        queryDto.addParam(fromId);
+        queryDto.addParam(limit);
+
+        return DtoGenerator.generateConsumptionNewsDto(runQuery(queryDto));
     }
 
     public List<ConsumptionNewsDto> fetchConsumptionNews(String city, Boolean reported, int limit, int fromId) {
-        String query = "SELECT `id`, `city`, `type`, `amount`, `reported`, `date` FROM `consumption_news` WHERE `city` = ? AND `reported` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = new ArrayList<>();
-        params.add(city);
-        params.add(reported);
-        params.add(fromId);
-        params.add(limit);
+        queryDto.setQuery("SELECT `id`, `city`, `type`, `amount`, `reported`, `date` FROM `consumption_news` WHERE `city` = ? AND `reported` = ? AND `id` > ? ORDER BY `id` LIMIT ?");
 
-        return DtoGenerator.generateConsumptionNewsDto(runQuery(query, params));
+        queryDto.addParam(city);
+        queryDto.addParam(reported);
+        queryDto.addParam(fromId);
+        queryDto.addParam(limit);
+
+        return DtoGenerator.generateConsumptionNewsDto(runQuery(queryDto));
     }
 
     public void uploadConsumptionNews(ConsumptionNewsDto consumptionNews) {
-        String query = "INSERT INTO `consumption_news` (`city`, `type`, `amount`, `date`) VALUES (?, ?, ?, NOW())";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = new ArrayList<>();
-        params.add(consumptionNews.getCity());
-        params.add(consumptionNews.getType());
-        params.add(consumptionNews.getAmount());
+        queryDto.setQuery("INSERT INTO `consumption_news` (`city`, `type`, `amount`, `date`) VALUES (?, ?, ?, NOW())");
 
-        runQuery(query, params);
+        queryDto.addParam(consumptionNews.getCity());
+        queryDto.addParam(consumptionNews.getType());
+        queryDto.addParam(consumptionNews.getAmount());
+
+        runQuery(queryDto);
     }
 
     public void setConsumptionNewsToReported(String city, int limit, int fromId) {
-        String query = "UPDATE `consumption_news` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0 AND `id` > ? AND `id` < ?";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = new ArrayList<>();
-        params.add(city);
-        params.add(fromId);
-        params.add(limit+fromId);
+        queryDto.setQuery("UPDATE `consumption_news` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0 AND `id` > ? AND `id` < ?");
 
-        runQuery(query, params);
+        queryDto.addParam(city);
+        queryDto.addParam(fromId);
+        queryDto.addParam(limit+fromId);
+
+        runQuery(queryDto);
     }
 
     public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city, int limit, int fromId) {
-        String query = "SELECT `id`, `type`, `full_name`, `age`, `weight`, `height`, `city`, `energy`, `last_food`, `reported`, `involved_person`, `date` FROM `person_news` WHERE `city` = ? AND `category` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = new ArrayList<>();
-        params.add(city);
-        params.add(category.getValue());
-        params.add(fromId);
-        params.add(limit);
+        queryDto.setQuery("SELECT `id`, `type`, `full_name`, `age`, `weight`, `height`, `city`, `energy`, `last_food`, `reported`, `involved_person`, `date` FROM `person_news` WHERE `city` = ? AND `category` = ? AND `id` > ? ORDER BY `id` LIMIT ?");
 
-        return DtoGenerator.generatePersonNewsDto(runQuery(query,params));
+        queryDto.addParam(city);
+        queryDto.addParam(category.getValue());
+        queryDto.addParam(fromId);
+        queryDto.addParam(limit);
+
+        return DtoGenerator.generatePersonNewsDto(runQuery(queryDto));
     }
 
     public List<PersonNewsDto> fetchPersonNews(PersonNewsCategory category, String city, Boolean reported, int limit, int fromId) {
-        String query = "SELECT `id`, `type`, `full_name`, `age`, `weight`, `height`, `city`, `energy`, `last_food`, `reported`, `involved_person`, `date` FROM `person_news` WHERE `city` = ? AND `reported` = ?  AND `category` = ? AND `id` > ? ORDER BY `id` LIMIT ?";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = new ArrayList<>();
-        params.add(city);
-        params.add(reported);
-        params.add(category.getValue());
-        params.add(fromId);
-        params.add(limit);
+        queryDto.setQuery("SELECT `id`, `type`, `full_name`, `age`, `weight`, `height`, `city`, `energy`, `last_food`, `reported`, `involved_person`, `date` FROM `person_news` WHERE `city` = ? AND `reported` = ?  AND `category` = ? AND `id` > ? ORDER BY `id` LIMIT ?");
 
-        return DtoGenerator.generatePersonNewsDto(runQuery(query,params));
+        queryDto.addParam(city);
+        queryDto.addParam(reported);
+        queryDto.addParam(category.getValue());
+        queryDto.addParam(fromId);
+        queryDto.addParam(limit);
+
+        return DtoGenerator.generatePersonNewsDto(runQuery(queryDto));
     }
 
     public void uploadPersonNews(PersonNewsDto personNews) {
-        String query = "INSERT INTO `person_news` (`category`, `type`, `full_name`, `age`, `weight`, `height`, `city`, `energy`, `last_food`, `involved_person`, `date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = new ArrayList<>();
-        params.add(personNews.getCategory().getValue());
-        params.add(personNews.getType());
-        params.add(personNews.getFullName());
-        params.add(personNews.getAge());
-        params.add(personNews.getWeight());
-        params.add(personNews.getHeight());
-        params.add(personNews.getCity());
-        params.add(personNews.getEnergy());
-        params.add((personNews.getLastFood() != null ? personNews.getLastFood() : "nothing"));
-        params.add(personNews.getInvolvedPerson());
+        queryDto.setQuery("INSERT INTO `person_news` (`category`, `type`, `full_name`, `age`, `weight`, `height`, `city`, `energy`, `last_food`, `involved_person`, `date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
 
-        runQuery(query, params);
+        queryDto.addParam(personNews.getCategory().getValue());
+        queryDto.addParam(personNews.getType());
+        queryDto.addParam(personNews.getFullName());
+        queryDto.addParam(personNews.getAge());
+        queryDto.addParam(personNews.getWeight());
+        queryDto.addParam(personNews.getHeight());
+        queryDto.addParam(personNews.getCity());
+        queryDto.addParam(personNews.getEnergy());
+        queryDto.addParam((personNews.getLastFood() != null ? personNews.getLastFood() : "nothing"));
+        queryDto.addParam(personNews.getInvolvedPerson());
+
+        runQuery(queryDto);
     }
 
     public void setPersonNewsToReported(PersonNewsCategory category, String city, int limit, int fromId) {
-        String query = "UPDATE `person_news` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0  AND `category` = ? AND `id` > ? AND `id` < ?";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = new ArrayList<>();
-        params.add(city);
-        params.add(category.getValue());
-        params.add(fromId);
-        params.add(limit+fromId);
+        queryDto.setQuery("UPDATE `person_news` SET `reported` = 1 WHERE `city` = ? AND `reported` = 0  AND `category` = ? AND `id` > ? AND `id` < ?");
 
-        runQuery(query, params);
+        queryDto.addParam(city);
+        queryDto.addParam(category.getValue());
+        queryDto.addParam(fromId);
+        queryDto.addParam(limit+fromId);
+
+        runQuery(queryDto);
     }
 }

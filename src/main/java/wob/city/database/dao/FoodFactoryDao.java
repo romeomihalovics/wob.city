@@ -2,30 +2,32 @@ package wob.city.database.dao;
 
 import wob.city.database.dao.abstraction.Dao;
 import wob.city.database.dto.FoodAmountDto;
+import wob.city.database.dto.QueryDto;
 import wob.city.util.DtoGenerator;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class FoodFactoryDao implements Dao {
 
     public List<FoodAmountDto> fetchFoodAmounts(String cityName) {
-        String query = "SELECT `id`, `food_name`, `amount`, `city` FROM `available_food` WHERE `city` = ?";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = Collections.singletonList(cityName);
+        queryDto.setQuery("SELECT `id`, `food_name`, `amount`, `city` FROM `available_food` WHERE `city` = ?");
 
-        return DtoGenerator.generateFoodAmountDto(runQuery(query,params));
+        queryDto.addParam(cityName);
+
+        return DtoGenerator.generateFoodAmountDto(runQuery(queryDto));
     }
 
     public List<FoodAmountDto> fetchFoodAmounts(String cityName, String foodName) {
-        String query = "SELECT `id`, `food_name`, `amount`, `city` FROM `available_food` WHERE `city` = ? AND `food_name` = ?";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = new ArrayList<>();
-        params.add(cityName);
-        params.add(foodName);
+        queryDto.setQuery("SELECT `id`, `food_name`, `amount`, `city` FROM `available_food` WHERE `city` = ? AND `food_name` = ?");
 
-        return DtoGenerator.generateFoodAmountDto(runQuery(query,params));
+        queryDto.addParam(cityName);
+        queryDto.addParam(foodName);
+
+        return DtoGenerator.generateFoodAmountDto(runQuery(queryDto));
     }
 
     public void putOrAddFoodAmount(String cityName, String foodName, int amount) {
@@ -39,24 +41,26 @@ public class FoodFactoryDao implements Dao {
     }
 
     private void updateFoodAmount(String cityName, String foodName, int amount) {
-        String query = "UPDATE `available_food` SET `amount` = `amount` + ? WHERE `city` = ? AND `food_name` = ?";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = new ArrayList<>();
-        params.add(amount);
-        params.add(cityName);
-        params.add(foodName);
+        queryDto.setQuery("UPDATE `available_food` SET `amount` = `amount` + ? WHERE `city` = ? AND `food_name` = ?");
 
-        runQuery(query, params);
+        queryDto.addParam(amount);
+        queryDto.addParam(cityName);
+        queryDto.addParam(foodName);
+
+        runQuery(queryDto);
     }
 
     private void insertFoodAmount(String cityName, String foodName, int amount) {
-        String query = "INSERT INTO `available_food` (`city`, `food_name`, `amount`) VALUES (?, ?, ?)";
+        QueryDto queryDto = new QueryDto();
 
-        List<Object> params = new ArrayList<>();
-        params.add(cityName);
-        params.add(foodName);
-        params.add(amount);
+        queryDto.setQuery("INSERT INTO `available_food` (`city`, `food_name`, `amount`) VALUES (?, ?, ?)");
 
-        runQuery(query, params);
+        queryDto.addParam(cityName);
+        queryDto.addParam(foodName);
+        queryDto.addParam(amount);
+
+        runQuery(queryDto);
     }
 }
