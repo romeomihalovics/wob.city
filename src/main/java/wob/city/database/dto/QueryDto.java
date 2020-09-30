@@ -5,7 +5,7 @@ import java.util.List;
 
 public class QueryDto {
     private String query;
-    private List<Object> params;
+    private final List<Object> params;
 
     public QueryDto() {
         this.params = new ArrayList<>();
