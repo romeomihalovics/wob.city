@@ -38,8 +38,7 @@ public interface Dao {
        boolean successful = false;
        Savepoint savepoint = connection.setSavepoint();
        try {
-           commitTransactionEntries(preparedStatements, connection);
-           successful = true;
+           successful = commitTransactionEntries(preparedStatements, connection);;
        } catch (SQLException throwables) {
            connection.rollback(savepoint);
        } finally {
@@ -48,14 +47,15 @@ public interface Dao {
         return successful;
     }
 
-    default void commitTransactionEntries(HashMap<QueryDto, PreparedStatement> preparedStatements, Connection connection) throws SQLException {
+    default boolean commitTransactionEntries(HashMap<QueryDto, PreparedStatement> preparedStatements, Connection connection) throws SQLException {
         for (Map.Entry<QueryDto, PreparedStatement> entry : preparedStatements.entrySet()) {
             setPreparedStatementParams(entry.getValue(), entry.getKey().getParams());
             if((Integer) executeQuery(entry.getValue(), entry.getKey().getQuery()) == 0){
                 throw new SQLException("No rows affected");
             }
-            connection.commit();
         }
+        connection.commit();
+        return true;
     }
 
     default void closeTransactionStatements(HashMap<QueryDto, PreparedStatement> preparedStatements) throws SQLException {
