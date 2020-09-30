@@ -3,7 +3,7 @@ package wob.city.controller;
 import wob.city.city.City;
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.controller.service.ControlCenter;
-import wob.city.controller.service.FoodLoader;
+import wob.city.controller.service.FoodRecipeLoader;
 import wob.city.controller.service.PeopleGenerator;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
@@ -13,12 +13,12 @@ import java.util.List;
 
 public class TaskController {
     private final ControlCenter controlCenter;
-    private final FoodLoader foodLoader;
+    private final FoodRecipeLoader foodRecipeLoader;
     private final PeopleGenerator peopleGenerator;
 
     public TaskController() {
         this.controlCenter = new ControlCenter();
-        this.foodLoader = new FoodLoader();
+        this.foodRecipeLoader = new FoodRecipeLoader();
         this.peopleGenerator = new PeopleGenerator();
     }
 
@@ -46,6 +46,6 @@ public class TaskController {
     }
 
     public void loadFoods(List<Food> foods) {
-        foodLoader.loadFoods("foods.csv", foods);
+        foodRecipeLoader.loadFoods("foods.csv", foods);
     }
 }

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class FoodLoader {
+public class FoodRecipeLoader {
     public void loadFoods(String fromFile, List<Food> foods) {
         ConsoleLogger.getLogger().log("\n Loading Foods");
         try (FileReader fileReader = new FileReader(fromFile); BufferedReader bufferedReader = new BufferedReader(fileReader)) {

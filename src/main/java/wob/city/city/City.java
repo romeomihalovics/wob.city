@@ -1,5 +1,6 @@
 package wob.city.city;
 
+import wob.city.city.worker.FoodFactoryWorker;
 import wob.city.city.worker.NewBornWorker;
 import wob.city.console.logger.ActivityLogger;
 import wob.city.console.logger.ConsoleLogger;
@@ -31,10 +32,11 @@ public class City {
     private final List<Family> families;
     private final List<Housing> houses;
     private final List<Person> people;
-    private final List<Food> foods;
+    private final List<Food> foodRecipes;
     private final List<Person> died = Collections.synchronizedList(new ArrayList<>());
     private Timer timer;
     private NewBornWorker newBornWorker;
+    private FoodFactoryWorker foodFactoryWorker;
     private final ConsumptionNews consumptionNews;
     private final DeathNews deathNews;
     private final NewBornNews newBornNews;
@@ -56,7 +58,7 @@ public class City {
         this.families = new ArrayList<>();
         this.houses = new ArrayList<>();
         this.people = people;
-        this.foods = foods;
+        this.foodRecipes = foods;
         this.consumptionNews = new ConsumptionNews(this);
         this.deathNews = new DeathNews(this);
         this.newBornNews = new NewBornNews(this);
@@ -102,8 +104,8 @@ public class City {
         return people;
     }
 
-    public List<Food> getFoods() {
-        return foods;
+    public List<Food> getFoodRecipes() {
+        return foodRecipes;
     }
 
     public void addDied(Person person) {
@@ -120,8 +122,10 @@ public class City {
     public void setWorkers() {
         timer = new Timer();
         newBornWorker = new NewBornWorker(this);
+        foodFactoryWorker = new FoodFactoryWorker(this);
 
         timer.scheduleAtFixedRate(newBornWorker, Timing.NEW_BORN_WORKER.getValue(), Timing.NEW_BORN_WORKER.getValue());
+        timer.scheduleAtFixedRate(foodFactoryWorker, 0, Timing.FOOD_FACTORY.getValue());
     }
 
     public List<Disaster> getDisaster() {

@@ -13,16 +13,16 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FoodLoaderTest {
+class FoodRecipeLoaderTest {
     @Test
     @DisplayName("When food type is meat, a new meat object should be inserted to the foods list")
     void insertCurrentShouldAddToList() {
-        FoodLoader foodLoader = new FoodLoader();
+        FoodRecipeLoader foodRecipeLoader = new FoodRecipeLoader();
         List<String> expectedFoodDetail = Arrays.asList("Sausage", "14", "1", "28", "meat");
         List<Food> foodsExpected = Collections.singletonList(new Meat(expectedFoodDetail));
         List<Food> foods = new ArrayList<>();
 
-        foodLoader.insertCurrent(expectedFoodDetail, foods);
+        foodRecipeLoader.insertCurrent(expectedFoodDetail, foods);
 
         assertEquals(foodsExpected.stream().map(food -> food.toString(100)).collect(Collectors.joining()),
                 foods.stream().map(food -> food.toString(100)).collect(Collectors.joining()));

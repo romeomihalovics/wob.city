@@ -429,7 +429,7 @@ public abstract class Person {
     }
 
     public void doEating() {
-        Food food = Calculation.getRandomFood(getLocation().getFoods());
+        Food food = Calculation.getRandomFood(getLocation().getFoodRecipes());
         int amount = Calculation.getRandomIntBetween(0, 2500 - getEnergy());
 
         setLastFood(food.getName() + " " +

@@ -1,10 +1,7 @@
 package wob.city.util;
 
 import wob.city.city.City;
-import wob.city.database.dto.ConsumptionNewsDto;
-import wob.city.database.dto.DisasterHistoryDto;
-import wob.city.database.dto.PersonHistoryDto;
-import wob.city.database.dto.PersonNewsDto;
+import wob.city.database.dto.*;
 import wob.city.database.enums.PersonNewsCategory;
 import wob.city.person.abstraction.Person;
 
@@ -87,6 +84,21 @@ public class DtoGenerator {
         }
 
         return deathNews;
+    }
+
+    public static List<FoodAmountDto> generateFoodAmountDto(List<HashMap<String, Object>> fetchResult) {
+        List<FoodAmountDto> foodAmounts = new ArrayList<>();
+
+        for(HashMap<String, Object> row : fetchResult) {
+            FoodAmountDto tempDto = new FoodAmountDto();
+            tempDto.setId((Integer) row.get("id"));
+            tempDto.setCityName((String) row.get("city"));
+            tempDto.setFoodName((String) row.get("food_name"));
+            tempDto.setAmount((Integer) row.get("amount"));
+            foodAmounts.add(tempDto);
+        }
+
+        return foodAmounts;
     }
 
     public static DisasterHistoryDto setupDisasterHistoryDto(String event, City city) {

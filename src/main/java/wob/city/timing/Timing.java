@@ -12,7 +12,8 @@ public enum Timing {
     CRIMINAL_ACTIVITY(MINUTE.getValue()*5),
     PARAMEDIC_CPR(MINUTE.getValue()*2),
     AVERAGE_REPORT(MINUTE.getValue()*10),
-    BIG_REPORT(MINUTE.getValue()*60);
+    BIG_REPORT(MINUTE.getValue()*60),
+    FOOD_FACTORY(MINUTE.getValue()*5);
 
     private final int time;
 

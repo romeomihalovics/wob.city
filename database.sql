@@ -16,6 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `available_food`
+--
+
+DROP TABLE IF EXISTS `available_food`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `available_food` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `food_name` text NOT NULL,
+  `amount` int NOT NULL,
+  `city` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_available_food_food_name` (`food_name`(100)),
+  KEY `idx_available_food_amount` (`amount`),
+  KEY `idx_available_food_food_name_amount` (`food_name`(100),`amount`),
+  KEY `idx_available_food_city` (`city`(100)),
+  KEY `idx_available_food_food_name_amount_city` (`food_name`(100),`amount`,`city`(100))
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `consumption_news`
 --
 
@@ -32,7 +53,7 @@ CREATE TABLE `consumption_news` (
   PRIMARY KEY (`id`),
   KEY `idx_consumption_news_location` (`city`(100)),
   KEY `idx_consumption_news_reported` (`reported`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +98,7 @@ CREATE TABLE `person_history` (
   KEY `idx_person_history_fullname` (`full_name`(100)),
   KEY `idx_person_history_city` (`city`(100)),
   KEY `idx_person_history_reported` (`reported`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10297 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +127,7 @@ CREATE TABLE `person_news` (
   KEY `idx_person_news_location` (`city`(100)),
   KEY `idx_person_news_category` (`category`(100)),
   KEY `idx_person_news_involved_person` (`involved_person`(100))
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=256 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -118,4 +139,4 @@ CREATE TABLE `person_news` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-27 11:27:04
+-- Dump completed on 2020-09-30 12:54:27
