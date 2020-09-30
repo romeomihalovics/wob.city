@@ -5,6 +5,7 @@ import wob.city.database.dto.PersonHistoryDto;
 import wob.city.database.dto.QueryDto;
 import wob.city.util.DtoGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonHistoryDao implements Dao {
@@ -55,5 +56,27 @@ public class PersonHistoryDao implements Dao {
         queryDto.addParam(limit+fromId);
 
         runQuery(queryDto);
+    }
+
+    public boolean runEatingTransaction(String city, String foodName, double amount, PersonHistoryDto personHistoryDto) {
+        QueryDto logPersonHistory = new QueryDto();
+        QueryDto setAvailableFoodAmount = new QueryDto();
+
+        logPersonHistory.setQuery("INSERT INTO `person_history` (`city`, `full_name`, `event`, `date`) VALUES (?, ?, ?, NOW())");
+        logPersonHistory.addParam(personHistoryDto.getCityName());
+        logPersonHistory.addParam(personHistoryDto.getFullName());
+        logPersonHistory.addParam(personHistoryDto.getEvent());
+
+        setAvailableFoodAmount.setQuery("UPDATE `available_food` SET `amount` = `amount` - ? WHERE `city` = ? AND `food_name` = ? AND `amount` = ?");
+        setAvailableFoodAmount.addParam(amount);
+        setAvailableFoodAmount.addParam(city);
+        setAvailableFoodAmount.addParam(foodName);
+        setAvailableFoodAmount.addParam(amount);
+
+        List<QueryDto> transaction = new ArrayList<>();
+        transaction.add(logPersonHistory);
+        transaction.add(setAvailableFoodAmount);
+
+        return runTransaction(transaction);
     }
 }

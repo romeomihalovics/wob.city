@@ -28,7 +28,7 @@ public class FoodFactoryWorker extends TimerTask {
     }
 
     private void generateRandomAmountOfFood(Food food) {
-        int randomAmount = Calculation.getRandomIntBetween(50000, 100000);
+        double randomAmount = Calculation.getRandomIntBetween(50000, 100000);
         foodFactoryDao.putOrAddFoodAmount(city.getName(), food.getName(), randomAmount);
     }
 }

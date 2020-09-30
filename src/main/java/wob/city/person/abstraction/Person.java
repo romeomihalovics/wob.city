@@ -432,20 +432,22 @@ public abstract class Person {
         Food food = Calculation.getRandomFood(getLocation().getFoodRecipes());
         int amount = Calculation.getRandomIntBetween(0, 2500 - getEnergy());
 
-        setLastFood(food.getName() + " " +
-                Calculation.getAmountByEnergy(amount, food.getEnergy()) +
-                "g -> " + amount + "kcal");
-
-        setEnergy(getEnergy() + amount);
-
         String event = "\n"+getType().getValue()+": " + getFullName() + " ate " +
                 Calculation.getAmountByEnergy(amount, food.getEnergy()) +
                 "g (" + amount + "kcal) of " + food.getName() +
                 " and " + (this instanceof Man ? "his" : "her") +
                 " energy levels changed from " +
-                (getEnergy() - amount) + "kcal to " + getEnergy() + "kcal";
-        ActivityLogger.getLogger().log(event);
-        personHistoryDao.uploadPersonHistory(DtoGenerator.setupPersonHistoryDto(event, this));
-        newsPaperDao.uploadConsumptionNews(new ConsumptionNewsDto(location.getName(), food.getType().getValue(), Calculation.getAmountByEnergy(amount, food.getEnergy())));
+                getEnergy() + "kcal to " + (getEnergy() + amount) + "kcal";
+
+        if(personHistoryDao.runEatingTransaction(location.getName(), food.getName(), Calculation.getAmountByEnergy(amount, food.getEnergy()), DtoGenerator.setupPersonHistoryDto(event, this))) {
+            setLastFood(food.getName() + " " +
+                    Calculation.getAmountByEnergy(amount, food.getEnergy()) +
+                    "g -> " + amount + "kcal");
+            setEnergy(getEnergy() + amount);
+
+            ActivityLogger.getLogger().log(event);
+            newsPaperDao.uploadConsumptionNews(new ConsumptionNewsDto(location.getName(), food.getType().getValue(), Calculation.getAmountByEnergy(amount, food.getEnergy())));
+        }
+
     }
 }

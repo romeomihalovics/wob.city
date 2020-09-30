@@ -42,7 +42,6 @@ public interface Dao {
            successful = true;
        } catch (SQLException throwables) {
            connection.rollback(savepoint);
-           throwables.printStackTrace();
        } finally {
            closeTransactionStatements(preparedStatements);
        }

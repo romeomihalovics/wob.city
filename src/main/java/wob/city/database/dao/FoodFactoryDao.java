@@ -9,16 +9,6 @@ import java.util.List;
 
 public class FoodFactoryDao implements Dao {
 
-    public List<FoodAmountDto> fetchFoodAmounts(String cityName) {
-        QueryDto queryDto = new QueryDto();
-
-        queryDto.setQuery("SELECT `id`, `food_name`, `amount`, `city` FROM `available_food` WHERE `city` = ?");
-
-        queryDto.addParam(cityName);
-
-        return DtoGenerator.generateFoodAmountDto(runQuery(queryDto));
-    }
-
     public List<FoodAmountDto> fetchFoodAmounts(String cityName, String foodName) {
         QueryDto queryDto = new QueryDto();
 
@@ -30,7 +20,7 @@ public class FoodFactoryDao implements Dao {
         return DtoGenerator.generateFoodAmountDto(runQuery(queryDto));
     }
 
-    public void putOrAddFoodAmount(String cityName, String foodName, int amount) {
+    public void putOrAddFoodAmount(String cityName, String foodName, double amount) {
         List<FoodAmountDto> currentlyAvailable = fetchFoodAmounts(cityName, foodName);
 
         if(!currentlyAvailable.isEmpty()) {
@@ -40,7 +30,7 @@ public class FoodFactoryDao implements Dao {
         }
     }
 
-    private void updateFoodAmount(String cityName, String foodName, int amount) {
+    private void updateFoodAmount(String cityName, String foodName, double amount) {
         QueryDto queryDto = new QueryDto();
 
         queryDto.setQuery("UPDATE `available_food` SET `amount` = `amount` + ? WHERE `city` = ? AND `food_name` = ?");
@@ -52,7 +42,7 @@ public class FoodFactoryDao implements Dao {
         runQuery(queryDto);
     }
 
-    private void insertFoodAmount(String cityName, String foodName, int amount) {
+    private void insertFoodAmount(String cityName, String foodName, double amount) {
         QueryDto queryDto = new QueryDto();
 
         queryDto.setQuery("INSERT INTO `available_food` (`city`, `food_name`, `amount`) VALUES (?, ?, ?)");

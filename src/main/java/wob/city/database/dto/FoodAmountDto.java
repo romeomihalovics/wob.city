@@ -4,7 +4,7 @@ public class FoodAmountDto {
     private Integer id;
     private String foodName;
     private String cityName;
-    private Integer amount;
+    private Double amount;
 
     public Integer getId() {
         return id;
@@ -30,11 +30,11 @@ public class FoodAmountDto {
         this.cityName = cityName;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 }

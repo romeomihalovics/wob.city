@@ -94,7 +94,7 @@ public class DtoGenerator {
             tempDto.setId((Integer) row.get("id"));
             tempDto.setCityName((String) row.get("city"));
             tempDto.setFoodName((String) row.get("food_name"));
-            tempDto.setAmount((Integer) row.get("amount"));
+            tempDto.setAmount((Double) row.get("amount"));
             foodAmounts.add(tempDto);
         }
 
