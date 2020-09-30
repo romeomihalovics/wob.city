@@ -67,7 +67,7 @@ public class PersonHistoryDao implements Dao {
         logPersonHistory.addParam(personHistoryDto.getFullName());
         logPersonHistory.addParam(personHistoryDto.getEvent());
 
-        setAvailableFoodAmount.setQuery("UPDATE `available_food` SET `amount` = `amount` - ? WHERE `city` = ? AND `food_name` = ? AND `amount` = ?");
+        setAvailableFoodAmount.setQuery("UPDATE `available_food` SET `amount` = `amount` - ? WHERE `city` = ? AND `food_name` = ? AND `amount` - ? > 0");
         setAvailableFoodAmount.addParam(amount);
         setAvailableFoodAmount.addParam(city);
         setAvailableFoodAmount.addParam(foodName);
