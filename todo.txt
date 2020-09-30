@@ -23,5 +23,9 @@ City ->
 		"foods" -> hashmap <FoodName, Available Amount>
 
 people 
-	eat random amount of random food from city's available food list
+	eat random amount of random food from city's available food list from db
 	[transaction, if something goes wrong, rollback]
+
+
+dao
+ 	execmultiple updates [list of querydto, disable auto commit, rollback on fail]
