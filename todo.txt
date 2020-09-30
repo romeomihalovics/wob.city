@@ -1,1 +1,9 @@
+Food factory
+	generate x amount of each food every x amount of time
+	(store current available food amount in db)
+	use transactions [where multiple sql updates are executed]
+
+	people can only eat available food
+	store transactions in db
+
 cleanup
