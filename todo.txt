@@ -1,1 +1,27 @@
+Food factory
+	generate x amount of each food every x amount of time
+	(store current available food amount in db)
+	use transactions [where multiple sql updates are executed]
+
+	people can only eat available food
+	store transactions in db
+
 cleanup
+
+-------------------------------------------------------------------
+
+City ->
+	on load set food generator [factory] timed task with no delay
+
+
+	food generator -> add random amount of random food from food list [Available "recipes"]
+	upload or update db with the amounts [foodname, type, amount]
+
+
+	fields ->
+		"foods" -> "recipes / foodProperties"
+		"foods" -> hashmap <FoodName, Available Amount>
+
+people 
+	eat random amount of random food from city's available food list
+	[transaction, if something goes wrong, rollback]
