@@ -11,17 +11,20 @@ cleanup
 -------------------------------------------------------------------
 
 City ->
-	on load set food generator [factory] timed task with no delay
+	on load set food generator [factory] timed task with no delay ok
 
 
-	food generator -> add random amount of random food from food list [Available "recipes"]
-	upload or update db with the amounts [foodname, type, amount]
+	food generator -> add random amount of random food from food list [Available "recipes"] ok
+	upload or update db with the amounts [foodname, type, amount] ok
 
 
 	fields ->
-		"foods" -> "recipes / foodProperties"
-		"foods" -> hashmap <FoodName, Available Amount>
+		"foods" -> "recipes / foodProperties" ok
 
 people 
-	eat random amount of random food from city's available food list
+	eat random amount of random food from city's available food list from db
 	[transaction, if something goes wrong, rollback]
+
+
+dao
+ 	execmultiple updates [list of querydto, disable auto commit, rollback on fail]
