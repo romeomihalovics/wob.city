@@ -5,7 +5,6 @@ import wob.city.database.dto.PersonHistoryDto;
 import wob.city.database.dto.QueryDto;
 import wob.city.util.DtoGenerator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PersonHistoryDao implements Dao {
