@@ -38,7 +38,7 @@ public interface Dao {
        boolean successful = false;
        Savepoint savepoint = connection.setSavepoint();
        try {
-           successful = commitTransactionEntries(preparedStatements, connection);;
+           successful = commitTransactionEntries(preparedStatements, connection);
        } catch (SQLException throwables) {
            connection.rollback(savepoint);
        } finally {
