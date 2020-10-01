@@ -1,29 +1,21 @@
-City
-	Days [Daytime, night time]
-		new day -> calc temperature
-		reaching daytime -> getting warmer [e.g.: 1 degree per hour]
-		reaching nightime -> getting colder 
-		record temperature per day
-		hourly report to db
-	Weather [only temperature]
-	Seasons
-		fields
-			min temperature - max temperature
-
--------------------------------------------------
-
 City 
-	field 
-		date -> on launch set to current date ok
-			-> add an hour every x minutes with a timer ok
-				timer should set the temperature according to the hour & the season min & max values ok
-				report temperature
-				if its a new day, report the record to the previous day
-		current temperature ok
-			stores current temp
+	add an hour every x minutes with a timer ok
+		report temperature
+		if its a new day, report the record to the previous day
+		
+every db record with the city's dates
 
-		current season ok
-			stores current season
-				-> changes every week
 
-		every db record with the city's dates
+db "temperature_report"
+	id
+	city
+	partofday
+	temperature
+	datetime
+
+db "record_temperature"
+	id
+	city
+	type [highest / lowest]
+	temperature
+	date
