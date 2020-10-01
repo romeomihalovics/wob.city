@@ -1,0 +1,11 @@
+City
+	Days [Daytime, night time]
+		new day -> calc temperature
+		reaching daytime -> getting warmer [e.g.: 1 degree per hour]
+		reaching nightime -> getting colder 
+		record temperature per day
+		hourly report to db
+	Weather [only temperature]
+	Seasons
+		fields
+			min temperature - max temperature
