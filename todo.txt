@@ -1,1 +1,0 @@
-every db record with the city's dates

@@ -38,11 +38,12 @@ public class NewsPaperDao implements Dao {
     public void uploadConsumptionNews(ConsumptionNewsDto consumptionNews) {
         QueryDto queryDto = new QueryDto();
 
-        queryDto.setQuery("INSERT INTO `consumption_news` (`city`, `type`, `amount`, `date`) VALUES (?, ?, ?, NOW())");
+        queryDto.setQuery("INSERT INTO `consumption_news` (`city`, `type`, `amount`, `date`) VALUES (?, ?, ?, ?)");
 
         queryDto.addParam(consumptionNews.getCity());
         queryDto.addParam(consumptionNews.getType());
         queryDto.addParam(consumptionNews.getAmount());
+        queryDto.addParam(consumptionNews.getDate());
 
         runQuery(queryDto);
     }
@@ -89,7 +90,7 @@ public class NewsPaperDao implements Dao {
     public void uploadPersonNews(PersonNewsDto personNews) {
         QueryDto queryDto = new QueryDto();
 
-        queryDto.setQuery("INSERT INTO `person_news` (`category`, `type`, `full_name`, `age`, `weight`, `height`, `city`, `energy`, `last_food`, `involved_person`, `date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
+        queryDto.setQuery("INSERT INTO `person_news` (`category`, `type`, `full_name`, `age`, `weight`, `height`, `city`, `energy`, `last_food`, `involved_person`, `date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         queryDto.addParam(personNews.getCategory().getValue());
         queryDto.addParam(personNews.getType());
@@ -101,6 +102,7 @@ public class NewsPaperDao implements Dao {
         queryDto.addParam(personNews.getEnergy());
         queryDto.addParam((personNews.getLastFood() != null ? personNews.getLastFood() : "nothing"));
         queryDto.addParam(personNews.getInvolvedPerson());
+        queryDto.addParam(personNews.getDate());
 
         runQuery(queryDto);
     }
