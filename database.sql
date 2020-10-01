@@ -33,7 +33,7 @@ CREATE TABLE `available_food` (
   KEY `idx_available_food_food_name_amount` (`food_name`(100),`amount`),
   KEY `idx_available_food_city` (`city`(100)),
   KEY `idx_available_food_food_name_amount_city` (`food_name`(100),`amount`,`city`(100))
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,11 +49,11 @@ CREATE TABLE `consumption_news` (
   `type` text NOT NULL,
   `amount` double NOT NULL,
   `reported` tinyint DEFAULT '0',
-  `date` datetime NOT NULL,
+  `date` timestamp NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_consumption_news_location` (`city`(100)),
   KEY `idx_consumption_news_reported` (`reported`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,14 +70,14 @@ CREATE TABLE `disaster_history` (
   `destroyed_buildings` int NOT NULL,
   `died_families` int NOT NULL,
   `died_people` int NOT NULL,
-  `date` datetime NOT NULL,
+  `date` timestamp NOT NULL,
   `event` text NOT NULL,
   `reported` tinyint DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_disaster_history_city` (`city`(100)),
   KEY `idx_disaster_history_type` (`type`(100)),
   KEY `idx_disaster_history_reported` (`reported`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,13 +92,13 @@ CREATE TABLE `person_history` (
   `city` text NOT NULL,
   `full_name` text NOT NULL,
   `event` text NOT NULL,
-  `date` datetime NOT NULL,
+  `date` timestamp NOT NULL,
   `reported` tinyint DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_person_history_fullname` (`full_name`(100)),
   KEY `idx_person_history_city` (`city`(100)),
   KEY `idx_person_history_reported` (`reported`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,13 +121,13 @@ CREATE TABLE `person_news` (
   `last_food` text,
   `reported` tinyint DEFAULT '0',
   `involved_person` text,
-  `date` datetime NOT NULL,
+  `date` timestamp NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_person_news_reported` (`reported`),
   KEY `idx_person_news_location` (`city`(100)),
   KEY `idx_person_news_category` (`category`(100)),
   KEY `idx_person_news_involved_person` (`involved_person`(100))
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +142,7 @@ CREATE TABLE `record_temperature` (
   `city` text NOT NULL,
   `type` text NOT NULL,
   `temperature` double NOT NULL,
-  `date` date NOT NULL,
+  `date` timestamp NOT NULL,
   `season` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -160,10 +160,10 @@ CREATE TABLE `temperature_report` (
   `city` text NOT NULL,
   `part_of_day` text NOT NULL,
   `temperature` double NOT NULL,
-  `date` datetime NOT NULL,
+  `date` timestamp NOT NULL,
   `season` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -175,4 +175,4 @@ CREATE TABLE `temperature_report` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-01 17:07:05
+-- Dump completed on 2020-10-01 18:48:28
