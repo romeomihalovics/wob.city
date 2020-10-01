@@ -24,7 +24,7 @@ Every 2 minutes, in a fertile family [which means there is a woman and a man "pa
 
 Each city has 10 news papers, Death News, New Born News, Consumption News, Disaster News, Saved By Paramedics News, Saved By Fire Fighters News, Caught Criminals News, Escaped Criminals News, Killed By Criminal News, Person History News. Every 10 minutes (except big reports [currently only 1], those are being published every 1 hours) the news are published to an ftp server with the latest data fetched from the database, where every event is uploaded.
 
-In the city, you will find foods. Foods are segregated to 4 categories, meat, dairy, grain, vegetables. Every food has details about itself, which are [by default smth/100g], protein, carbohydrate, fat. You can calculate the calories in a specific food with these details [by default /100g, but you could set it to what ever amount you like], or list all of them.
+In the city, you will find foods, which the city's food factory generated, and generating each 5 minutes. Foods are segregated to 4 categories, meat, dairy, grain, vegetables. Every food has details about itself, which are [by default smth/100g], protein, carbohydrate, fat. You can calculate the calories in a specific food with these details [by default /100g, but you could set it to what ever amount you like], or list all of them.
 
 You can start natural disasters like volcanic eruptions, tornado, flooding in the cities, and some of them will kill more people, some of them will even have a continuation, like an aftershock for an earthquake that will kill even more people [the disaster destroys buildings, while killing the family(ies) in it].
 
