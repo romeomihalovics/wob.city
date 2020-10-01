@@ -2,6 +2,7 @@ package wob.city.city;
 
 import wob.city.city.worker.FoodFactoryWorker;
 import wob.city.city.worker.NewBornWorker;
+import wob.city.city.worker.TimeWorker;
 import wob.city.console.logger.ActivityLogger;
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.database.dao.DisasterHistoryDao;
@@ -21,14 +22,19 @@ import wob.city.person.enums.DeathCause;
 import wob.city.person.enums.Profession;
 import wob.city.person.enums.StatInFamily;
 import wob.city.person.enums.Type;
+import wob.city.season.abstraction.Season;
 import wob.city.timing.Timing;
 import wob.city.util.Calculation;
 import wob.city.util.DtoGenerator;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class City {
     private String name;
+    private LocalDateTime currentDateTime;
+    private Season currentSeason;
+    private Double currentTemperature;
     private final List<Family> families;
     private final List<Housing> houses;
     private final List<Person> people;
@@ -37,6 +43,7 @@ public class City {
     private Timer timer;
     private NewBornWorker newBornWorker;
     private FoodFactoryWorker foodFactoryWorker;
+    private TimeWorker timeWorker;
     private final ConsumptionNews consumptionNews;
     private final DeathNews deathNews;
     private final NewBornNews newBornNews;
@@ -55,6 +62,7 @@ public class City {
 
     public City(String name, List<Person> people, List<Food> foods) {
         this.name = name;
+        this.currentDateTime = LocalDateTime.now();
         this.families = new ArrayList<>();
         this.houses = new ArrayList<>();
         this.people = people;
@@ -82,6 +90,30 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDateTime getCurrentDateTime() {
+        return currentDateTime;
+    }
+
+    public void setCurrentDateTime(LocalDateTime currentDateTime) {
+        this.currentDateTime = currentDateTime;
+    }
+
+    public Season getCurrentSeason() {
+        return currentSeason;
+    }
+
+    public void setCurrentSeason(Season currentSeason) {
+        this.currentSeason = currentSeason;
+    }
+
+    public Double getCurrentTemperature() {
+        return currentTemperature;
+    }
+
+    public void setCurrentTemperature(Double currentTemperature) {
+        this.currentTemperature = currentTemperature;
     }
 
     public List<Family> getFamilies() {
@@ -123,9 +155,11 @@ public class City {
         timer = new Timer();
         newBornWorker = new NewBornWorker(this);
         foodFactoryWorker = new FoodFactoryWorker(this);
+        timeWorker = new TimeWorker(this);
 
         timer.scheduleAtFixedRate(newBornWorker, Timing.NEW_BORN_WORKER.getValue(), Timing.NEW_BORN_WORKER.getValue());
         timer.scheduleAtFixedRate(foodFactoryWorker, 0, Timing.FOOD_FACTORY.getValue());
+        timer.scheduleAtFixedRate(timeWorker, Timing.HOUR.getValue(), Timing.HOUR.getValue());
     }
 
     public List<Disaster> getDisaster() {

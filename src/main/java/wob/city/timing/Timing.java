@@ -2,6 +2,7 @@ package wob.city.timing;
 
 public enum Timing {
     MINUTE(60*1000),
+    HOUR(MINUTE.getValue()*60),
     NEW_BORN_WORKER(MINUTE.getValue()*2),
     DISASTER_FIRST_WAVE(MINUTE.getValue()),
     DISASTER_SECOND_WAVE(MINUTE.getValue()*2),
@@ -12,7 +13,7 @@ public enum Timing {
     CRIMINAL_ACTIVITY(MINUTE.getValue()*5),
     PARAMEDIC_CPR(MINUTE.getValue()*2),
     AVERAGE_REPORT(MINUTE.getValue()*10),
-    BIG_REPORT(MINUTE.getValue()*60),
+    BIG_REPORT(HOUR.getValue()),
     FOOD_FACTORY(MINUTE.getValue()*5);
 
     private final int time;
