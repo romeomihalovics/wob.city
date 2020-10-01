@@ -8,8 +8,10 @@ import wob.city.console.logger.ConsoleLogger;
 import wob.city.database.dao.DisasterHistoryDao;
 import wob.city.database.dao.NewsPaperDao;
 import wob.city.database.dao.TemperatureDao;
+import wob.city.database.dto.RecordTemperatureDto;
 import wob.city.database.dto.TemperatureReportDto;
 import wob.city.database.enums.PersonNewsCategory;
+import wob.city.database.enums.TemperatureRecordType;
 import wob.city.disaster.abstraction.Consequence;
 import wob.city.disaster.abstraction.Disaster;
 import wob.city.family.Family;
@@ -41,6 +43,8 @@ public class City {
     private LocalDateTime currentDateTime;
     private Season currentSeason;
     private Double currentTemperature;
+    private Double highestTempToday;
+    private Double lowestTempToday;
     private final List<Family> families;
     private final List<Housing> houses;
     private final List<Person> people;
@@ -72,6 +76,8 @@ public class City {
         this.currentDateTime = LocalDateTime.now();
         this.currentSeason = Calculation.getRandomSeason();
         this.currentTemperature = Calculation.calculateTemperature(this);
+        this.highestTempToday = currentTemperature;
+        this.lowestTempToday = currentTemperature;
         this.families = new ArrayList<>();
         this.houses = new ArrayList<>();
         this.people = people;
@@ -359,13 +365,31 @@ public class City {
         addElapsedDayIfNeeded(currentDateTime);
         currentDateTime = currentDateTime.plusHours(1);
         currentTemperature = Calculation.calculateTemperature(this);
+        setTemperatureRecords();
         reportTemperature();
+    }
+
+    public void setTemperatureRecords() {
+        if(highestTempToday != null && lowestTempToday != null) {
+            if(currentTemperature > highestTempToday) {
+                highestTempToday = currentTemperature;
+            }
+            if(currentTemperature < lowestTempToday) {
+                lowestTempToday = currentTemperature;
+            }
+        } else {
+            highestTempToday = currentTemperature;
+            lowestTempToday = currentTemperature;
+        }
     }
 
     public void addElapsedDayIfNeeded(LocalDateTime time) {
         if(time.plusHours(1).getHour() == 0) {
+            reportRecordTemperatures();
             currentSeason.addElapsedDay();
             switchSeasonIfNeeded();
+            highestTempToday = null;
+            lowestTempToday = null;
         }
     }
 
@@ -392,6 +416,29 @@ public class City {
         temperatureReport.setTemperature(currentTemperature);
 
         temperatureDao.uploadTemperatureReport(temperatureReport);
+    }
+
+    public void reportRecordTemperatures() {
+        RecordTemperatureDto highestTemperature = new RecordTemperatureDto();
+        RecordTemperatureDto lowestTemperature = new RecordTemperatureDto();
+
+        highestTemperature.setCity(name);
+        lowestTemperature.setCity(name);
+
+        highestTemperature.setDate(currentDateTime);
+        lowestTemperature.setDate(currentDateTime);
+
+        highestTemperature.setSeason(currentSeason.getName());
+        lowestTemperature.setSeason(currentSeason.getName());
+
+        highestTemperature.setType(TemperatureRecordType.HIGHEST);
+        lowestTemperature.setType(TemperatureRecordType.LOWEST);
+
+        highestTemperature.setTemperature(highestTempToday);
+        lowestTemperature.setTemperature(lowestTempToday);
+
+        temperatureDao.uploadRecordTemperature(highestTemperature);
+        temperatureDao.uploadRecordTemperature(lowestTemperature);
     }
 
     @Override
