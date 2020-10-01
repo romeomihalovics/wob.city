@@ -2,6 +2,7 @@ package wob.city.database.dto;
 
 import wob.city.database.enums.PersonNewsCategory;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PersonNewsDto {
@@ -17,7 +18,7 @@ public class PersonNewsDto {
     private String energy;
     private String lastFood;
     private Boolean reported;
-    private Date date;
+    private LocalDateTime date;
 
     public Integer getId() {
         return id;
@@ -115,11 +116,11 @@ public class PersonNewsDto {
         this.involvedPerson = involvedPerson;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

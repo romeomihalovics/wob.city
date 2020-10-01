@@ -5,8 +5,9 @@ import wob.city.database.dto.*;
 import wob.city.database.enums.PersonNewsCategory;
 import wob.city.person.abstraction.Person;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class DtoGenerator {
             tempDto.setDestroyedBuildings((Integer) row.get("destroyed_buildings"));
             tempDto.setDiedFamilies((Integer) row.get("died_families"));
             tempDto.setDiedPeople((Integer) row.get("died_people"));
-            tempDto.setDate((Date) row.get("date"));
+            tempDto.setDate(((Timestamp) row.get("date")).toLocalDateTime());
             tempDto.setEvent((String) row.get("event"));
             disasterHistory.add(tempDto);
         }
@@ -39,7 +40,7 @@ public class DtoGenerator {
             tempDto.setCityName((String) row.get("city"));
             tempDto.setFullName((String) row.get("full_name"));
             tempDto.setEvent((String) row.get("event"));
-            tempDto.setDate((Date) row.get("date"));
+            tempDto.setDate(((Timestamp) row.get("date")).toLocalDateTime());
             personHistory.add(tempDto);
         }
 
@@ -56,7 +57,7 @@ public class DtoGenerator {
             tempDto.setType((String) row.get("type"));
             tempDto.setAmount((Double) row.get("amount"));
             tempDto.setReported(((Integer) row.get("reported") != 0));
-            tempDto.setDate((Date) row.get("date"));
+            tempDto.setDate(((Timestamp) row.get("date")).toLocalDateTime());
             consumptionNews.add(tempDto);
         }
 
@@ -79,7 +80,7 @@ public class DtoGenerator {
             tempDto.setLastFood((String) row.get("last_food"));
             tempDto.setReported(((Integer) row.get("reported") != 0));
             tempDto.setInvolvedPerson((String) row.get("involved_person"));
-            tempDto.setDate((Date) row.get("date"));
+            tempDto.setDate(((Timestamp) row.get("date")).toLocalDateTime());
             deathNews.add(tempDto);
         }
 
@@ -109,6 +110,7 @@ public class DtoGenerator {
         tempDto.setDestroyedBuildings(city.getDisaster().get(0).getDestroyedApartments());
         tempDto.setDiedFamilies(city.getDisaster().get(0).getDiedFamilies());
         tempDto.setDiedPeople(city.getDisaster().get(0).getDiedPeople());
+        tempDto.setDate(city.getCurrentDateTime());
         return tempDto;
     }
 
@@ -117,6 +119,7 @@ public class DtoGenerator {
         tempDto.setCityName(person.getLocation().getName());
         tempDto.setFullName(person.getFullName());
         tempDto.setEvent(event);
+        tempDto.setDate(person.getLocation().getCurrentDateTime());
         return tempDto;
     }
 
@@ -132,6 +135,7 @@ public class DtoGenerator {
         tempDto.setEnergy(person.getEnergy() + "kcal");
         tempDto.setLastFood(person.getLastFood());
         tempDto.setInvolvedPerson((involvedPerson != null ? involvedPerson.getFullName() : "nobody"));
+        tempDto.setDate(person.getLocation().getCurrentDateTime());
         return tempDto;
     }
 }

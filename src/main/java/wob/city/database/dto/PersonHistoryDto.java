@@ -1,14 +1,14 @@
 package wob.city.database.dto;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class PersonHistoryDto {
     private Integer id;
     private String cityName;
     private String fullName;
     private String event;
-    private Date date;
+    private LocalDateTime date;
 
     public Integer getId() {
         return id;
@@ -42,11 +42,11 @@ public class PersonHistoryDto {
         this.event = event;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

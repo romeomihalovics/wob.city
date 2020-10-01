@@ -37,11 +37,12 @@ public class PersonHistoryDao implements Dao {
     public void uploadPersonHistory(PersonHistoryDto personHistory) {
         QueryDto queryDto = new QueryDto();
 
-        queryDto.setQuery("INSERT INTO `person_history` (`city`, `full_name`, `event`, `date`) VALUES (?, ?, ?, NOW())");
+        queryDto.setQuery("INSERT INTO `person_history` (`city`, `full_name`, `event`, `date`) VALUES (?, ?, ?, ?)");
 
         queryDto.addParam(personHistory.getCityName());
         queryDto.addParam(personHistory.getFullName());
         queryDto.addParam(personHistory.getEvent());
+        queryDto.addParam(personHistory.getDate());
 
         runQuery(queryDto);
     }
@@ -62,10 +63,11 @@ public class PersonHistoryDao implements Dao {
         QueryDto logPersonHistory = new QueryDto();
         QueryDto setAvailableFoodAmount = new QueryDto();
 
-        logPersonHistory.setQuery("INSERT INTO `person_history` (`city`, `full_name`, `event`, `date`) VALUES (?, ?, ?, NOW())");
+        logPersonHistory.setQuery("INSERT INTO `person_history` (`city`, `full_name`, `event`, `date`) VALUES (?, ?, ?, ?)");
         logPersonHistory.addParam(personHistoryDto.getCityName());
         logPersonHistory.addParam(personHistoryDto.getFullName());
         logPersonHistory.addParam(personHistoryDto.getEvent());
+        logPersonHistory.addParam(personHistoryDto.getDate());
 
         setAvailableFoodAmount.setQuery("UPDATE `available_food` SET `amount` = `amount` - ? WHERE `city` = ? AND `food_name` = ? AND `amount` - ? > 0");
         setAvailableFoodAmount.addParam(amount);

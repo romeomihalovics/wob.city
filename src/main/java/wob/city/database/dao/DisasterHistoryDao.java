@@ -49,7 +49,7 @@ public class DisasterHistoryDao implements Dao {
     public void uploadDisasterHistory(DisasterHistoryDto disasterHistory) {
         QueryDto queryDto = new QueryDto();
 
-        queryDto.setQuery("INSERT INTO `disaster_history` (`city`, `type`, `destroyed_buildings`, `died_families`, `died_people`, `event`, `date`) VALUES (?, ?, ?, ?, ?, ?, NOW())");
+        queryDto.setQuery("INSERT INTO `disaster_history` (`city`, `type`, `destroyed_buildings`, `died_families`, `died_people`, `event`, `date`) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
 
         queryDto.addParam(disasterHistory.getCityName());
@@ -58,6 +58,7 @@ public class DisasterHistoryDao implements Dao {
         queryDto.addParam(disasterHistory.getDiedFamilies());
         queryDto.addParam(disasterHistory.getDiedPeople());
         queryDto.addParam(disasterHistory.getEvent());
+        queryDto.addParam(disasterHistory.getDate());
 
         runQuery(queryDto);
     }

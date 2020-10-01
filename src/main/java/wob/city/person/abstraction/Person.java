@@ -446,7 +446,11 @@ public abstract class Person {
             setEnergy(getEnergy() + amount);
 
             ActivityLogger.getLogger().log(event);
-            newsPaperDao.uploadConsumptionNews(new ConsumptionNewsDto(location.getName(), food.getType().getValue(), Calculation.getAmountByEnergy(amount, food.getEnergy())));
+
+            ConsumptionNewsDto consumptionNews = new ConsumptionNewsDto(location.getName(), food.getType().getValue(), Calculation.getAmountByEnergy(amount, food.getEnergy()));
+            consumptionNews.setDate(this.location.getCurrentDateTime());
+
+            newsPaperDao.uploadConsumptionNews(consumptionNews);
         }
 
     }

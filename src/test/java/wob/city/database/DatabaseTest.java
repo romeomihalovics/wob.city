@@ -14,6 +14,7 @@ import wob.city.database.enums.PersonNewsCategory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,6 +49,7 @@ class DatabaseTest {
         disasterHistoryDto.setDiedFamilies(1);
         disasterHistoryDto.setDestroyedBuildings(1);
         disasterHistoryDto.setType("test");
+        disasterHistoryDto.setDate(LocalDateTime.now());
 
         disasterHistoryDao.uploadDisasterHistory(disasterHistoryDto);
         disasterHistoryDao.setDisasterHistoryToReported("DBTest City", 10, 0);
@@ -79,6 +81,7 @@ class DatabaseTest {
         personHistoryDto.setCityName("DBTest City");
         personHistoryDto.setFullName("Test Person");
         personHistoryDto.setEvent("Test Event");
+        personHistoryDto.setDate(LocalDateTime.now());
 
         personHistoryDao.uploadPersonHistory(personHistoryDto);
 
@@ -105,6 +108,7 @@ class DatabaseTest {
         consumptionNewsDto.setAmount(1.0);
         consumptionNewsDto.setCity("DBTest City");
         consumptionNewsDto.setType("Meat");
+        consumptionNewsDto.setDate(LocalDateTime.now());
 
         newsPaperDao.uploadConsumptionNews(consumptionNewsDto);
 
@@ -142,6 +146,7 @@ class DatabaseTest {
         personNewsDto.setType("Boy");
         personNewsDto.setLastFood("Test Food");
         personNewsDto.setInvolvedPerson("nobody");
+        personNewsDto.setDate(LocalDateTime.now());
 
         personNewsDto.setCategory(PersonNewsCategory.DEATH);
         newsPaperDao.uploadPersonNews(personNewsDto);

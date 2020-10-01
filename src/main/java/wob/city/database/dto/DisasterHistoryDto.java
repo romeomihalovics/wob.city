@@ -1,6 +1,6 @@
 package wob.city.database.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class DisasterHistoryDto {
     private Integer id;
@@ -10,7 +10,7 @@ public class DisasterHistoryDto {
     private Integer destroyedBuildings;
     private Integer diedFamilies;
     private Integer diedPeople;
-    private Date date;
+    private LocalDateTime date;
 
     public Integer getId() {
         return id;
@@ -68,11 +68,11 @@ public class DisasterHistoryDto {
         this.diedPeople = diedPeople;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

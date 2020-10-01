@@ -1,6 +1,6 @@
 package wob.city.database.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class ConsumptionNewsDto {
     private Integer id;
@@ -8,7 +8,7 @@ public class ConsumptionNewsDto {
     private String type;
     private Double amount;
     private Boolean reported;
-    private Date date;
+    private LocalDateTime date;
 
     public ConsumptionNewsDto(){}
 
@@ -58,11 +58,11 @@ public class ConsumptionNewsDto {
         this.reported = reported;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }
