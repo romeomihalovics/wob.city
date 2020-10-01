@@ -4,6 +4,7 @@ import wob.city.database.Database;
 import wob.city.database.dto.QueryDto;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,6 +97,8 @@ public interface Dao {
                 preparedStatement.setBoolean(i, (Boolean) param);
             } else if (param instanceof Double) {
                 preparedStatement.setDouble(i, (Double) param);
+            } else if (param instanceof LocalDateTime) {
+                preparedStatement.setTimestamp(i, Timestamp.valueOf((LocalDateTime) param));
             }
             i++;
         }

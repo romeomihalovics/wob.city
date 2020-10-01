@@ -45,4 +45,9 @@ public class Spring extends Season {
         }
         return maxTemperature;
     }
+
+    @Override
+    public String getName() {
+        return "Spring";
+    }
 }

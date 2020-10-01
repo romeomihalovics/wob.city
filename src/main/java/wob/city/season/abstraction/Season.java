@@ -15,4 +15,5 @@ public abstract class Season {
 
     public abstract double getMinTemperature(LocalDateTime time);
     public abstract double getMaxTemperature(LocalDateTime time);
+    public abstract String getName();
 }

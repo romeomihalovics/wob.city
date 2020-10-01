@@ -7,6 +7,8 @@ import wob.city.console.logger.ActivityLogger;
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.database.dao.DisasterHistoryDao;
 import wob.city.database.dao.NewsPaperDao;
+import wob.city.database.dao.TemperatureDao;
+import wob.city.database.dto.TemperatureReportDto;
 import wob.city.database.enums.PersonNewsCategory;
 import wob.city.disaster.abstraction.Consequence;
 import wob.city.disaster.abstraction.Disaster;
@@ -61,6 +63,7 @@ public class City {
     private final List<Disaster> disaster = Collections.synchronizedList(new ArrayList<>());
     private final DisasterNews disasterNews;
     private final DisasterHistoryDao disasterHistoryDao = new DisasterHistoryDao();
+    private final TemperatureDao temperatureDao = new TemperatureDao();
     private final HashMap<String, List<Person>> professionals = new HashMap<>();
     private final List<Person> criminals = new ArrayList<>();
 
@@ -88,6 +91,8 @@ public class City {
         this.professionals.put(Profession.PARAMEDIC.getValue(), new ArrayList<>());
         this.professionals.put(Profession.POLICE.getValue(), new ArrayList<>());
         this.professionals.put(Profession.FIREFIGHTER.getValue(), new ArrayList<>());
+
+        reportTemperature();
     }
 
     public String getName() {
@@ -354,6 +359,7 @@ public class City {
         addElapsedDayIfNeeded(currentDateTime);
         currentDateTime = currentDateTime.plusHours(1);
         currentTemperature = Calculation.calculateTemperature(this);
+        reportTemperature();
     }
 
     public void addElapsedDayIfNeeded(LocalDateTime time) {
@@ -375,6 +381,17 @@ public class City {
                 currentSeason = new Spring();
             }
         }
+    }
+
+    public void reportTemperature() {
+        TemperatureReportDto temperatureReport = new TemperatureReportDto();
+        temperatureReport.setCity(name);
+        temperatureReport.setDate(currentDateTime);
+        temperatureReport.setPartOfDay(Calculation.getPartOfDay(currentDateTime).name());
+        temperatureReport.setSeason(currentSeason.getName());
+        temperatureReport.setTemperature(currentTemperature);
+
+        temperatureDao.uploadTemperatureReport(temperatureReport);
     }
 
     @Override

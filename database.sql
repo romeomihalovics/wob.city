@@ -33,7 +33,7 @@ CREATE TABLE `available_food` (
   KEY `idx_available_food_food_name_amount` (`food_name`(100),`amount`),
   KEY `idx_available_food_city` (`city`(100)),
   KEY `idx_available_food_food_name_amount_city` (`food_name`(100),`amount`,`city`(100))
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,6 +143,7 @@ CREATE TABLE `record_temperature` (
   `type` text NOT NULL,
   `temperature` double NOT NULL,
   `date` date NOT NULL,
+  `season` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -160,8 +161,9 @@ CREATE TABLE `temperature_report` (
   `part_of_day` text NOT NULL,
   `temperature` double NOT NULL,
   `date` datetime NOT NULL,
+  `season` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -173,4 +175,4 @@ CREATE TABLE `temperature_report` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-01 16:45:01
+-- Dump completed on 2020-10-01 17:07:05

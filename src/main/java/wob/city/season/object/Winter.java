@@ -45,4 +45,9 @@ public class Winter extends Season {
         }
         return maxTemperature;
     }
+
+    @Override
+    public String getName() {
+        return "Winter";
+    }
 }
