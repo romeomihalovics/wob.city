@@ -23,6 +23,10 @@ import wob.city.person.enums.Profession;
 import wob.city.person.enums.StatInFamily;
 import wob.city.person.enums.Type;
 import wob.city.season.abstraction.Season;
+import wob.city.season.object.Autumn;
+import wob.city.season.object.Spring;
+import wob.city.season.object.Summer;
+import wob.city.season.object.Winter;
 import wob.city.timing.Timing;
 import wob.city.util.Calculation;
 import wob.city.util.DtoGenerator;
@@ -63,6 +67,8 @@ public class City {
     public City(String name, List<Person> people, List<Food> foods) {
         this.name = name;
         this.currentDateTime = LocalDateTime.now();
+        this.currentSeason = Calculation.getRandomSeason();
+        this.currentTemperature = Calculation.calculateTemperature(this);
         this.families = new ArrayList<>();
         this.houses = new ArrayList<>();
         this.people = people;
@@ -340,6 +346,33 @@ public class City {
                     fireFighter.tryToSaveHousing(housing, toKill, disaster);
                     break;
                 }
+            }
+        }
+    }
+
+    public void addHour() {
+        addElapsedDayIfNeeded(currentDateTime);
+        currentDateTime = currentDateTime.plusHours(1);
+        currentTemperature = Calculation.calculateTemperature(this);
+    }
+
+    public void addElapsedDayIfNeeded(LocalDateTime time) {
+        if(time.plusHours(1).getHour() == 0) {
+            currentSeason.addElapsedDay();
+            switchSeasonIfNeeded();
+        }
+    }
+
+    public void switchSeasonIfNeeded() {
+        if(currentSeason.getDaysElapsed() == 7) {
+            if(currentSeason instanceof Spring) {
+                currentSeason = new Summer();
+            }else if(currentSeason instanceof Summer) {
+                currentSeason = new Autumn();
+            }else if(currentSeason instanceof Autumn) {
+                currentSeason = new Winter();
+            }else if(currentSeason instanceof Winter) {
+                currentSeason = new Spring();
             }
         }
     }

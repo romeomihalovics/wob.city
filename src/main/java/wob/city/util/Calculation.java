@@ -1,13 +1,21 @@
 package wob.city.util;
 
+import wob.city.city.City;
 import wob.city.database.dto.ConsumptionNewsDto;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
 import wob.city.person.enums.StatInFamily;
 import wob.city.person.enums.Type;
+import wob.city.season.abstraction.Season;
+import wob.city.season.enums.PartOfDay;
+import wob.city.season.object.Autumn;
+import wob.city.season.object.Spring;
+import wob.city.season.object.Summer;
+import wob.city.season.object.Winter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +23,46 @@ import java.util.List;
 public class Calculation {
     public static int getRandomIntBetween(int min, int max){
         return (int) ((Math.random() * ((max - min) + 1)) + min);
+    }
+
+    public static double getRandomDoubleBetween(double min, double max, int decimalPlaces) {
+        return round(Math.random() * (max - min) + min, decimalPlaces);
+    }
+
+    public static PartOfDay getPartOfDay(LocalDateTime time) {
+        PartOfDay partOfDay;
+        if(time.getHour() < 12) {
+            partOfDay = PartOfDay.MORNING;
+        }else if(time.getHour() < 18) {
+            partOfDay = PartOfDay.AFTERNOON;
+        }else{
+            partOfDay = PartOfDay.EVENING;
+        }
+        return partOfDay;
+    }
+
+    public static Season getRandomSeason() {
+        Season season;
+        switch (getRandomIntBetween(0,3)) {
+            case 0:
+                season = new Autumn();
+                break;
+            case 1:
+                season = new Spring();
+                break;
+            case 2:
+                season = new Summer();
+                break;
+            default:
+                season = new Winter();
+                break;
+
+        }
+        return season;
+    }
+
+    public static double calculateTemperature(City city) {
+        return Calculation.getRandomDoubleBetween(city.getCurrentSeason().getMinTemperature(city.getCurrentDateTime()), city.getCurrentSeason().getMaxTemperature(city.getCurrentDateTime()), 2);
     }
 
     public static int getPeopleCountByType(List<Person> people, Type type) {

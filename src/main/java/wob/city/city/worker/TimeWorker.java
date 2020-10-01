@@ -13,6 +13,6 @@ public class TimeWorker extends TimerTask {
 
     @Override
     public void run() {
-
+        city.addHour();
     }
 }

@@ -14,15 +14,15 @@ City
 
 City 
 	field 
-		date -> on launch set to current date
-			-> add an hour every x minutes with a timer
-				timer should set the temperature according to the hour & the season min & max values
+		date -> on launch set to current date ok
+			-> add an hour every x minutes with a timer ok
+				timer should set the temperature according to the hour & the season min & max values ok
 				report temperature
 				if its a new day, report the record to the previous day
-		current temperature
+		current temperature ok
 			stores current temp
 
-		current season 
+		current season ok
 			stores current season
 				-> changes every week
 
