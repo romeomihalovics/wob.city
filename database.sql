@@ -33,7 +33,7 @@ CREATE TABLE `available_food` (
   KEY `idx_available_food_food_name_amount` (`food_name`(100),`amount`),
   KEY `idx_available_food_city` (`city`(100)),
   KEY `idx_available_food_food_name_amount_city` (`food_name`(100),`amount`,`city`(100))
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +53,7 @@ CREATE TABLE `consumption_news` (
   PRIMARY KEY (`id`),
   KEY `idx_consumption_news_location` (`city`(100)),
   KEY `idx_consumption_news_reported` (`reported`)
-) ENGINE=InnoDB AUTO_INCREMENT=1710 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ CREATE TABLE `disaster_history` (
   KEY `idx_disaster_history_city` (`city`(100)),
   KEY `idx_disaster_history_type` (`type`(100)),
   KEY `idx_disaster_history_reported` (`reported`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `person_history` (
   KEY `idx_person_history_fullname` (`full_name`(100)),
   KEY `idx_person_history_city` (`city`(100)),
   KEY `idx_person_history_reported` (`reported`)
-) ENGINE=InnoDB AUTO_INCREMENT=10334 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,41 @@ CREATE TABLE `person_news` (
   KEY `idx_person_news_location` (`city`(100)),
   KEY `idx_person_news_category` (`category`(100)),
   KEY `idx_person_news_involved_person` (`involved_person`(100))
-) ENGINE=InnoDB AUTO_INCREMENT=601 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `record_temperature`
+--
+
+DROP TABLE IF EXISTS `record_temperature`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `record_temperature` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `city` text NOT NULL,
+  `type` text NOT NULL,
+  `temperature` double NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `temperature_report`
+--
+
+DROP TABLE IF EXISTS `temperature_report`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `temperature_report` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `city` text NOT NULL,
+  `part_of_day` text NOT NULL,
+  `temperature` double NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -139,4 +173,4 @@ CREATE TABLE `person_news` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-30 17:22:16
+-- Dump completed on 2020-10-01 16:45:01
