@@ -71,9 +71,9 @@ public abstract class Disaster {
         secondWaveWorker = new SecondWave(this);
         thirdWaveWorker = new ThirdWave(this);
 
-        timer.schedule(firstWaveWorker, Timing.DISASTER_FIRST_WAVE.getValue());
-        timer.schedule(secondWaveWorker, Timing.DISASTER_SECOND_WAVE.getValue());
-        timer.schedule(thirdWaveWorker, Timing.DISASTER_THIRD_WAVE.getValue());
+        timer.schedule(firstWaveWorker, getFirstWaveTiming().getValue());
+        timer.schedule(secondWaveWorker, getSecondWaveTiming().getValue());
+        timer.schedule(thirdWaveWorker, getThirdWaveTiming().getValue());
     }
 
     public void killPeople() {
@@ -127,6 +127,9 @@ public abstract class Disaster {
     public abstract void firstWave();
     public abstract void secondWave();
     public abstract void thirdWave();
+    public abstract Timing getFirstWaveTiming();
+    public abstract Timing getSecondWaveTiming();
+    public abstract Timing getThirdWaveTiming();
     public abstract DeathCause getDeathCause();
 
     @Override

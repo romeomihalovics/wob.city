@@ -3,6 +3,7 @@ package wob.city.disaster.object;
 import wob.city.console.logger.ConsoleLogger;
 import wob.city.disaster.abstraction.Disaster;
 import wob.city.person.enums.DeathCause;
+import wob.city.timing.Timing;
 import wob.city.util.DtoGenerator;
 
 public class Flood extends Disaster {
@@ -32,6 +33,21 @@ public class Flood extends Disaster {
         killPeople();
         disasterHistoryDao.uploadDisasterHistory(DtoGenerator.setupDisasterHistoryDto(event, location));
         getLocation().finishDisaster();
+    }
+
+    @Override
+    public Timing getFirstWaveTiming() {
+        return Timing.DEFAULT_DISASTER_FIRST_WAVE;
+    }
+
+    @Override
+    public Timing getSecondWaveTiming() {
+        return Timing.DEFAULT_DISASTER_SECOND_WAVE;
+    }
+
+    @Override
+    public Timing getThirdWaveTiming() {
+        return Timing.DEFAULT_DISASTER_THIRD_WAVE;
     }
 
     @Override
