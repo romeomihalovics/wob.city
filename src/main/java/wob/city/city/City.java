@@ -14,6 +14,10 @@ import wob.city.database.enums.PersonNewsCategory;
 import wob.city.database.enums.TemperatureRecordType;
 import wob.city.disaster.abstraction.Consequence;
 import wob.city.disaster.abstraction.Disaster;
+import wob.city.disaster.enums.TemperatureLimit;
+import wob.city.disaster.object.Drought;
+import wob.city.disaster.object.FoodInfection;
+import wob.city.disaster.object.Monsoon;
 import wob.city.family.Family;
 import wob.city.food.abstraction.Food;
 import wob.city.housing.abstraction.Housing;
@@ -111,10 +115,6 @@ public class City {
 
     public LocalDateTime getCurrentDateTime() {
         return currentDateTime;
-    }
-
-    public void setCurrentDateTime(LocalDateTime currentDateTime) {
-        this.currentDateTime = currentDateTime;
     }
 
     public Season getCurrentSeason() {
@@ -362,7 +362,7 @@ public class City {
     }
 
     public void addHour() {
-        addElapsedDayIfNeeded(currentDateTime);
+        addElapsedDayIfNeeded();
         currentDateTime = currentDateTime.plusHours(1);
         currentTemperature = Calculation.calculateTemperature(this);
         setTemperatureRecords();
@@ -383,11 +383,14 @@ public class City {
         }
     }
 
-    public void addElapsedDayIfNeeded(LocalDateTime time) {
-        if(time.plusHours(1).getHour() == 0) {
+    public void addElapsedDayIfNeeded() {
+        if(currentDateTime.plusHours(1).getHour() == 0) {
             reportRecordTemperatures();
             currentSeason.addElapsedDay();
             switchSeasonIfNeeded();
+            checkForDrought();
+            checkForMonsoon();
+            checkForFoodInfection();
             highestTempToday = null;
             lowestTempToday = null;
         }
@@ -404,6 +407,24 @@ public class City {
             }else if(currentSeason instanceof Winter) {
                 currentSeason = new Spring();
             }
+        }
+    }
+
+    public void checkForMonsoon() {
+        if(currentDateTime.plusDays(1).getDayOfMonth() == 1){
+            startDisaster(new Monsoon("First day of month"));
+        }
+    }
+
+    public void checkForFoodInfection() {
+        if(currentDateTime.plusDays(1).getDayOfMonth() == currentDateTime.getMonth().maxLength() - 4) {
+            startDisaster(new FoodInfection("Last 4 days of month"));
+        }
+    }
+
+    public void checkForDrought() {
+        if(Calculation.checkIfTemperatureRecordsAreOverX(temperatureDao.fetchLastThreeDaysHighRecords(), TemperatureLimit.DROUGHT)) {
+            startDisaster(new Drought("Last 3 days were too hot [over "+TemperatureLimit.DROUGHT.getValue()+" degrees]"));
         }
     }
 

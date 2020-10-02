@@ -2,6 +2,8 @@ package wob.city.util;
 
 import wob.city.city.City;
 import wob.city.database.dto.ConsumptionNewsDto;
+import wob.city.database.dto.RecordTemperatureDto;
+import wob.city.disaster.enums.TemperatureLimit;
 import wob.city.food.abstraction.Food;
 import wob.city.person.abstraction.Person;
 import wob.city.person.enums.StatInFamily;
@@ -152,5 +154,16 @@ public class Calculation {
                 "\n  \"vegetable\": \"" + round(vegetable / 1000, 2) + "kg\"," +
                 "\n  \"grain\": \"" + round(grain / 1000, 2) + "kg\"" +
                 "\n}";
+    }
+
+    public static boolean checkIfTemperatureRecordsAreOverX(List<RecordTemperatureDto> records, TemperatureLimit temperatureLimit) {
+        boolean allOverAmount = true;
+        for (RecordTemperatureDto record : records) {
+            if (record.getTemperature() < temperatureLimit.getValue()) {
+                allOverAmount = false;
+                break;
+            }
+        }
+        return allOverAmount;
     }
 }

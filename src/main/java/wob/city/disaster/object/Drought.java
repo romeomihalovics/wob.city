@@ -21,7 +21,7 @@ public class Drought extends Disaster {
 
     @Override
     public void thirdWave() {
-
+        getLocation().finishDisaster();
     }
 
     @Override

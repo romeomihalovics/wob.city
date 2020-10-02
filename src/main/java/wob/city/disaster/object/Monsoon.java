@@ -21,7 +21,7 @@ public class Monsoon extends Disaster {
 
     @Override
     public void thirdWave() {
-
+        getLocation().finishDisaster();
     }
 
     @Override

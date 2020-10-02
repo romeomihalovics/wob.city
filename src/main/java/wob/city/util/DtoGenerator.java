@@ -3,6 +3,7 @@ package wob.city.util;
 import wob.city.city.City;
 import wob.city.database.dto.*;
 import wob.city.database.enums.PersonNewsCategory;
+import wob.city.database.enums.TemperatureRecordType;
 import wob.city.person.abstraction.Person;
 
 import java.sql.Timestamp;
@@ -100,6 +101,23 @@ public class DtoGenerator {
         }
 
         return foodAmounts;
+    }
+
+    public static List<RecordTemperatureDto> generateRecordTemperatureDto(List<HashMap<String, Object>> fetchResult) {
+        List<RecordTemperatureDto> recordTemperatures = new ArrayList<>();
+
+        for(HashMap<String, Object> row : fetchResult) {
+            RecordTemperatureDto tempDto = new RecordTemperatureDto();
+            tempDto.setId((Integer) row.get("id"));
+            tempDto.setType(TemperatureRecordType.valueOf((String) row.get("type")));
+            tempDto.setSeason((String) row.get("season"));
+            tempDto.setTemperature((Double) row.get("temperature"));
+            tempDto.setCity((String) row.get("city"));
+            tempDto.setDate(((Timestamp) row.get("date")).toLocalDateTime());
+            recordTemperatures.add(tempDto);
+        }
+
+        return recordTemperatures;
     }
 
     public static DisasterHistoryDto setupDisasterHistoryDto(String event, City city) {

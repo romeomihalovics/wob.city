@@ -4,8 +4,8 @@ import wob.city.disaster.abstraction.Disaster;
 import wob.city.person.enums.DeathCause;
 import wob.city.timing.Timing;
 
-public class Infection extends Disaster {
-    public Infection(String cause) {
+public class FoodInfection extends Disaster {
+    public FoodInfection(String cause) {
         super("food_infection", "Food Infection", 0, cause);
     }
 
@@ -21,7 +21,7 @@ public class Infection extends Disaster {
 
     @Override
     public void thirdWave() {
-
+        getLocation().finishDisaster();
     }
 
     @Override
