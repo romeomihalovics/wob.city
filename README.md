@@ -6,6 +6,8 @@ Trainee Java Task "City"
 
 The application represents cities, with name and population attributes. People can be differentiated by gender [male or female], and also, if a person is under age, he/she will be considered as a kid. Every people has a name, height, weight, age attribute. Each city has (/ could have, if there were more cities) a control center to verify it's people's informations. 
 
+Each city has its own weather [temperature], according to the season, and time [which attributes constantly changing, just like in the real world, except, you can set the timing for each event], each hour the temperature is reported to db, and each day the lowest and highest temperature is reported az a record to the given day in the db. Each week the season changes. Every season has its own properties, which are, the average temperature at a given point in the day etc...
+
 People have families, which have buildings, like apartment houses or family houses. In an apartment house multiple family is able to live. A family contains max two parents with opposing genders and max 3 children. 
 
 People burn 350 kcal per minute and eat a random amount of a random food every 3 minutes that is available in the city to refill his/her energy levels. If he/she does not eat enough, and his/her energy levels reaches 0, he/she will die.
