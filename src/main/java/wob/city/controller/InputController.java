@@ -75,7 +75,6 @@ public class InputController {
         if (city != null) {
             Disaster disaster = CommandUtil.getDisaster(input);
             if(disaster != null) {
-                disaster.setLocation(city);
                 city.startDisaster(disaster);
             } else {
                 ConsoleLogger.getLogger().log("Invalid disaster name");
