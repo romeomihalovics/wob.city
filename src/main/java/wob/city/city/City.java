@@ -74,6 +74,7 @@ public class City {
     private final TemperatureDao temperatureDao = new TemperatureDao();
     private final HashMap<String, List<Person>> professionals = new HashMap<>();
     private final List<Person> criminals = new ArrayList<>();
+    private final HashMap<Class<?>, Double> cutOnFood = new HashMap<>();
 
     public City(String name, List<Person> people, List<Food> foods) {
         this.name = name;
@@ -166,6 +167,14 @@ public class City {
 
     public List<Person> getDied() {
         return died;
+    }
+
+    public Map<Class<?>, Double> getCutOnFood() {
+        return cutOnFood;
+    }
+
+    public void removeCutOnFood() {
+        cutOnFood.clear();
     }
 
     public void setWorkers() {
