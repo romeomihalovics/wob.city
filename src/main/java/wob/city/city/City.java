@@ -205,6 +205,7 @@ public class City {
             if (this.disaster.isEmpty() && !(disaster instanceof Consequence)) {
                 this.disaster.add(disaster);
                 this.disaster.get(0).start();
+                this.disaster.get(0).setLocation(this);
 
                 String event = "A natural disaster '" + disaster.getName() + "' caused by '" + disaster.getCause() + "' started happening in city '" + getName() + "'";
                 ConsoleLogger.getLogger().log(event);
