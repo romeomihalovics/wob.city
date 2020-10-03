@@ -30,4 +30,6 @@ In the city, you will find foods, which the city's food factory generated, and g
 
 You can start natural disasters like volcanic eruptions, tornado, flooding in the cities, and some of them will kill more people, some of them will even have a continuation, like an aftershock for an earthquake that will kill even more people [the disaster destroys buildings, while killing the family(ies) in it].
 
+There are automatic natural disasters like Monsoons, which happens at the first week of every month, Food Infections, which happens 4 days before the end of the given month and lasts until the end, and Drought, which happens after the temperature is above the highest limit set for 3 days. These disasters will not kill people directly, but will have an effect on the food factory's production rate.
+
 ... more stuff to come soon
